@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {BlockWrapper, ContainerWrapper, FlexRowCenter} from "../commonStyle";
+import {BlockWrapper, ContainerWrapper, FlexRowCenter} from "./commonStyle";
 import {NavLink} from "react-router-dom";
 
 export const HeaderWrapper = styled(BlockWrapper)`

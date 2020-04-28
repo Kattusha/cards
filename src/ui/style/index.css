@@ -10,28 +10,28 @@ body {
 
 @font-face {
     font-family: 'DINNextLTPro-Regular';
-    src: url('fonts/DINNextLTPro-Regular.woff2') format('woff2');
+    src: url('../fonts/DINNextLTPro-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'DINNextLTPro-Medium';
-    src: url('fonts/DINNextLTPro-Medium.woff2') format('woff2');
+    src: url('../fonts/DINNextLTPro-Medium.woff2') format('woff2');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'DINNextLTPro-Bold';
-    src: url('fonts/DINNextLTPro-Bold.woff2') format('woff2');
+    src: url('../fonts/DINNextLTPro-Bold.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'DINNextLTPro-Light';
-    src: url('fonts/DINNextLTPro-Light.woff2') format('woff2');
+    src: url('../fonts/DINNextLTPro-Light.woff2') format('woff2');
     font-weight: 300;
     font-style: normal;
 }

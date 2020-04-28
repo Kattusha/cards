@@ -1,7 +1,7 @@
 import React from 'react';
-import {SignUpReduxForm} from "../ui-forms/SignUpForm";
-import {H3, Span} from "../commonStyle";
-import {SignUpForm} from "../ui-forms/formsStyle";
+import {SignUpReduxForm} from "./SignUpForm";
+import {H3, Span} from "../../style/commonStyle";
+import {SignUpForm} from "../../style/forForms/formsStyle";
 
 const SignUp = () => {
     return (

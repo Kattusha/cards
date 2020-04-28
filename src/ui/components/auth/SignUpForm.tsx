@@ -1,8 +1,8 @@
 import {Field, Form, reduxForm} from "redux-form";
 import React from "react";
-import {Input} from "./FormsControls";
-import {Button} from "../commonStyle";
-import { FormStyled } from "./formControlsStyle";
+import {Input} from "../forForms/FormsControls";
+import {Button} from "../../style/commonStyle";
+import { FormStyled } from "../../style/forForms/formControlsStyle";
 // import {requiredField} from "./validators";
 
 const SignUpForm = () => {

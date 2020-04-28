@@ -1,6 +1,6 @@
 import React from 'react';
-import {MainContainer, MainWrapper} from './mainStyle';
-import SignUp from "../ui-auth/SignUp";
+import {MainContainer, MainWrapper} from '../style/mainStyle';
+import SignUp from "./auth/SignUp";
 import {Route} from "react-router-dom";
 
 const Main = () => {
@@ -8,6 +8,8 @@ const Main = () => {
         <MainWrapper>
             <MainContainer>
                 <Route path='/signup' component={SignUp}/>
+                {/*<Route exact path='/' render={() => <App/>}/>*/}
+                {/*<Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>*/}
             </MainContainer>
         </MainWrapper>
     )

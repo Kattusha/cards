@@ -1,10 +1,10 @@
-import {AuthType} from "../entities/entities";
+import {AuthType} from "../data/entity-auth";
 import {InferActionTypes} from "./store";
 
 let initialState: AuthType = {
-    userId: null,
-    email: null,
-    login: null,
+    email: "",
+    login: "",
+    idUser: "",
     isAuth: false
 };
 
@@ -57,6 +57,5 @@ type ActionsTypes = InferActionTypes<typeof actions>
 //             });
 //     }
 // };
-
 
 export default authReducer;

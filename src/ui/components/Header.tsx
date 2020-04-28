@@ -1,7 +1,7 @@
 import React from 'react';
-import {HeaderContainer, HeaderWrapper, LogoImg, LogoLinkBlock, LogoText, MenuNavLink} from "./headerStyle";
-import logo from '../../images/logo2.png'
-import {FlexRowCenter, Button} from '../commonStyle';
+import {HeaderContainer, HeaderWrapper, LogoImg, LogoLinkBlock, LogoText, MenuNavLink} from "../style/headerStyle";
+import logo from '../images/logo.png'
+import {FlexRowCenter, Button} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
 
 const Header = () => {

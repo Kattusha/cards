@@ -1,5 +1,5 @@
 import React from "react";
-import {InputStyled} from "./formControlsStyle";
+import {InputStyled} from "../../style/forForms/formControlsStyle";
 
 export const Input = ({input, ...props}: any) => {
 
