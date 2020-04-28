@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 import styled from 'styled-components';
 import Header from "./ui-header/Header";
 import Main from "./ui-main/Main";
+import SignUp from './ui-auth/SignUp';
 
 const AppWrapper = styled.div`
     margin: 0 auto;
@@ -11,11 +12,11 @@ const AppWrapper = styled.div`
 const App = () => {
     return (
         <AppWrapper>
-            {/*<Header />*/}
+            <Header />
             <Main />
 
-            {/*<Route path='/login' component={Login}/>*/}
-            <Route exact path='/' render={() => <App/>}/>
+
+            {/*<Route exact path='/' render={() => <App/>}/>*/}
 
             {/*<Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>*/}
         </AppWrapper>

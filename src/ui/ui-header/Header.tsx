@@ -9,18 +9,17 @@ const Header = () => {
         <HeaderWrapper>
             <HeaderContainer>
                 <LogoLinkBlock>
-                {/*<LogoLinkBlock as={NavLink} to='/'>*/}
-                    <LogoImg src={logo} alt="logo"/>n
+                {/*<LogoLinkBlock as={NavLink} to='/login'>*/}
+                    <LogoImg src={logo} alt="logo"/>
                     <LogoText>cards</LogoText>
                 </LogoLinkBlock>
                 <FlexRowCenter>
-                    {/*<MenuLink>Home</MenuLink>*/}
                     <MenuNavLink to='/login'>Log in</MenuNavLink>
                     <MenuNavLink to="/signup">Sign up</MenuNavLink>
                     <MenuNavLink to="/forgot">Forgot</MenuNavLink>
                     <MenuNavLink to="/newpassword">New password</MenuNavLink>
                     <MenuNavLink to="/profile">Profile</MenuNavLink>
-                    <Button as={NavLink} to='/signup' color={"blue"}>Sign up</Button>
+                    <Button as={NavLink} to='/signup' color={"white"}>Sign up</Button>
                 </FlexRowCenter>
             </HeaderContainer>
         </HeaderWrapper>

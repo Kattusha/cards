@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import React from "react";
 
+export const H3 = styled.h3`
+    font-size: 21px;
+    text-align: center;
+    color: #5c5c5c;
+`;
+
+export const Span = styled.p`
+    //font-size: ${props => props.sizze==="little" ? "15px" : "18px"};
+    font-size: 15px;
+    text-align: center;
+    color: #898989;
+`;
+
 export const BlockWrapper = styled.div`
     margin-bottom: 30px;
     width: 100%;
@@ -8,6 +21,7 @@ export const BlockWrapper = styled.div`
 export const FlexRowCenter = styled.div`
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
 `;
 export const ContainerWrapper = styled(FlexRowCenter)`
@@ -28,9 +42,9 @@ export const Button = styled.button`
     cursor: pointer;
     text-decoration: none;
     
-    background: ${props => props.color==="blue" ? "white" : "blue"};
-    color: ${props => props.color==="blue" ? "#32cdff" : "#000"};
-    text-transform: ${props => props.color==="blue" ? "uppercase" : "normal"};
+    background: ${props => props.color==="white" ? "#fff" : "#32cdff"};
+    color: ${props => props.color==="white" ? "#32cdff" : "#fff"};
+    text-transform: uppercase;
     
     &:hover {
         filter: brightness(95%);
