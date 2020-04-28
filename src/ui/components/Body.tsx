@@ -1,9 +1,9 @@
 import React from 'react';
-import {MainContainer, MainWrapper} from '../style/mainStyle';
+import {MainContainer, MainWrapper} from '../style/bodyStyle';
 import SignUp from "./auth/SignUp";
 import {Route} from "react-router-dom";
 
-const Main = () => {
+const Body = () => {
     return (
         <MainWrapper>
             <MainContainer>
@@ -15,4 +15,4 @@ const Main = () => {
     )
 }
 
-export default Main;
+export default Body;
