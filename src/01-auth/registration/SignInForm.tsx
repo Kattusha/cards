@@ -1,11 +1,11 @@
 import {Field, Form, reduxForm} from "redux-form";
 import React from "react";
-import {Input} from "../forForms/FormsControls";
-import {Button} from "../../style/commonStyle";
-import { FormStyled } from "../../style/forForms/formControlsStyle";
+import {Input} from "../../main/ui/components/forForms/FormsControls";
+import {Button} from "../../main/ui/style/commonStyle";
+import { FormStyled } from "../../main/ui/style/forForms/formControlsStyle";
 // import {requiredField} from "./validators";
 
-const SignUpForm = () => {
+const SignInForm = () => {
     return (
         <FormStyled>
             <Field name="name" component={Input} type="text" placeholder="Name"
@@ -25,4 +25,4 @@ const SignUpForm = () => {
     );
 };
 
-export const SignUpReduxForm = reduxForm({form: 'signUp'})(SignUpForm)
+export const SignInReduxForm = reduxForm({form: 'signIn'})(SignInForm)

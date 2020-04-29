@@ -15,11 +15,11 @@ const Header = () => {
                 </LogoLinkBlock>
                 <FlexRowCenter>
                     <MenuNavLink to='/login'>Log in</MenuNavLink>
-                    <MenuNavLink to="/signup">Sign up</MenuNavLink>
-                    <MenuNavLink to="/forgot">Forgot</MenuNavLink>
-                    <MenuNavLink to="/newpassword">New password</MenuNavLink>
+                    {/*<MenuNavLink to="/signIn">Sign up</MenuNavLink>*/}
+                    <MenuNavLink to="/recoveryPassword">Recovery</MenuNavLink>
+                    <MenuNavLink to="/newPassword">New password</MenuNavLink>
                     <MenuNavLink to="/profile">Profile</MenuNavLink>
-                    <Button as={NavLink} to='/signup' color={"white"}>Sign up</Button>
+                    <Button as={NavLink} to='/signIn' color={"white"}>Sign up</Button>
                 </FlexRowCenter>
             </HeaderContainer>
         </HeaderWrapper>

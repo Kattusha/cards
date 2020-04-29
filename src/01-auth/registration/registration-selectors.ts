@@ -1,8 +1,8 @@
 import {createSelector} from "reselect";
-import {AppStateType} from "./store";
+import {AppStateType} from "../../main/bll/store";
 
 const getMe = (state: AppStateType) =>{
-    return state.auth.isAuth;
+    return state.registration.isAuth;
 }
 //
 // export const getAllUsers = createSelector(getArrayUsers,

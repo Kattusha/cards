@@ -1,5 +1,5 @@
-import {AuthType} from "../data/entity-auth";
-import {InferActionTypes} from "./store";
+import {AuthType} from "../entity-auth";
+import {InferActionTypes} from "../../main/bll/store";
 
 let initialState: AuthType = {
     email: "",
@@ -10,7 +10,7 @@ let initialState: AuthType = {
 
 type InitialStateType = typeof initialState;
 
-const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case "LOGIN":
             return {
@@ -44,18 +44,4 @@ type ActionsTypes = InferActionTypes<typeof actions>
 //         }
 //     }
 
-// example thunk from socialNetwork
-
-// export const logout = () => {
-//     return (dispatch) => {
-//         authAPI.logout()
-//             .then(response => {
-//                 debugger
-//                 if (response.resultCode === 0) {
-//                     dispatch(setAuthUserData(null, null, null, false));
-//                 }
-//             });
-//     }
-// };
-
-export default authReducer;
+export default loginReducer;
