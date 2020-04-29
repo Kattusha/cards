@@ -2,6 +2,7 @@
   "name": "cards",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Kattusha.github.io/cards",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -13,6 +14,8 @@
     "@types/redux-form": "^8.2.3",
     "@types/styled-components": "^5.1.0",
     "axios": "^0.19.2",
+    "babel-plugin-macros": "^2.8.0",
+    "gh-pages": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -29,7 +32,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

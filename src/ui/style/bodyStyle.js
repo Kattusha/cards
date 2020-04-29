@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {BlockWrapper, ContainerWrapper, FlexRowCenter} from "./commonStyle";
 
 export const MainWrapper = styled(BlockWrapper)`
