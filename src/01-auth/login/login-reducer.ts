@@ -1,31 +1,41 @@
 import {AuthType} from "../entity-auth";
 import {InferActionTypes} from "../../main/bll/store";
 
-let initialState: AuthType = {
+export type LoginType = {
+    email: string
+    login: string
+    idUser: string
+    isAuth: boolean
+    loading: boolean
+    error: string
+}
+
+let initialState: LoginType = {
     email: "",
     login: "",
     idUser: "",
-    isAuth: false
+    isAuth: false,
+    loading: false,
+    error: ""
 };
 
 type InitialStateType = typeof initialState;
 
 const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case "LOGIN":
+        case "LOADING":
             return {
                 ...state,
-                ...action.data
-                // isAuth: true
+                loading: true
             };
+
         default:
             return state;
     }
 };
 
 const actions = {
-    setAuthUserData: (userId:number, email:string, login:string) =>
-        ({type: "LOGIN", data: {userId, email, login}})
+    loading: () => ({type: "LOADING"})
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>

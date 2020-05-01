@@ -5,9 +5,13 @@ import {Button} from "../../main/ui/style/commonStyle";
 import {FormStyled} from "../../main/ui/style/forForms/formControlsStyle";
 // import {requiredField} from "./validators";
 
-const LoginForm = () => {
+// type PropsType = {
+//     onSubmit: () => void
+// }
+
+const LoginForm = (props: any) => {
     return (
-        <FormStyled>
+        <FormStyled onSubmit={props.handleSubmit}>
             <Field name="email" component={Input} type="email" placeholder="Email"
                    // validate={[requiredField]}
             />
