@@ -12,7 +12,19 @@ type InitialStateType = typeof initialState;
 
 const registrationReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case "LOGIN":
+        case "registration-reducer/SUCCESS":
+            return {
+                ...state,
+                ...action.data
+                // isAuth: true
+            };
+        case "registration-reducer/LOADING":
+            return {
+                ...state,
+                ...action.data
+                // isAuth: true
+            };
+        case "registration-reducer/ERROR":
             return {
                 ...state,
                 ...action.data
