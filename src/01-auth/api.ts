@@ -1,20 +1,41 @@
 import axios from "axios";
-import {AuthorizationResponseType, RegistrationResponseType} from "./entity-auth";
+
+type RegistrationResponseType = {
+    data: {
+        addedUser: {
+            email: string
+            isAdmin: boolean
+        }
+    }
+    success: boolean
+}
+
+// export type AuthorizationResponseType = {
+//     data: {
+//         data: AuthType
+//     }
+//     resultCode: number;
+//     messages: Array<string>;
+// }
 
 const instance = axios.create({
     baseURL: "https://neko-cafe-back.herokuapp.com/"
-    // withCredentials: true,
-    // headers: {"API-KEY": "940ee24d-307d-409e-8b94-7cd953dfb4c0"}
 });
 
 export const authAPI = {
-    register(email: string, password: string) {
-        return instance.post<RegistrationResponseType>(`auth/register`, {email, password})
-            .then(response => response.data)
+    registration(email: string, password: string) {
+        return instance.post<any>(`auth/register`, {email, password})
+            .then(response => {
+                debugger
+                return response.data
+            })
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<AuthorizationResponseType>(`auth/login`, {email, password, rememberMe})
-            .then(response => response.data)
+        return instance.post<any>(`auth/login`, {email, password, rememberMe})
+            .then(response => {
+                debugger
+                return response.data
+            })
     }
     // getMe(token:string) {
     //     return instance.post<ResponseType>(`auth/me`, {token})

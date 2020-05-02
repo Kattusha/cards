@@ -3,6 +3,7 @@ import {HeaderContainer, HeaderWrapper, LogoImg, LogoLinkBlock, LogoText, MenuNa
 import logo from '../images/logo.png'
 import {FlexRowCenter, Button} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
+import {loginPath, newPasswordPath, profilePath, recoveryPasswordPath, signInPath} from './Body';
 
 const Header = () => {
     return (
@@ -14,12 +15,11 @@ const Header = () => {
                     <LogoText>cards</LogoText>
                 </LogoLinkBlock>
                 <FlexRowCenter>
-                    <MenuNavLink to='/login'>Log in</MenuNavLink>
-                    {/*<MenuNavLink to="/signIn">Sign up</MenuNavLink>*/}
-                    <MenuNavLink to="/recoveryPassword">Recovery</MenuNavLink>
-                    <MenuNavLink to="/newPassword">New password</MenuNavLink>
-                    <MenuNavLink to="/profile">Profile</MenuNavLink>
-                    <Button as={NavLink} to='/signIn' color={"white"}>Sign up</Button>
+                    <MenuNavLink to={loginPath}>Log in</MenuNavLink>
+                    <MenuNavLink to={recoveryPasswordPath}>Recovery</MenuNavLink>
+                    <MenuNavLink to={newPasswordPath}>New password</MenuNavLink>
+                    <MenuNavLink to={profilePath}>Profile</MenuNavLink>
+                    <Button as={NavLink} to={signInPath} color={"white"}>Sign in</Button>
                 </FlexRowCenter>
             </HeaderContainer>
         </HeaderWrapper>

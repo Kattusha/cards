@@ -7,15 +7,21 @@ import RecoveryPassword from "../../../01-auth/recoveryPassword/RecoveryPassword
 import NewPassword from "../../../01-auth/newPassword/NewPassword";
 import Profile from "../../../01-auth/profile/Profile";
 
+export const loginPath = '/login';
+export const signInPath = '/signin';
+export const profilePath = '/profile';
+export const recoveryPasswordPath = '/recoveryPassword';
+export const newPasswordPath = '/newPassword';
+
 const Body = () => {
     return (
         <MainWrapper>
             <MainContainer>
-                <Route path='/signin' component={SignIn}/>
-                <Route path='/login' component={Login}/>
-                <Route path='/recoveryPassword' component={RecoveryPassword}/>
-                <Route path='/newPassword' component={NewPassword}/>
-                <Route path='/profile' component={Profile}/>
+                <Route path={signInPath} component={SignIn}/>
+                <Route path={loginPath} component={Login}/>
+                <Route path={recoveryPasswordPath} component={RecoveryPassword}/>
+                <Route path={newPasswordPath} component={NewPassword}/>
+                <Route path={profilePath} component={Profile}/>
                 {/*<Route exact path='/' render={() => <App/>}/>*/}
                 {/*<Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>*/}
             </MainContainer>
