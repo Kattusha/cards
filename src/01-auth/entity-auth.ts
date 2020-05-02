@@ -7,19 +7,19 @@ export type AuthType = {
 }
 
 //entity from DALL
-export type RegistrationResponseType = {
-    data: {
-        data: AuthType
-    }
-    resultCode: number;
-    messages: Array<string>;
-}
-
-export type AuthorizationResponseType = {
-    data: {
-        data: AuthType
-    }
-    resultCode: number;
-    messages: Array<string>;
-}
+// export type RegistrationResponseType = {
+//     data: {
+//         data: AuthType
+//     }
+//     resultCode: number;
+//     messages: Array<string>;
+// }
+//
+// export type AuthorizationResponseType = {
+//     data: {
+//         data: AuthType
+//     }
+//     resultCode: number;
+//     messages: Array<string>;
+// }
 

@@ -1,57 +1,62 @@
-import {AuthType} from "../entity-auth";
-import {InferActionTypes} from "../../main/bll/store";
+import {AppStateType, InferActionTypes} from "../../main/bll/store";
+import {ThunkAction} from "redux-thunk";
+import {authAPI} from "../api";
+import {stopSubmit} from "redux-form";
 
 export type LoginType = {
+    // userId: null,
     email: string
-    login: string
-    idUser: string
+    name: string
     isAuth: boolean
     loading: boolean
-    error: string
+    isRegistration: boolean
+    errorMessage: string
 }
 
 let initialState: LoginType = {
     email: "",
-    login: "",
-    idUser: "",
+    name: "",
     isAuth: false,
     loading: false,
-    error: ""
+    isRegistration: false,
+    errorMessage: ""
 };
 
 type InitialStateType = typeof initialState;
 
 const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case "LOADING":
+        case "SET_AUTH_USER_DATA":
             return {
                 ...state,
-                loading: true
+                email: action.email,
+                name: action.email,
+                isAuth: action.isAuth
             };
-
         default:
             return state;
     }
 };
 
 const actions = {
-    loading: () => ({type: "LOADING"})
+    setAuthUserData: (email: string, isAuth: boolean) => ({type: "SET_AUTH_USER_DATA", email, isAuth})
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>
 
-//example thunk
-
-// export const login = (email:string, password:string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-//     async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
-//         const response = await authAPI.login(email, password)
-//         if (response.resultCode === 0) {
-//             dispatch(actions.setAuthUserData(response.data.data.userId, response.data.data.email, response.data.data.login))
-//         }
-//         else{
-//             let message = response.messages.length > 0 ? response.messages[0] : "Some error";
-//             dispatch(stopSubmit("login", {_error: message}));
-//         }
-//     }
+//thunks
+export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    // async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
+    async (dispatch: any, getState: () => AppStateType) => {
+        try {
+            const response = await authAPI.login(email, password, rememberMe)
+            debugger
+            dispatch(actions.setAuthUserData(email, true));
+        } catch (error) {
+            debugger
+            dispatch(actions.setAuthUserData("", false));
+            dispatch(stopSubmit("login", {_error: error.response.data.error}));
+        }
+    }
 
 export default loginReducer;
