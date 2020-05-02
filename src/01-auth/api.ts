@@ -1,22 +1,24 @@
 import axios from "axios";
 
-type RegistrationResponseType = {
-    data: {
-        addedUser: {
-            email: string
-            isAdmin: boolean
-        }
-    }
+// type RegistrationResponseType = {
+//     data: {
+//         addedUser: {
+//             email: string
+//             isAdmin: boolean
+//         }
+//     }
+//     success: boolean
+// }
+
+export type AuthorizationResponseType = {
+    email: string
+    name: string
+    isAdmin: boolean
+    rememberMe: boolean
+    token: string
+    tokenDeathTime: number
     success: boolean
 }
-
-// export type AuthorizationResponseType = {
-//     data: {
-//         data: AuthType
-//     }
-//     resultCode: number;
-//     messages: Array<string>;
-// }
 
 const instance = axios.create({
     baseURL: "https://neko-cafe-back.herokuapp.com/"
@@ -31,7 +33,7 @@ export const authAPI = {
             })
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<any>(`auth/login`, {email, password, rememberMe})
+        return instance.post<AuthorizationResponseType>(`auth/login`, {email, password, rememberMe})
             .then(response => {
                 debugger
                 return response.data

@@ -4,21 +4,16 @@ import {authAPI} from "../api";
 import {stopSubmit} from "redux-form";
 
 export type LoginType = {
-    // userId: null,
     email: string
-    name: string
     isAuth: boolean
-    loading: boolean
-    isRegistration: boolean
+    isloading: boolean
     errorMessage: string
 }
 
 let initialState: LoginType = {
     email: "",
-    name: "",
     isAuth: false,
-    loading: false,
-    isRegistration: false,
+    isloading: false,
     errorMessage: ""
 };
 
@@ -26,12 +21,17 @@ type InitialStateType = typeof initialState;
 
 const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
+
         case "SET_AUTH_USER_DATA":
             return {
                 ...state,
                 email: action.email,
-                name: action.email,
                 isAuth: action.isAuth
+            };
+        case "SET_LOADING":
+            return {
+                ...state,
+                isloading: action.isloading
             };
         default:
             return state;
@@ -39,7 +39,8 @@ const loginReducer = (state = initialState, action: ActionsTypes): InitialStateT
 };
 
 const actions = {
-    setAuthUserData: (email: string, isAuth: boolean) => ({type: "SET_AUTH_USER_DATA", email, isAuth})
+    setAuthUserData: (email: string, isAuth: boolean) => ({type: "SET_AUTH_USER_DATA", email, isAuth} as const),
+    setLoading: (isloading: boolean) => ({type: "SET_LOADING", isloading} as const)
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>
@@ -49,12 +50,15 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
     // async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
     async (dispatch: any, getState: () => AppStateType) => {
         try {
+            dispatch(actions.setLoading(true));
             const response = await authAPI.login(email, password, rememberMe)
             debugger
-            dispatch(actions.setAuthUserData(email, true));
+            dispatch(actions.setAuthUserData(response.email, true));
+            dispatch(actions.setLoading(false));
         } catch (error) {
             debugger
             dispatch(actions.setAuthUserData("", false));
+            dispatch(actions.setLoading(false));
             dispatch(stopSubmit("login", {_error: error.response.data.error}));
         }
     }

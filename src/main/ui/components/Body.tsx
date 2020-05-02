@@ -8,12 +8,12 @@ import NewPassword from "../../../01-auth/newPassword/NewPassword";
 import Profile from "../../../01-auth/profile/Profile";
 
 export const loginPath = '/login';
-export const signInPath = '/signin';
+export const signInPath = '/signIn';
 export const profilePath = '/profile';
 export const recoveryPasswordPath = '/recoveryPassword';
 export const newPasswordPath = '/newPassword';
 
-const Body = () => {
+const Body: React.FC = () => {
     return (
         <MainWrapper>
             <MainContainer>
