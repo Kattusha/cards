@@ -5,7 +5,7 @@ import {FlexRowCenter, Button} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
 import {loginPath, newPasswordPath, profilePath, recoveryPasswordPath, signInPath} from './Body';
 
-const Header = () => {
+const Header:React.FC = () => {
     return (
         <HeaderWrapper>
             <HeaderContainer>
