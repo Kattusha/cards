@@ -11,7 +11,9 @@ export const Span = styled.p`
     //font-size: ${props => props.sizze==="little" ? "15px" : "18px"};
     font-size: 15px;
     text-align: center;
-    color: #898989;
+    //color: #898989;
+    color: ${props => props.color==="red" ? "red" : "#898989"};
+    font-family:${props => props.color==="red" ? "DINNextLTPro-Bold" : "DINNextLTPro-Regular"}; // 'DINNextLTPro-Bold';
 `;
 
 export const BlockWrapper = styled.div`
@@ -37,6 +39,7 @@ export const Button = styled.button`
     font-family: 'DINNextLTPro-Bold';
     font-size: 15px;
     padding: 13px 25px 9px;
+    margin-top: ${props => props.color==="white" ? "0" : "20px"};
     border: none;
     border-radius: 8px;
     cursor: pointer;
