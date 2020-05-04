@@ -4,7 +4,8 @@ import {Input} from "../../main/ui/components/forForms/FormsControls";
 import {Button, Span} from "../../main/ui/style/commonStyle";
 import { FormStyled } from "../../main/ui/style/forForms/formControlsStyle";
 import {emailValidation, requiredField} from "../../main/ui/components/forForms/validators";
-import Preloader from "../../main/ui/components/Preloader";
+// import Preloader from "../../main/ui/components/Preloader";
+import Preloader from "../../main/ui/components/preloader/Preloader";
 
 type IFormProps = {
     email: string;
@@ -25,8 +26,10 @@ const SignInForm = ({error, handleSubmit, regInProgress}: IPassProps & InjectedF
                    validate={[requiredField]}
             />
             {error && <Span color={"red"}>{error}</Span>}
-            {regInProgress ? <Preloader/> :
-                <Button color={"blue"}>Sign Up</Button>}
+            {regInProgress ?
+                // <Preloader/>
+                <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={regInProgress}/>
+                : <Button color={"blue"}>Sign Up</Button>}
         </FormStyled>
     );
 };
