@@ -46,9 +46,9 @@ const actions = {
 type ActionsTypes = InferActionTypes<typeof actions>
 
 //thunks
-export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    // async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
-    async (dispatch: any, getState: () => AppStateType) => {
+export const login = (email: string, password: string, rememberMe: boolean):
+    ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
         try {
             dispatch(actions.setLoading(true));
             const response = await authAPI.login(email, password, rememberMe)
