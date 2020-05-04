@@ -6,6 +6,11 @@ export type AuthType = {
     isAuth: boolean
 }
 
+export type RegistrationType = {
+    isRegistrationSuccessful: boolean,
+    isRegistrationInProgress: boolean
+}
+
 //entity from DALL
 // export type RegistrationResponseType = {
 //     data: {

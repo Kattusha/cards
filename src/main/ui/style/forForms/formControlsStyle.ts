@@ -15,7 +15,7 @@ export const InputCheckBoxDiv = styled.div`
     color: #5c5c5c
     //opacity: .7;
 `;
-export const InputStyled = styled.input`
+export const InputStyled = styled.input<{hasError: boolean}>`
     font-family: 'DINNextLTPro-Bold';
     font-size: 16px;
     border: none;
@@ -41,7 +41,7 @@ export const InputStyled = styled.input`
     //  background-color: #f7f7f7;
     //}
 `;
-export const Error = styled.input`
+export const Error = styled.input<{hasError: boolean}>`
     font-family: 'DINNextLTPro-Bold';
     font-size: 18px;
     border: none;

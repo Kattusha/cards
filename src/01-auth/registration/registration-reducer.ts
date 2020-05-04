@@ -1,61 +1,58 @@
-import {AuthType} from "../entity-auth";
-import {InferActionTypes} from "../../main/bll/store";
+import {RegistrationType} from "../entity-auth";
+import {AppStateType, InferActionTypes} from "../../main/bll/store";
+import {ThunkAction} from "redux-thunk";
+import {authAPI} from "../api";
+import {stopSubmit} from "redux-form";
 
-let initialState: AuthType = {
-    email: "",
-    login: "",
-    idUser: "",
-    isAuth: false
+let initialState: RegistrationType = {
+    isRegistrationSuccessful: false,
+    isRegistrationInProgress: false
 };
 
 type InitialStateType = typeof initialState;
 
 const registrationReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case "LOGIN":
+        case "registration-reducer/SUCCESS":
             return {
                 ...state,
-                ...action.data
-                // isAuth: true
+                isRegistrationSuccessful: action.success,
+                isRegistrationInProgress: false
             };
+        case "registration-reducer/PROGRESS":
+            return {
+                ...state,
+                isRegistrationInProgress: true
+            };
+        case "registration-reducer/ERROR":
+            return {
+                ...state,
+                isRegistrationSuccessful: false,
+                isRegistrationInProgress: false
+            }
         default:
             return state;
     }
 };
 
 const actions = {
-    setAuthUserData: (userId:number, email:string, login:string) =>
-        ({type: "LOGIN", data: {userId, email, login}})
+    setRegistrationSuccess: (success: boolean) => ({type: "registration-reducer/SUCCESS", success} as const),
+    setRegistrationInProgress: (progress: boolean) => ({type: "registration-reducer/PROGRESS", progress} as const),
+    setError: () => ({type: "registration-reducer/ERROR"} as const)
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>
 
-//example thunk
-
-// export const login = (email:string, password:string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-//     async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
-//         const response = await authAPI.login(email, password)
-//         if (response.resultCode === 0) {
-//             dispatch(actions.setAuthUserData(response.data.data.userId, response.data.data.email, response.data.data.login))
-//         }
-//         else{
-//             let message = response.messages.length > 0 ? response.messages[0] : "Some error";
-//             dispatch(stopSubmit("login", {_error: message}));
-//         }
-//     }
-
-// example thunk from socialNetwork
-
-// export const logout = () => {
-//     return (dispatch) => {
-//         authAPI.logout()
-//             .then(response => {
-//                 debugger
-//                 if (response.resultCode === 0) {
-//                     dispatch(setAuthUserData(null, null, null, false));
-//                 }
-//             });
-//     }
-// };
+export const registration = (email: string, password: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        try {
+            dispatch(actions.setRegistrationInProgress(true));
+            const data = await authAPI.registration(email, password);
+            if (data.success)dispatch(actions.setRegistrationSuccess(true));
+        } catch (error) {
+            dispatch(actions.setError());
+            dispatch(stopSubmit("signIn", {_error: error.response.data.error}));
+        }
+    }
 
 export default registrationReducer;

@@ -1,14 +1,12 @@
 import axios from "axios";
 
-// type RegistrationResponseType = {
-//     data: {
-//         addedUser: {
-//             email: string
-//             isAdmin: boolean
-//         }
-//     }
-//     success: boolean
-// }
+type RegistrationResponseType = {
+    addedUser: {
+        email: string
+        isAdmin: boolean
+    },
+    success: boolean
+}
 
 export type AuthorizationResponseType = {
     email: string
@@ -26,7 +24,7 @@ const instance = axios.create({
 
 export const authAPI = {
     registration(email: string, password: string) {
-        return instance.post<any>(`auth/register`, {email, password})
+        return instance.post<RegistrationResponseType>(`auth/register`, {email, password})
             .then(response => {
                 debugger
                 return response.data
