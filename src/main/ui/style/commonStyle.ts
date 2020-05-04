@@ -8,7 +8,6 @@ export const H3 = styled.h3`
 `;
 
 export const Span = styled.p`
-    //font-size: ${props => props.sizze==="little" ? "15px" : "18px"};
     font-size: 15px;
     text-align: center;
     //color: #898989;
@@ -30,11 +29,7 @@ export const ContainerWrapper = styled(FlexRowCenter)`
     margin: 0 auto;
     width: 1082px;
 `;
-const Link = ({ className, children }) => (
-    <a className={className}>
-        {children}
-    </a>
-);
+
 export const Button = styled.button`
     font-family: 'DINNextLTPro-Bold';
     font-size: 15px;

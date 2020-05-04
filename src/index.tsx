@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './main/ui/style/index.css';
+import './main/ui/style/globalStyles';
 import App from './main/ui/App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";

@@ -1,12 +1,10 @@
 import axios from "axios";
 
 type RegistrationResponseType = {
-    data: {
-        addedUser: {
-            email: string
-            isAdmin: boolean
-        }
-    }
+    addedUser: {
+        email: string
+        isAdmin: boolean
+    },
     success: boolean
 }
 
@@ -24,16 +22,14 @@ const instance = axios.create({
 
 export const authAPI = {
     registration(email: string, password: string) {
-        return instance.post<any>(`auth/register`, {email, password})
+        return instance.post<RegistrationResponseType>(`auth/register`, {email, password})
             .then(response => {
-                debugger
                 return response.data
             })
     },
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<any>(`auth/login`, {email, password, rememberMe})
             .then(response => {
-                debugger
                 return response.data
             })
     }
