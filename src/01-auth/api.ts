@@ -18,6 +18,10 @@ export type AuthorizationResponseType = {
     success: boolean
 }
 
+export type ForgotResponseType = {
+    success: boolean
+}
+
 const instance = axios.create({
     baseURL: "https://neko-cafe-back.herokuapp.com/"
 });
@@ -35,6 +39,13 @@ export const authAPI = {
             .then(response => {
                 debugger
                 return response.data
+            })
+    },
+    forgot(email: string){
+        return instance.post<ForgotResponseType>(`auth/forgot`, {email})
+            .then(response => {
+                debugger
+                return response.data.success
             })
     }
     // getMe(token:string) {

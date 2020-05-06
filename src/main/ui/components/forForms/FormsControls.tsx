@@ -5,7 +5,6 @@ import {ErrorBlock, InputStyled} from "../../style/forForms/formControlsStyle";
 export const Input = ({input, meta, placeholder, ...props}: any) => {
     const hasError = meta.touched && meta.error ? true : false;
     // const placeholderText = hasError? meta.error : placeholder;
-    debugger
     return (
         <>
             <div>

@@ -62,6 +62,7 @@ export const TextLink = styled(NavLink)`
     font-size: 15px;
     color: #32cdff;
     padding: 6px 5px 4px;
+    margin-top: 10px;
     cursor: pointer;
     text-transform: uppercase;
     text-decoration: none;

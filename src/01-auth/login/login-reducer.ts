@@ -2,6 +2,7 @@ import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction} from "redux-thunk";
 import {authAPI} from "../api";
 import {stopSubmit} from "redux-form";
+import {setCookie} from "./cookies";
 
 export type LoginType = {
     email: string
@@ -53,6 +54,7 @@ export const login = (email: string, password: string, rememberMe: boolean):
             dispatch(actions.setLoading(true));
             const response = await authAPI.login(email, password, rememberMe)
             debugger
+            setCookie('token', response.token, Math.floor(response.tokenDeathTime / 1000) - 180);
             dispatch(actions.setAuthUserData(response.email, true));
             dispatch(actions.setLoading(false));
         } catch (error) {
