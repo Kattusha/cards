@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 export const H3 = styled.h3`
     font-size: 21px;
@@ -50,8 +51,23 @@ export const Button = styled.button`
         outline: none;
     }
     &:disabled {
-      cursor: default;
-      opacity: .4;
+        //cursor: default;
+        //opacity: .4;
+        background-color: #b0afaf;
+        cursor: not-allowed;
+    }
+`;
+export const TextLink = styled(NavLink)`
+    font-family: 'DINNextLTPro-Bold';
+    font-size: 15px;
+    color: #32cdff;
+    padding: 6px 5px 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+       
+    &:hover {
+        filter: brightness(95%);
     }
 `;
 

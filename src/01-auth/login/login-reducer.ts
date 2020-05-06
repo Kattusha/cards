@@ -22,13 +22,13 @@ type InitialStateType = typeof initialState;
 const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
 
-        case "SET_AUTH_USER_DATA":
+        case "login-reducer/SET_AUTH_USER_DATA":
             return {
                 ...state,
                 email: action.email,
                 isAuth: action.isAuth
             };
-        case "SET_LOADING":
+        case "login-reducer/SET_LOADING":
             return {
                 ...state,
                 isloading: action.isloading
@@ -39,8 +39,8 @@ const loginReducer = (state = initialState, action: ActionsTypes): InitialStateT
 };
 
 const actions = {
-    setAuthUserData: (email: string, isAuth: boolean) => ({type: "SET_AUTH_USER_DATA", email, isAuth} as const),
-    setLoading: (isloading: boolean) => ({type: "SET_LOADING", isloading} as const)
+    setAuthUserData: (email: string, isAuth: boolean) => ({type: "login-reducer/SET_AUTH_USER_DATA", email, isAuth} as const),
+    setLoading: (isloading: boolean) => ({type: "login-reducer/SET_LOADING", isloading} as const)
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>

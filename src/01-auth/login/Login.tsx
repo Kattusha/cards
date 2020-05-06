@@ -1,12 +1,12 @@
 import React, {useCallback, useEffect} from 'react';
-import {H3, Span} from "../../main/ui/style/commonStyle";
+import {Button, H3, Span, TextLink} from "../../main/ui/style/commonStyle";
 import {LoginForm} from "../../main/ui/style/forForms/formsStyle";
 import {LoginReduxForm} from "./LoginForm";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "./login-reducer";
 import {AppStateType} from "../../main/bll/store";
 import {useHistory} from "react-router-dom";
-import {profilePath} from "../../main/ui/components/Body";
+import {loginPath, profilePath, signInPath} from "../../main/ui/components/Body";
 
 const Login: React.FC = () => {
 
@@ -27,7 +27,7 @@ const Login: React.FC = () => {
     return (
         <LoginForm>
             <H3>Log in with your account</H3>
-            <Span>Don't have an account??</Span>
+            <Span>Don't have an account?<TextLink to={signInPath}>Sign in</TextLink></Span>
             <LoginReduxForm onSubmit={onLogin} isLoading={isLoading}/>
         </LoginForm>
     )
