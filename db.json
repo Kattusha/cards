@@ -1,0 +1,36 @@
+{
+  "decks": [
+    {
+      "name": "asdga_001",
+      "grade": "1",
+      "tags": "environment1111"
+    },
+    {
+      "name": "asdga_002",
+      "grade": "2",
+      "tags": "environment2222"
+    },
+    {
+      "name": "asdga_003",
+      "grade": "3",
+      "tags": "environment3333"
+    }
+  ],
+  "cards": [
+    {
+      "question": "question1",
+      "answer": "Big Fucking Answer 1",
+      "grade": "gold"
+    },
+    {
+      "question": "question2",
+      "answer": "Big Fucking Answer 2",
+      "grade": "silver"
+    },
+    {
+      "question": "question3",
+      "answer": "Big Fucking Answer 3",
+      "grade": "bronze"
+    }
+  ]
+}
