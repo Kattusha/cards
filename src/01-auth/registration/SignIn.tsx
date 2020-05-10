@@ -5,26 +5,24 @@ import {SignInReduxForm} from "./SignInForm";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import {registration} from "./registration-reducer";
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {loginPath} from "../../main/ui/components/Body";
-import {MenuNavLink} from "../../main/ui/style/headerStyle";
 
 const SignIn = () => {
     const dispatch = useDispatch();
-    const regSuccess = useSelector((store: AppStateType) => store.registration.isRegistrationSuccessful);
-    const regInProgress = useSelector((store: AppStateType) => store.registration.isRegistrationInProgress);
+    const {isRegistrationInProgress, isRegistrationSuccessful} = useSelector((store: AppStateType) => store.registration);
 
     const register = (formData: any) => {
         dispatch(registration(formData.email, formData.password))
     }
 
-    if (regSuccess) return <Redirect to={loginPath}/>
+    if (isRegistrationSuccessful) return <Redirect to={loginPath}/>
 
     return (
         <SignUpForm>
             <H3>Create a account</H3>
             <Span>Already have an account?<TextLink to={loginPath}>Log in</TextLink></Span>
-            <SignInReduxForm onSubmit={register} regInProgress={regInProgress}/>
+            <SignInReduxForm onSubmit={register} regInProgress={isRegistrationInProgress}/>
         </SignUpForm>
     )
 }
