@@ -88,14 +88,14 @@ type ThunkActionType = ThunkDispatch<AppStateType, unknown, ActionsTypes>;
 
 
 export const getDecks = (): ThunkType => async (dispatch: ThunkActionType) => {
-        let token = getCookie('token');
-        if (token !== null) {
-            dispatch(actions.setLoadingStatus(true));
-            let data = await decksAPI.getDecks(token);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(actions.setDecks(data))
-        } else console.log('ERROR: token is null!!!');
-    };
+    let token = getCookie('token');
+    if (token !== null) {
+        dispatch(actions.setLoadingStatus(true));
+        let data = await decksAPI.getDecks(token);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(actions.setDecks(data))
+    } else console.log('ERROR: token is null!!!');
+};
 
 export const getDecksMe = (): ThunkType =>
     async (dispatch: ThunkActionType, getState: () => AppStateType) => {
@@ -110,27 +110,27 @@ export const getDecksMe = (): ThunkType =>
     };
 
 export const deleteDeck = (id: string): ThunkType => async (dispatch: ThunkActionType) => {
-        let token = getCookie('token');
-        if (token !== null) {
-            dispatch(actions.setLoadingStatus(true));
-            let data = await decksAPI.deleteDeck(token, id);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            if (data.success) dispatch(actions.deleteDeck(data.deletedCardsPack._id))
-        } else console.log('ERROR: token is null!!!');
-    };
+    let token = getCookie('token');
+    if (token !== null) {
+        dispatch(actions.setLoadingStatus(true));
+        let data = await decksAPI.deleteDeck(token, id);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        if (data.success) dispatch(actions.deleteDeck(data.deletedCardsPack._id))
+    } else console.log('ERROR: token is null!!!');
+};
 
 export const addDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (dispatch: ThunkActionType) => {
-        let token = getCookie('token');
-        if (token !== null) {
-            dispatch(actions.setLoadingStatus(true));
-            let newDeck = {cardsPack, token};
-            let data = await decksAPI.postDeck(newDeck);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(getDecksMe());
-        } else console.log('ERROR: token is null!!!');
-    };
+    let token = getCookie('token');
+    if (token !== null) {
+        dispatch(actions.setLoadingStatus(true));
+        let newDeck = {cardsPack, token};
+        let data = await decksAPI.postDeck(newDeck);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(getDecksMe());
+    } else console.log('ERROR: token is null!!!');
+};
 
-export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array<{answer: string, question: string}>): ThunkType =>
+export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array<{ answer: string, question: string }>): ThunkType =>
     async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
@@ -147,8 +147,8 @@ export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array
                     setCookie('token', cardData.token, Math.floor(cardData.tokenDeathTime / 1000) - 180);
                 }
             };
-            const processCardsArray = async (cards: Array<{answer: string, question: string}>) => {
-                for (const card of cards) {
+            const processCardsArray = async () => {
+                for (let card of cards) {
                     let newCard = {
                         cardsPack_id: data.newCardsPack._id,
                         question: card.question,
@@ -157,47 +157,106 @@ export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array
                     await asyncAddCards(newCard);
                 }
             };
-            if (cards[0] && cards[0].answer && cards[0].question) await processCardsArray(cards);
+            if (cards[0] && cards[0].answer && cards[0].question) await processCardsArray();
             dispatch(actions.setRedirectedId(data.newCardsPack._id));
             dispatch(actions.setLoadingStatus(false));
         } else console.log('ERROR: token is null!!!');
     };
 
-export const editDeckWithCards = (cardsPack: CardPackType, cards: Array<PostOrPutCardType>): ThunkType =>
-    async (dispatch: ThunkActionType) => {
+export const editDeckWithCards = (cardsPack?: PostOrPutCardsPackType, cards?: Array<PostOrPutCardType>): ThunkType =>
+    async (dispatch: ThunkActionType, getState: () => AppStateType) => {
+        let token = getCookie('token');
+        if (token !== null) {
+            dispatch(actions.setLoadingStatus(true));
+            if (cardsPack) {
+                let editedDeck = {cardsPack, token};
+                let data = await decksAPI.putDeck(editedDeck);
+                setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+            }
+            if (cards) {
+                const editCards = async () => {
+                    let existingCards: Array<string> = [];
+                    const oldCards = getState().cards.cards;
+                    const createdCards = cards.filter(card => !!card._id);
+                    ///редактирование
+                    for (let card of cards) {
+                        let iterableCard = oldCards.find(oldCard => oldCard._id === card._id)
+                        if (iterableCard) {
+                            existingCards.push(iterableCard._id);
+                            if (iterableCard.answer !== card.answer || iterableCard.question !== card.question) {
+                                let token = getCookie('token');
+                                if (token !== null) {
+                                    let editedCard = {card, token};
+                                    let data = await cardsAPI.putCard(editedCard);
+                                    setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                                }
+                            }
+                        }
+                    }
+                    //удаление
+                    if (existingCards.length !== 0) {
+                        let cardsForDelete = oldCards.filter(card => {
+                            for (let id of existingCards) {
+                                if (card._id === id) return true
+                            }
+                        })
+                        if (cardsForDelete.length !== 0) {
+                            for (let card of cardsForDelete) {
+                                let token = getCookie('token');
+                                if (token !== null) {
+                                    let data = await cardsAPI.deleteCard(token, card._id);
+                                    setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                                }
+                            }
+                        }
+                    }
+                    //добавление
+                    if (createdCards.length !== 0) {
+                        for (let card of createdCards) {
+                            let token = getCookie('token');
+                            if (token !== null) {
+                                let createdCard = {card, token};
+                                let data = await cardsAPI.postCard(createdCard);
+                                setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                            }
+                        }
+                    }
+                }
 
+            }
+        } else console.log('ERROR: token is null!!!');
     };
 
 export const choosePage = (page: number): ThunkType => async (dispatch: ThunkActionType) => {
-        let token = getCookie('token');
-        if (token !== null) {
-            dispatch(actions.setLoadingStatus(true));
-            let data = await decksAPI.getDecks(token, page);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(actions.setDecks(data));
-            dispatch(actions.setPage(page))
-        } else console.log('ERROR: token is null!!!');
-    };
+    let token = getCookie('token');
+    if (token !== null) {
+        dispatch(actions.setLoadingStatus(true));
+        let data = await decksAPI.getDecks(token, page);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(actions.setDecks(data));
+        dispatch(actions.setPage(page))
+    } else console.log('ERROR: token is null!!!');
+};
 
 export const searchDeck = (deckName: string): ThunkType => async (dispatch: ThunkActionType) => {
-        let token = getCookie('token');
-        if (token !== null) {
-            dispatch(actions.setLoadingStatus(true));
-            let data = await decksAPI.searchDecks(token, deckName);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(actions.setDecks(data));
-        } else console.log('ERROR: token is null!!!');
-    };
+    let token = getCookie('token');
+    if (token !== null) {
+        dispatch(actions.setLoadingStatus(true));
+        let data = await decksAPI.searchDecks(token, deckName);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(actions.setDecks(data));
+    } else console.log('ERROR: token is null!!!');
+};
 
 export const putDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (dispatch: ThunkActionType) => {
-        let token = getCookie('token');
-        if (token !== null) {
-            dispatch(actions.setLoadingStatus(true));
-            let editedDeck = {cardsPack, token};
-            let data = await decksAPI.putDeck(editedDeck);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(getDecks());
-        } else console.log('ERROR: token is null!!!');
-    };
+    let token = getCookie('token');
+    if (token !== null) {
+        dispatch(actions.setLoadingStatus(true));
+        let editedDeck = {cardsPack, token};
+        let data = await decksAPI.putDeck(editedDeck);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(getDecks());
+    } else console.log('ERROR: token is null!!!');
+};
 
 export default cardDecksReducer;

@@ -41,7 +41,7 @@ const Header: React.FC = () => {
     const closeAddModal = () => switchAddModal(false);
     const addPack = ({name}: any) => {
         let newPack = {
-            user_id: userId,
+            user_id: userId!,
             name,
         }
         dispatch(addDeck(newPack))
@@ -71,9 +71,6 @@ const Header: React.FC = () => {
     const closeRecoveryModal = () => switchRecoveryModal(false)
 
     DEV_VERSION && console.log(`RENDER Header`);
-    console.log('isLogInModalOpened: ' + isLogInModalOpened)
-    console.log('isSignInModalOpened: ' + isSignInModalOpened)
-    console.log('isRecoveryModalOpened: ' + isSignInModalOpened)
     return (
         <>
             <HeaderWrapper>

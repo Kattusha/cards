@@ -73,7 +73,7 @@ const Editor: React.FC<PropsType & InjectedFormProps<PropsType>> =
                                 {deckId? 'Submit changes' : 'Create'}
                             </SubmitButton>
                         </HeaderWrapper>
-                        <FieldArrayCustom name="cards" component={CardsEditor} cards={cards}/>
+                        <FieldArrayCustom name={name? 'editedCards' : 'cards'} component={CardsEditor} cards={cards}/>
                     </EditorWrapper>
                 }
             </>

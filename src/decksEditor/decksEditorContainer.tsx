@@ -35,12 +35,12 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
         switchCardEditor()
     };
 
-    // const editDeck = () => {
-    //
-    // };
+    const editDeck = (card: any) => {
+        console.log(card)
+    };
 
     const createNewDeck = ({name, cards}: any) => {
-        const newPack = {user_id: userId, name};
+        const newPack = {user_id: userId!, name};
         dispatch(addDeckWithCards(newPack, cards));
     };
 
@@ -51,7 +51,7 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
     );
 
     if (editedDeckId !== '') return (
-            <EditorReduxForm onSubmit={addCard} deckId={editedDeckId}
+            <EditorReduxForm onSubmit={editDeck} deckId={editedDeckId}
                              name={cardPacks.find(deck => deck._id === editedDeckId)!.name}/>
     );
 
