@@ -7,7 +7,6 @@ import RecoveryPassword from "../../../01-auth/recoveryPassword/RecoveryPassword
 import NewPassword from "../../../01-auth/newPassword/NewPassword";
 import Profile from "../../../01-auth/profile/Profile";
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
-import CardsContainer from "../../../02-tables/cards/cardsContainer";
 
 export const loginPath = '/login';
 export const signInPath = '/signIn';
@@ -27,7 +26,7 @@ const Body: React.FC = () => {
                 <Route path={newPasswordPath} component={NewPassword}/>
                 <Route path={profilePath} component={Profile}/>
                 <Route path={cardDecks} component={CardDecksContainer}/>
-                <Route path={cards} component={CardsContainer}/>
+                {/*<Route path={cards} component={CardsContainer}/>*/}
                 {/*<Route exact path='/' render={() => <App/>}/>*/}
                 {/*<Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>*/}
             </MainContainer>

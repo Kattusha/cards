@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import Deck from "./deck";
-import {GetDecksType} from "../api";
+import {CardPackType} from "../api";
 
 const DecksWrapper = styled.div`
   width: 90%;
@@ -21,18 +21,20 @@ const Name = styled.div`
 `;
 
 type PropsType = {
-    decks: Array<GetDecksType>
+    decks: Array<CardPackType>,
+    deletePack: (id: string) => void
 }
 
-const CardDecks = ({decks}: PropsType) => {
+const CardDecks = ({decks, deletePack}: PropsType) => {
     return (
                 <DecksWrapper>
                     <DeckHeader>
                         <Name>Deck name</Name>
                         <Name>Rating</Name>
-                        <Name>Tags</Name>
+                        <Name>Shots</Name>
                     </DeckHeader>
-                    {decks.map((deck, id) => <Deck key={id} {...deck}/>)}
+                    {decks.map(deck => <Deck key={deck._id} {...deck} deletePack={deletePack}/>)}
+                    <button>add deck</button>
                 </DecksWrapper>
     )
 }

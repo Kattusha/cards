@@ -1,21 +1,79 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3004/'
+    baseURL: 'https://cards-nya-back.herokuapp.com/1.0/'
 });
 
-export type GetDecksType = {
-    name: string,
-    grade: string,
-    tags: string
+export type CommonResponseType = {
+    success: boolean,
+    token: string,
+    tokenDeathTime: number,
 }
-export type GetCardsType = {
-    question: string,
-    answer: string,
-    grade: string
+
+export type CardPackType = {
+    _id: string,
+    user_id: string,
+    name: string,
+    path: string,
+    grade: number,
+    shots: number,
+    rating: number,
+    type: string,
+    created: string,
+    updated: string,
+    __v: number
+};
+
+export type GetDecksType = {
+    cardPacks: Array<CardPackType>,
+    cardPacksTotalCount: number,
+    maxGrade: string,
+    minGrade: number,
+    page: number
+    pageCount: number,
+    token: string,
+    tokenDeathTime: number
+};
+
+export type PostOrPutCardsPackType = {
+    user_id: string,
+    name?: string,
+    path?: string,
+    grade?: number,
+    shots?: number,
+    rating?: number,
+    type?: string,
+};
+
+export type PostOrPutDeckType = {
+    cardsPack: PostOrPutCardsPackType,
+    token: string | null
+};
+
+export type PostDeckResponseType = {
+    newCardsPack: {},
+    success: boolean,
+    token: string,
+    tokenDeathTime: number
+};
+
+export type DeleteDeckResponseType = {
+    deletedCardsPack: {},
+    success: boolean,
+    token: string,
+    tokenDeathTime: number,
+};
+
+export type PutDeckResponseType = {
+    updatedCardsPack: {},
+    success: boolean,
+    token: string,
+    tokenDeathTime: number,
 }
 
 export const decksAPI = {
-    getDecks: () => (instance.get<Array<GetDecksType>>('decks').then(res => res.data)),
-    getCards: () => (instance.get<Array<GetCardsType>>('cards').then(res => res.data))
+    getDecks: (token: string | null) => (instance.get<GetDecksType>(`cards/pack?&token=${token}`).then(res => res.data)),
+    deleteDeck: (token: string | null, id: string) =>
+        (instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`).then(res => res.data)),
+    postDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data))
 }

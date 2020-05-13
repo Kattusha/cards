@@ -23,7 +23,6 @@ export type SuccessResponseType = {
 }
 
 const instance = axios.create({
-    // baseURL: "https://neko-cafe-back.herokuapp.com/"
     baseURL: "https://cards-nya-back.herokuapp.com/1.0/"
 });
 

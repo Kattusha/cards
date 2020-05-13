@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components/macro";
-import {GetCardsType} from "../api";
 
 const CardsWrapper = styled.div`
   width: 90%;
@@ -31,7 +30,7 @@ const CardsGrid = styled.div`
 
 `;
 
-type PropsType = {
+/*type PropsType = {
     cards: Array<GetCardsType>
 }
 
@@ -49,4 +48,4 @@ const Cards = ({cards}: PropsType) => {
     )
 }
 
-export default Cards
+export default Cards*/

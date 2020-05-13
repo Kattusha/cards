@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
+import {CardPackType} from "../api";
 
 const DeckWrapper = styled.div`
   height: 100px;
@@ -9,7 +10,6 @@ const DeckWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  cursor: pointer;
 `;
 
 const DeckName = styled.div`
@@ -25,18 +25,29 @@ const DeckTags = styled(DeckName)`
   
 `;
 
-type DeckPropsType = {
-    name: string,
-    grade: string,
-    tags: string,
+const DeleteButton = styled.button`
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background-color: coral;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+
+type PropsType = CardPackType & AdditionalPropsType;//тут куча пропсов
+
+type AdditionalPropsType = {
+    deletePack: (id: string) => void
 }
 
-const Deck = ({name, grade, tags}: DeckPropsType) => {
+const Deck = ({_id, grade, name, shots, rating, deletePack, ...props}: PropsType) => {
     return (
         <DeckWrapper>
             <DeckName>{name}</DeckName>
             <DeckRating>{grade}</DeckRating>
-            <DeckTags>{tags}</DeckTags>
+            <DeckTags>{shots}</DeckTags>
+            <DeleteButton onClick={() => deletePack(_id)}>delete</DeleteButton>
         </DeckWrapper>
     )
 }
