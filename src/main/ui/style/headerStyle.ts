@@ -42,3 +42,7 @@ export const MenuNavLink = styled(NavLink)`
         padding-top: 2px;
     }
 `;
+export const IconDiv = styled.div`
+    margin-right: 10px;
+    display: inline-block;
+`;

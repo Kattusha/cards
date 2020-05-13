@@ -5,7 +5,7 @@ import {Button, Span, TextLink} from "../../main/ui/style/commonStyle";
 import {FormStyled, InputCheckBoxDiv} from "../../main/ui/style/forForms/formControlsStyle";
 import {emailValidation, maxLength, requiredField} from "../../main/ui/components/forForms/validators";
 import Preloader from "../../main/ui/components/preloader/Preloader";
-import {recoveryPasswordPath, signInPath} from "../../main/ui/components/Body";
+import {recoveryPasswordPath} from "../../main/ui/components/Body";
 
 type PropsType = {
     isLoading: boolean
@@ -15,7 +15,6 @@ const maxLength8 = maxLength(8);
 
 const LoginForm: React.FC<PropsType & InjectedFormProps<{}, PropsType>>  =
     ({error, handleSubmit, invalid, isLoading, ...props}) => {
-    debugger
     return (
         <FormStyled onSubmit={handleSubmit}>
             <Field name="email" component={Input} type="email" placeholder="Email"

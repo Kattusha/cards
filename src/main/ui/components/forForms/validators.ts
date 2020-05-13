@@ -15,7 +15,3 @@ export const emailValidation = (value: string) => {
         ? 'Invalid email address'
         : undefined
 }
-
-export const passwordValidation = (minLength: number) => (value: string) => {
-    return value.length < minLength ? undefined : `Password must be more than ${minLength} characters`;
-}

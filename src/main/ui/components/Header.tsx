@@ -1,25 +1,52 @@
 import React from 'react';
-import {HeaderContainer, HeaderWrapper, LogoImg, LogoLinkBlock, LogoText, MenuNavLink} from "../style/headerStyle";
+import {
+    HeaderContainer,
+    HeaderWrapper,
+    IconDiv,
+    LogoImg,
+    LogoLinkBlock,
+    LogoText,
+    MenuNavLink
+} from "../style/headerStyle";
 import logo from '../images/logo.png'
-import {FlexRowCenter, Button} from '../style/commonStyle';
+import {Button, FlexRowCenter} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
-import {loginPath, newPasswordPath, profilePath, recoveryPasswordPath, signInPath} from './Body';
+import {loginPath, profilePath} from './Body';
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../bll/store";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {far} from "@fortawesome/free-regular-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const Header:React.FC = () => {
+library.add(far);
+
+const Header: React.FC = () => {
+
+    const {isAuthorized, email} = useSelector((store: AppStateType) => store.login);
+
     return (
         <HeaderWrapper>
             <HeaderContainer>
                 <LogoLinkBlock>
-                {/*<LogoLinkBlock as={NavLink} to='/login'>*/}
+                    {/*<LogoLinkBlock as={NavLink} to='/login'>*/}
                     <LogoImg src={logo} alt="logo"/>
                     <LogoText>cards</LogoText>
                 </LogoLinkBlock>
                 <FlexRowCenter>
-                    <MenuNavLink to={loginPath}>Log in</MenuNavLink>
-                    <MenuNavLink to={recoveryPasswordPath}>Recovery</MenuNavLink>
-                    <MenuNavLink to={newPasswordPath}>New password</MenuNavLink>
-                    <MenuNavLink to={profilePath}>Profile</MenuNavLink>
-                    <Button as={NavLink} to={signInPath} color={"white"}>Sign in</Button>
+                    {/*<MenuNavLink to={loginPath}>Log in</MenuNavLink>*/}
+                    {/*<MenuNavLink to={recoveryPasswordPath}>Recovery</MenuNavLink>*/}
+                    {/*<MenuNavLink to={newPasswordPath}>New password</MenuNavLink>*/}
+                    {/*<MenuNavLink to={profilePath}>Profile</MenuNavLink>*/}
+
+                    {isAuthorized ?
+                        <MenuNavLink to={profilePath}>
+                            <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>
+                            {/*User*/}
+                            {email}
+                        </MenuNavLink>
+                        :
+                        <Button as={NavLink} to={loginPath} color={"white"}>Log in</Button>
+                    }
                 </FlexRowCenter>
             </HeaderContainer>
         </HeaderWrapper>

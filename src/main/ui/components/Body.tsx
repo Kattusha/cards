@@ -13,7 +13,7 @@ export const loginPath = '/login';
 export const signInPath = '/signIn';
 export const profilePath = '/profile';
 export const recoveryPasswordPath = '/recoveryPassword';
-export const newPasswordPath = '/newPassword';
+export const newPasswordPath = '/newPassword/:token?'
 export const cardDecks = '/cardDecks';
 export const cards = '/cards';
 

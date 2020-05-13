@@ -1,28 +1,23 @@
-import React, {useCallback, useEffect} from 'react';
-import {Button, H3, Span, TextLink} from "../../main/ui/style/commonStyle";
+import React from 'react';
+import {H3, Span, TextLink} from "../../main/ui/style/commonStyle";
 import {LoginForm} from "../../main/ui/style/forForms/formsStyle";
 import {LoginReduxForm} from "./LoginForm";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "./login-reducer";
 import {AppStateType} from "../../main/bll/store";
-import {useHistory} from "react-router-dom";
-import {loginPath, profilePath, signInPath} from "../../main/ui/components/Body";
+import {Redirect} from "react-router-dom";
+import {profilePath, signInPath} from "../../main/ui/components/Body";
 
 const Login: React.FC = () => {
 
-    const isAuth = useSelector((store: AppStateType) => store.login.isAuth);
-    const isLoading = useSelector((store: AppStateType) => store.login.isloading);
     const dispatch = useDispatch();
-    const history = useHistory();
+    const {isAuthorized, isLoading}  = useSelector((store: AppStateType) => store.login);
 
-    const onLogin = useCallback(({email, password, rememberMe}: any) => {
+    const onLogin = ({email, password, rememberMe}: any) => {
         dispatch(login(email, password, rememberMe));
-    }, []);
+    }
 
-    useEffect(() => {
-        if (isAuth)
-            history.push(profilePath)
-    }, [isAuth])
+    if (isAuthorized) return <Redirect to={profilePath}/>
 
     return (
         <LoginForm>

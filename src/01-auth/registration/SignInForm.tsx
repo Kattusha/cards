@@ -3,14 +3,14 @@ import React from "react";
 import {Input} from "../../main/ui/components/forForms/FormsControls";
 import {Button, Span} from "../../main/ui/style/commonStyle";
 import {FormStyled} from "../../main/ui/style/forForms/formControlsStyle";
-import {emailValidation, passwordValidation, requiredField} from "../../main/ui/components/forForms/validators";
+import {emailValidation, maxLength, requiredField} from "../../main/ui/components/forForms/validators";
 import Preloader from "../../main/ui/components/preloader/Preloader";
 
 type IPassProps = {
     regInProgress: boolean
 }
 
-const minLength7 = passwordValidation(7)
+const maxLength8 = maxLength(8);
 
 const SignInForm = ({error, handleSubmit, regInProgress, invalid}: IPassProps & InjectedFormProps<{}, IPassProps>) => {
     return (
@@ -19,7 +19,7 @@ const SignInForm = ({error, handleSubmit, regInProgress, invalid}: IPassProps & 
                    validate={[emailValidation, requiredField]}
             />
             <Field name="password" component={Input} type="password" placeholder="Password"
-                   validate={[requiredField, minLength7]}
+                   validate={[requiredField, maxLength8]}
             />
             {error && <Span color={"red"}>{error}</Span>}
             {regInProgress ?

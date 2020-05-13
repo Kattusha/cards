@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro';
-import React from "react";
 import {NavLink} from "react-router-dom";
 
 export const H3 = styled.h3`

@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import {BlockWrapper, ContainerWrapper, FlexRowCenter} from "./commonStyle";
+import {BlockWrapper, ContainerWrapper} from "./commonStyle";
 
 export const MainWrapper = styled(BlockWrapper)`
     height: 500px;
