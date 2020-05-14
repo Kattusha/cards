@@ -18,6 +18,17 @@ const cardDecksReducer = (state = initialState, action: ActionsTypes): InitialSt
                 decks: action.decks,
                 isLoading: false
             };
+        case "cardDeckReducer/DELETE_DECK":
+            return {
+                ...state,
+                decks: {
+                    ...state.decks,
+                    cardPacks: state.decks.cardPacks.filter(pack => {
+                        return pack._id !== action.id;
+                    })
+                },
+                isLoading: false
+            }
         case "cardDeckReducer/LOADING_STATUS":
             return {
                 ...state,
@@ -30,7 +41,7 @@ const cardDecksReducer = (state = initialState, action: ActionsTypes): InitialSt
 
 const actions = {
     setDecks: (decks: GetDecksType) => ({type: "cardDeckReducer/SET_DECK", decks} as const),
-    setCards: (cards: Array<object>) => ({type: "cardDeckReducer/SET_CARDS", cards} as const),
+    deleteDeck: (id: string) => ({type: "cardDeckReducer/DELETE_DECK", id} as const),
     setLoadingStatus: (isLoading: boolean) => ({type: "cardDeckReducer/LOADING_STATUS", isLoading} as const),
 }
 
@@ -50,9 +61,8 @@ export const deleteDeck = (id: string): ThunkAction<void, AppStateType, unknown,
         dispatch(actions.setLoadingStatus(true));
         let token = getCookie('token');
         let data = await decksAPI.deleteDeck(token, id);
-        console.log(data)
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-        dispatch(actions.setLoadingStatus(false));
+        if (data.success) dispatch(actions.deleteDeck(data.deletedCardsPack._id))
     };
 
 export const addDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
@@ -65,7 +75,20 @@ export const addDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppS
         };
         let data = await decksAPI.postDeck(newDeck);
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-        dispatch(actions.setLoadingStatus(false));
+        dispatch(getDecks());
+    };
+
+export const changeDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        dispatch(actions.setLoadingStatus(true));
+        let token = getCookie('token');
+        let newDeck = {
+            cardsPack: newPack,
+            token
+        };
+        let data = await decksAPI.postDeck(newDeck);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(getDecks());
     };
 
 export default cardDecksReducer;

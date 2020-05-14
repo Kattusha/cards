@@ -16,6 +16,7 @@ export type AuthorizationResponseType = {
     token: string
     tokenDeathTime: number
     success: boolean
+    _id: string
 }
 
 export type SuccessResponseType = {

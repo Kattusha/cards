@@ -14,9 +14,19 @@ const wave = keyframes`
   }
 `;
 
-const PreloaderWrapper = styled.div`
+const Wrapper = styled.div`
   margin: 0 auto;
+  width: 1082px;
+  height: 500px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const PreloaderWrapper = styled.div`
+  display: flex;
+  width: min-content;
+  align-items: center;
   animation-delay: 1s;
 `;
 
@@ -55,9 +65,11 @@ const Dot = styled.div`
 
 const Preloader = () => {
     return (
-        <PreloaderWrapper>
-            {colors.map((i, id) => <Dot key={id}/>)}
-        </PreloaderWrapper>
+        <Wrapper>
+            <PreloaderWrapper>
+                {colors.map((i, id) => <Dot key={id}/>)}
+            </PreloaderWrapper>
+        </Wrapper>
     )
 }
 

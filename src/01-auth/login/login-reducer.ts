@@ -4,7 +4,7 @@ import {authAPI} from "../api";
 import {stopSubmit} from "redux-form";
 import {setCookie, getCookie} from "./cookies";
 
-export type LoginType = {
+export type LoginType = {// или это
     email: string | null
     userId: string | null
     isAuthorized: boolean
@@ -18,7 +18,7 @@ let initialState: LoginType = {
     isLoading: false
 };
 
-type InitialStateType = typeof initialState;
+type InitialStateType = typeof initialState;//или это
 
 const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
@@ -26,6 +26,7 @@ const loginReducer = (state = initialState, action: ActionsTypes): InitialStateT
             return {
                 ...state,
                 email: action.email,
+                userId: action.userId,
                 isAuthorized: action.isAuthorized
             };
         case "login-reducer/SET_LOADING":
@@ -39,9 +40,9 @@ const loginReducer = (state = initialState, action: ActionsTypes): InitialStateT
 };
 
 const actions = {
-    setAuthUserData: (email: string | null, isAuthorized: boolean) => ({
+    setAuthUserData: (email: string | null, userId: string | null, isAuthorized: boolean) => ({
         type: "login-reducer/SET_AUTH_USER_DATA",
-        email, isAuthorized
+        email, userId, isAuthorized
     } as const),
     setLoading: (isLoading: boolean) => ({type: "login-reducer/SET_LOADING", isLoading} as const)
 }
@@ -56,10 +57,10 @@ export const login = (email: string, password: string, rememberMe: boolean):
             dispatch(actions.setLoading(true));
             const response = await authAPI.login(email, password, rememberMe)
             setCookie('token', response.token, Math.floor(response.tokenDeathTime / 1000) - 180);
-            dispatch(actions.setAuthUserData(response.email, true));
+            dispatch(actions.setAuthUserData(response.email, response._id, true));
             dispatch(actions.setLoading(false));
         } catch (error) {
-            dispatch(actions.setAuthUserData("", false));
+            dispatch(actions.setAuthUserData("", '', false));
             dispatch(actions.setLoading(false));
             dispatch(stopSubmit("login", {_error: error.response.data.error}));
         }
@@ -75,10 +76,10 @@ export const getMe = () =>
             console.log(response);
             setCookie('token', response.token, Math.floor(response.tokenDeathTime / 1000) - 180);
             console.log("NewToken: " + response.token);
-            dispatch(actions.setAuthUserData(response.email, response.success));
+            dispatch(actions.setAuthUserData(response.email, response._id, response.success));
             dispatch(actions.setLoading(false));
         } catch (error) {
-            dispatch(actions.setAuthUserData(null, false));
+            dispatch(actions.setAuthUserData(null, null, false));
             dispatch(actions.setLoading(false));
         }
     }
@@ -88,7 +89,7 @@ export const logOut = () => {
 
         dispatch(actions.setLoading(true));
         setCookie('token', '', -1000);
-        dispatch(actions.setAuthUserData(null, false));
+        dispatch(actions.setAuthUserData(null, null, false));
         dispatch(actions.setLoading(false));
 
     }

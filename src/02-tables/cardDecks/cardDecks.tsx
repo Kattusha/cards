@@ -4,7 +4,9 @@ import Deck from "./deck";
 import {CardPackType} from "../api";
 
 const DecksWrapper = styled.div`
-  width: 90%;
+  background-color: #fff;
+  margin: 0 auto;
+  width: 1082px;
 `;
 
 const DeckHeader = styled.div`
@@ -15,9 +17,15 @@ const DeckHeader = styled.div`
   margin-bottom: 10px;
 `;
 
-const Name = styled.div`
-  text-align: center;
+ export const Name = styled.div`
+  margin-left: 5px;
+  text-align: left;
   font-size: 21px;
+  flex-basis: 30%;
+`;
+
+export const InfoHeader = styled(Name)`
+  flex-basis: 10%;
 `;
 
 type PropsType = {
@@ -27,15 +35,16 @@ type PropsType = {
 
 const CardDecks = ({decks, deletePack}: PropsType) => {
     return (
-                <DecksWrapper>
-                    <DeckHeader>
-                        <Name>Deck name</Name>
-                        <Name>Rating</Name>
-                        <Name>Shots</Name>
-                    </DeckHeader>
-                    {decks.map(deck => <Deck key={deck._id} {...deck} deletePack={deletePack}/>)}
-                    <button>add deck</button>
-                </DecksWrapper>
+        <DecksWrapper>
+            <DeckHeader>
+                <Name>Deck name</Name>
+                <InfoHeader>Grade</InfoHeader>
+                <InfoHeader>Shots</InfoHeader>
+                <InfoHeader>Rating</InfoHeader>
+                <InfoHeader>Actions</InfoHeader>
+            </DeckHeader>
+            {decks.map(deck => <Deck key={deck._id} {...deck} deletePack={deletePack}/>)}
+        </DecksWrapper>
     )
 }
 

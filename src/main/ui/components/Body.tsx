@@ -25,11 +25,11 @@ const Body: React.FC = () => {
                 <Route path={recoveryPasswordPath} component={RecoveryPassword}/>
                 <Route path={newPasswordPath} component={NewPassword}/>
                 <Route path={profilePath} component={Profile}/>
-                <Route path={cardDecks} component={CardDecksContainer}/>
                 {/*<Route path={cards} component={CardsContainer}/>*/}
                 {/*<Route exact path='/' render={() => <App/>}/>*/}
                 {/*<Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>*/}
             </MainContainer>
+            <Route path={cardDecks} component={CardDecksContainer}/>
         </MainWrapper>
     )
 }
