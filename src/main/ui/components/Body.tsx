@@ -8,28 +8,58 @@ import NewPassword from "../../../01-auth/newPassword/NewPassword";
 import Profile from "../../../01-auth/profile/Profile";
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
 
-export const loginPath = '/login';
-export const signInPath = '/signIn';
-export const profilePath = '/profile';
-export const recoveryPasswordPath = '/recoveryPassword';
-export const newPasswordPath = '/newPassword/:token?'
-export const cardDecks = '/cardDecks';
-export const cards = '/cards';
+export const LOGIN_PATH = '/login';
+export const SIGN_IN_PATH = '/signIn';
+export const PROFILE_PATH = '/profile';
+export const RECOVERY_PASSWORD_PATH = '/recoveryPassword';
+export const NEW_PASSWORD_PATH = '/newPassword/:token?'
+export const CARD_DECKS_PATH = '/cardDecks';
+export const CARDS_PATH = '/cards';
 
 const Body: React.FC = () => {
     return (
         <MainWrapper>
-            <MainContainer>
-                <Route path={signInPath} component={SignIn}/>
-                <Route path={loginPath} component={Login}/>
-                <Route path={recoveryPasswordPath} component={RecoveryPassword}/>
-                <Route path={newPasswordPath} component={NewPassword}/>
-                <Route path={profilePath} component={Profile}/>
-                <Route path={cardDecks} component={CardDecksContainer}/>
-                {/*<Route path={cards} component={CardsContainer}/>*/}
-                {/*<Route exact path='/' render={() => <App/>}/>*/}
-                {/*<Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>*/}
-            </MainContainer>
+            <Route path={SIGN_IN_PATH}>
+                <MainContainer whiteBox>
+                    <SignIn/>
+                </MainContainer>
+            </Route>
+            <Route path={LOGIN_PATH}>
+                <MainContainer whiteBox>
+                    <Login/>
+                </MainContainer>
+            </Route>
+            <Route path={RECOVERY_PASSWORD_PATH}>
+                <MainContainer whiteBox>
+                    <RecoveryPassword/>
+                </MainContainer>
+            </Route>
+            <Route path={NEW_PASSWORD_PATH}>
+                <MainContainer whiteBox>
+                    <NewPassword/>
+                </MainContainer>
+            </Route>
+            <Route path={CARD_DECKS_PATH}>
+                <MainContainer whiteBox>
+                    <CardDecksContainer/>
+                </MainContainer>
+            </Route>
+
+            <Route path={PROFILE_PATH} component={Profile} />
+
+            {/*<MainContainer>*/}
+            {/*    <Route path={SIGN_IN_PATH} component={SignIn}/>*/}
+            {/*    <Route path={LOGIN_PATH} component={Login}/>*/}
+            {/*    <Route path={PROFILE_PATH} component={Profile}/>*/}
+            {/*    <Route path={RECOVERY_PASSWORD_PATH} component={RecoveryPassword}/>*/}
+            {/*    <Route path={NEW_PASSWORD_PATH} component={NewPassword}/>*/}
+
+            {/*    <Route path={CARD_DECKS_PATH} component={CardDecksContainer}/>*/}
+            {/*    /!*<Route path={cards} component={CardsContainer}/>*!/*/}
+            {/*    /!*<Route exact path='/' render={() => <App/>}/>*!/*/}
+            {/*    /!*<Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>*!/*/}
+            {/*</MainContainer>*/}
+
         </MainWrapper>
     )
 }

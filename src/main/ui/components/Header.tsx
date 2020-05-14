@@ -11,7 +11,7 @@ import {
 import logo from '../images/logo.png'
 import {Button, FlexRowCenter} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
-import {loginPath, profilePath} from './Body';
+import {LOGIN_PATH, PROFILE_PATH} from './Body';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -39,13 +39,13 @@ const Header: React.FC = () => {
                     {/*<MenuNavLink to={profilePath}>Profile</MenuNavLink>*/}
 
                     {isAuthorized ?
-                        <MenuNavLink to={profilePath}>
+                        <MenuNavLink to={PROFILE_PATH}>
                             <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>
                             {/*User*/}
                             {email}
                         </MenuNavLink>
                         :
-                        <Button as={NavLink} to={loginPath} color={"white"}>Log in</Button>
+                        <Button as={NavLink} to={LOGIN_PATH} color={"white"}>Log in</Button>
                     }
                 </FlexRowCenter>
             </HeaderContainer>

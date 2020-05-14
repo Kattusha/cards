@@ -5,7 +5,7 @@ import {Button, Span, TextLink} from "../../main/ui/style/commonStyle";
 import {FormStyled, InputCheckBoxDiv} from "../../main/ui/style/forForms/formControlsStyle";
 import {emailValidation, maxLength, requiredField} from "../../main/ui/components/forForms/validators";
 import Preloader from "../../main/ui/components/preloader/Preloader";
-import {recoveryPasswordPath} from "../../main/ui/components/Body";
+import {RECOVERY_PASSWORD_PATH} from "../../main/ui/components/Body";
 
 type PropsType = {
     isLoading: boolean
@@ -28,7 +28,7 @@ const LoginForm: React.FC<PropsType & InjectedFormProps<{}, PropsType>>  =
             {error && <Span color={"red"}>{error}</Span>}
             {isLoading && <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/>}
 
-            <TextLink to={recoveryPasswordPath}>Forgot password?</TextLink>
+            <TextLink to={RECOVERY_PASSWORD_PATH}>Forgot password?</TextLink>
             <Button color={"blue"} disabled={invalid || isLoading}>Log in</Button>
         </FormStyled>
     );

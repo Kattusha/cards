@@ -7,7 +7,7 @@ import {AppStateType} from "../../main/bll/store";
 import {setNewPassword} from "../recoveryPassword/recoveryPassword-reducer";
 import {stopSubmit} from "redux-form";
 import {Redirect} from "react-router-dom";
-import {loginPath} from "../../main/ui/components/Body";
+import {LOGIN_PATH} from "../../main/ui/components/Body";
 
 const NewPassword: React.FC = (props: any) => {
 
@@ -22,7 +22,7 @@ const NewPassword: React.FC = (props: any) => {
         } else dispatch(stopSubmit("newPassword", {_error: 'Password mismatch'}));
     }
 
-    if (isSaveNewPassword) return <Redirect to={loginPath}/>
+    if (isSaveNewPassword) return <Redirect to={LOGIN_PATH}/>
 
     return (
         <NewPasswordForm>

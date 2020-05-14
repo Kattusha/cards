@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import {registration} from "./registration-reducer";
 import {Redirect} from 'react-router-dom';
-import {loginPath} from "../../main/ui/components/Body";
+import {LOGIN_PATH} from "../../main/ui/components/Body";
 
 const SignIn = () => {
     const dispatch = useDispatch();
@@ -16,12 +16,12 @@ const SignIn = () => {
         dispatch(registration(formData.email, formData.password))
     }
 
-    if (isRegistrationSuccessful) return <Redirect to={loginPath}/>
+    if (isRegistrationSuccessful) return <Redirect to={LOGIN_PATH}/>
 
     return (
         <SignUpForm>
             <H3>Create a account</H3>
-            <Span>Already have an account?<TextLink to={loginPath}>Log in</TextLink></Span>
+            <Span>Already have an account?<TextLink to={LOGIN_PATH}>Log in</TextLink></Span>
             <SignInReduxForm onSubmit={register} regInProgress={isRegistrationInProgress}/>
         </SignUpForm>
     )

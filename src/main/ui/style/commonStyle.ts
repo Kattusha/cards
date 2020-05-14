@@ -1,6 +1,14 @@
 import styled from 'styled-components/macro';
 import {NavLink} from "react-router-dom";
 
+export const H1 = styled.h1`
+    font-size: 27px;
+    //color: #5c5c5c;
+    font-family: DINNextLTPro-Medium;
+    font-weight: 400;
+    margin: 20px 0 0;
+`;
+
 export const H3 = styled.h3`
     font-size: 21px;
     text-align: center;
