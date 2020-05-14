@@ -2,9 +2,10 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import {addDeck, deleteDeck, getDecks} from "./cardDecksReducer";
-import Preloader from "../../main/ui/components/Preloader";
+import Preloader from "../../main/ui/components/preloader/Preloader";
 import CardDecks from "./cardDecks";
 import {AddDeckReduxForm} from "./addDeckForm";
+import styled from "styled-components/macro";
 
 const CardDecksContainer = () => {
 
@@ -31,13 +32,19 @@ const CardDecksContainer = () => {
 
     return (
         <>
-            {isLoading ? <Preloader/> :
-                <>
-                    <CardDecks decks={decks} deletePack={deletePack}/>
+            {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
+                <Wrapper>
                     <AddDeckReduxForm onSubmit={addPack} isLoading={isLoading}/>
-                </>}
+                    <CardDecks decks={decks} deletePack={deletePack}/>
+                </Wrapper>}
         </>
     )
 }
 
 export default CardDecksContainer
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+`;

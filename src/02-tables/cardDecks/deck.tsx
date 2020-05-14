@@ -1,16 +1,17 @@
 import React, {useState} from "react";
 import styled from "styled-components/macro";
-import {CardPackType} from "../api";
+import {CardPackType, CardType} from "../api";
 import {InfoHeader, Name} from "./cardDecks";
+import {NavLink} from "react-router-dom";
+import { CARDS_PATH } from "../../main/ui/components/Body";
 
 const DeckWrapper = styled.div`
-  height: 100px;
-  margin-bottom: 10px;
-  box-shadow: 0 0 0 3px #f7f7f7;
-  border-radius: 10px;
+  padding: 10px 0;
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  align-items: center;
+  border-top: 2px solid #e8e8e8;
+  background-color: #fff;
 `;
 
 const DeleteButton = styled.button`
@@ -30,32 +31,53 @@ const ActionsMenu = styled.div`
   font-size: 15px;
 `;
 
-const Action = styled.div`
-  width: 100px;
-  height: 20px;
+const Action = styled.div<{backgroundColor: string}>`
+  border-radius: 10px;
   cursor: pointer;
+  background-color: ${props => props.backgroundColor};
+  padding: 2px 15px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  
   &:hover {
-   color: #32cdff;
+   //color: #32cdff;
+   opacity: .8;
   }
 `;
+const NameDeckNavLink = styled(NavLink)`
+    font-family: 'DINNextLTPro-Bold';
+    //font-size: 15px;
+    color: #32cdff;
+    text-decoration: none;
+    opacity: .8;
+    cursor: pointer;
+    
+    &:hover {
+        opacity: 1;
+    }
+`;
 
-
-type PropsType = CardPackType & AdditionalPropsType;//тут куча пропсов
+type PropsType = (CardPackType & AdditionalPropsType) | (CardType & AdditionalPropsType);//тут куча пропсов
 
 type AdditionalPropsType = {
     deletePack: (id: string) => void
 }
 
-const Deck = ({_id, grade, name, shots, rating, deletePack, ...props}: PropsType) => {
+const Deck = ({_id, grade, shots, rating, deletePack, ...props}: PropsType) => {
     return (
         <DeckWrapper>
-            <Name>{name}</Name>
+            <Name>
+                <NameDeckNavLink to={`${CARDS_PATH}/${_id}`}>
+                    {/*{props.name || props.question}*/}
+                    {_id}
+                </NameDeckNavLink>
+                </Name>
             <InfoHeader>{grade}</InfoHeader>
             <InfoHeader>{shots}</InfoHeader>
             <InfoHeader>{rating}</InfoHeader>
             <ActionsMenu>
-                <Action onClick={() => deletePack(_id)}>Delete</Action>
-                <Action>Change</Action>
+                <Action backgroundColor={"#ff506480"} onClick={() => deletePack(_id)}>Delete</Action>
+                <Action backgroundColor={"#ffff0080"}>Change</Action>
             </ActionsMenu>
         </DeckWrapper>
     )

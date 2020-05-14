@@ -7,6 +7,7 @@ import RecoveryPassword from "../../../01-auth/recoveryPassword/RecoveryPassword
 import NewPassword from "../../../01-auth/newPassword/NewPassword";
 import Profile from "../../../01-auth/profile/Profile";
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
+import CardsContainer from "../../../02-tables/cards/cardsContainer";
 
 export const LOGIN_PATH = '/login';
 export const SIGN_IN_PATH = '/signIn';
@@ -14,6 +15,7 @@ export const PROFILE_PATH = '/profile';
 export const RECOVERY_PASSWORD_PATH = '/recoveryPassword';
 export const NEW_PASSWORD_PATH = '/newPassword/:token?'
 export const CARD_DECKS_PATH = '/cardDecks';
+export const CARDS_PATH_WITH_USER = '/cards/:deckId?';
 export const CARDS_PATH = '/cards';
 
 const Body: React.FC = () => {
@@ -40,8 +42,13 @@ const Body: React.FC = () => {
                 </MainContainer>
             </Route>
             <Route path={CARD_DECKS_PATH}>
-                <MainContainer whiteBox>
+                <MainContainer>
                     <CardDecksContainer/>
+                </MainContainer>
+            </Route>
+            <Route path={CARDS_PATH_WITH_USER}>
+                <MainContainer>
+                    <CardsContainer/>
                 </MainContainer>
             </Route>
 

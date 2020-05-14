@@ -58,7 +58,7 @@ export type PostDeckResponseType = {
 };
 
 export type DeleteDeckResponseType = {
-    deletedCardsPack: {_id: string},
+    deletedCardsPack: { _id: string },
     success: boolean,
     token: string,
     tokenDeathTime: number,
@@ -77,4 +77,40 @@ export const decksAPI = {
         (instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`).then(res => res.data)),
     postDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
     putDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
+}
+
+export type CardType = {
+    _id: string,
+    answer: string,
+    question: string,
+    cardsPack_id: string,
+    grade: number,
+    rating: number,
+    shots: number,
+    type: string,
+    created: string,
+    updated: string,
+    __v: number
+};
+
+export type GetCardsType = {
+    cards: Array<CardType>,
+    cardsTotalCount: number,
+    maxGrade: string,
+    minGrade: number,
+    page: number
+    pageCount: number,
+    token: string,
+    tokenDeathTime: number
+};
+
+export const cardsAPI = {
+    getCards: (token: string | null, deckId: string) => (
+        instance.get<GetCardsType>(`cards/card?&token=${token}&cardsPack_id=${deckId}`)
+            .then(res => res.data)
+    )
+    // deleteDeck: (token: string | null, id: string) =>
+    //     (instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`).then(res => res.data)),
+    // postDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
+    // putDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
 }

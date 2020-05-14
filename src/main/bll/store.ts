@@ -7,6 +7,7 @@ import newPasswordReducer from "../../01-auth/newPassword/newPassword-reducer";
 import recoveryPasswordReducer from "../../01-auth/recoveryPassword/recoveryPassword-reducer";
 import profileReducer from "../../01-auth/profile/profile-reducer";
 import cardDecksReducer from "../../02-tables/cardDecks/cardDecksReducer";
+import cardsReducer from "../../02-tables/cards/cardsReducer";
 
 const rootReducer = combineReducers({
     login:loginReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     recoveryPassword: recoveryPasswordReducer,
     profile: profileReducer,
     cardDecksReducer: cardDecksReducer,
+    cards: cardsReducer,
     form: formReducer
 });
 

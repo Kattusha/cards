@@ -54,11 +54,14 @@ const ProfileContainer = styled(MainContainer)`
 `;
 const UserDecksInfoContainer = styled(MainContainer)`
   background-color: #fff;
-  border-radius: 15px;
+  //border-radius: 15px;
   margin-left: 64px;
   max-width: 776px;
   //vertical-align: top;
-  width: 776px;
+  //width: 776px;
+  padding: 40px 30px;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 const UserCardInfo = styled.div`

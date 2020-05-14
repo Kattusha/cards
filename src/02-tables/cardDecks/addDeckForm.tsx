@@ -15,6 +15,7 @@ const FormStyled = styled.form`
     max-width: 300px;
     text-align: center;
     margin: 0 auto;
+    margin-bottom: 30px;
 `;
 
 const AddDeckForm: React.FC<PropsType & InjectedFormProps<{}, PropsType>>  =
