@@ -13,9 +13,9 @@ const App: React.FC = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         dispatch(getMe());
-    },[dispatch])
+    },[dispatch])*/
 
     return (
         <>

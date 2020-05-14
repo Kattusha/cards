@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components/macro";
 import {CardPackType} from "../api";
+import {InfoHeader, Name} from "./cardDecks";
 
 const DeckWrapper = styled.div`
   height: 100px;
@@ -12,28 +13,32 @@ const DeckWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const DeckName = styled.div`
-  text-align: center;
-  font-size: 21px;
-`;
-
-const DeckRating = styled(DeckName)`
-  
-`;
-
-const DeckTags = styled(DeckName)`
-  
-`;
-
 const DeleteButton = styled.button`
   width: 100px;
   height: 50px;
-  text-align: center;
+  margin-left: 5px;
+  text-align: left;
   line-height: 50px;
   background-color: coral;
   border-radius: 10px;
   cursor: pointer;
 `;
+
+const ActionsMenu = styled.div`
+  display: flex;
+  flex-flow: column;
+  font-size: 15px;
+`;
+
+const Action = styled.div`
+  width: 100px;
+  height: 20px;
+  cursor: pointer;
+  &:hover {
+   color: #32cdff;
+  }
+`;
+
 
 type PropsType = CardPackType & AdditionalPropsType;//тут куча пропсов
 
@@ -44,10 +49,14 @@ type AdditionalPropsType = {
 const Deck = ({_id, grade, name, shots, rating, deletePack, ...props}: PropsType) => {
     return (
         <DeckWrapper>
-            <DeckName>{name}</DeckName>
-            <DeckRating>{grade}</DeckRating>
-            <DeckTags>{shots}</DeckTags>
-            <DeleteButton onClick={() => deletePack(_id)}>delete</DeleteButton>
+            <Name>{name}</Name>
+            <InfoHeader>{grade}</InfoHeader>
+            <InfoHeader>{shots}</InfoHeader>
+            <InfoHeader>{rating}</InfoHeader>
+            <ActionsMenu>
+                <Action onClick={() => deletePack(_id)}>Delete</Action>
+                <Action>Change</Action>
+            </ActionsMenu>
         </DeckWrapper>
     )
 }
