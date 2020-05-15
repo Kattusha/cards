@@ -48,10 +48,11 @@ const actions = {
 type ActionsTypes = InferActionTypes<typeof actions>;
 
 export const getDecks = (): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: any) => {
+    async (dispatch: any, getState: () => AppStateType) => {
+        let userID = getState().login.userId;
         dispatch(actions.setLoadingStatus(true));
         let token = getCookie('token');
-        let data = await decksAPI.getDecks(token);
+        let data = await decksAPI.getDecks(token, userID);
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
         dispatch(actions.setDecks(data))
     };

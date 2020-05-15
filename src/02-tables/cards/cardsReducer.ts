@@ -1,10 +1,29 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction} from "redux-thunk";
-import {cardsAPI, GetCardsType} from "../api";
+import {cardsAPI, CardType, GetCardsType} from "../api";
 import {getCookie, setCookie} from "../../01-auth/login/cookies";
 
-let initialState = {
-    cards: {cards: [{}]} as GetCardsType,
+type CardsType = {
+    cards: Array<CardType> ,
+    cardsTotalCount: number,
+    maxGrade: string,
+    minGrade: number,
+    page: number
+    pageCount: number,
+    token: string,
+    tokenDeathTime: number,
+    isLoading: boolean
+}
+
+let initialState : CardsType = {
+    cards: [],
+    cardsTotalCount: 0,
+    maxGrade: '',
+    minGrade: 0,
+    page: 0,
+    pageCount: 0,
+    token: '',
+    tokenDeathTime: 0,
     isLoading: false
 };
 
@@ -15,18 +34,15 @@ const cardsReducer = (state = initialState, action: ActionsTypes): InitialStateT
         case "cardsReducer/SET_CARDS":
             return {
                 ...state,
-                cards: action.cards,
+                ...action.cards,
+                // cards: action.cards.cards,
+                cards: action.cards.cards.map(card => ({...card})),
                 isLoading: false
             };
         case "cardsReducer/DELETE_CARD":
             return {
                 ...state,
-                cards: {
-                    ...state.cards,
-                    cards: state.cards.cards.filter(card => {
-                        return card._id !== action.id;
-                    })
-                },
+                cards: state.cards.filter((card) => card._id !== action.id),
                 isLoading: false
             }
         case "cardsReducer/LOADING_STATUS":

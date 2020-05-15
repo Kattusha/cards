@@ -11,7 +11,7 @@ const CardsContainer: React.FC = (props: any) => {
 
     const dispatch = useDispatch();
     const {isLoading} = useSelector((store: AppStateType) => store.cards);
-    const cards = useSelector((store: AppStateType) => store.cards.cards.cards);
+    const cards = useSelector((store: AppStateType) => store.cards.cards);
     let deckId = props.match.params.deckId;
 
     useEffect(() => {
