@@ -1,6 +1,6 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction} from "redux-thunk";
-import {cardsAPI, decksAPI, GetCardsType, GetDecksType, PostOrPutCardsPackType} from "../api";
+import {cardsAPI, GetCardsType} from "../api";
 import {getCookie, setCookie} from "../../01-auth/login/cookies";
 
 let initialState = {
@@ -60,7 +60,7 @@ export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown,
     async (dispatch: any) => {
         dispatch(actions.setLoadingStatus(true));
         let token = getCookie('token');
-        let data = await cardsAPI .deleteCard(token, id);
+        let data = await cardsAPI.deleteCard(token, id);
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
         if (data.success) dispatch(actions.deleteCard(data.deletedCard._id))
     };

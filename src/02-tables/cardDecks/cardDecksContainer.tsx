@@ -16,7 +16,7 @@ const CardDecksContainer = () => {
 
     useEffect(() => {
         dispatch(getDecks())
-    }, []);
+    }, [dispatch]);
 
     const deletePack = (id: string) => {
         dispatch(deleteDeck(id))

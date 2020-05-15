@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components/macro";
-import {Button, H3, H1, ContainerWrapper} from "../../main/ui/style/commonStyle";
+import {Button, H1} from "../../main/ui/style/commonStyle";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ import {logOut} from "../login/login-reducer";
 import {AppStateType} from "../../main/bll/store";
 import {Redirect, Route} from "react-router-dom";
 import {CARDS_PATH_WITH_USER, LOGIN_PATH, PROFILE_PATH} from "../../main/ui/components/Body";
-import {MainContainer, MainWrapper} from "../../main/ui/style/bodyStyle";
+import {MainContainer} from "../../main/ui/style/bodyStyle";
 import noUserPhoto from '../../main/ui/images/no-user-photo.jpg'
 import CardDecksContainer from "../../02-tables/cardDecks/cardDecksContainer";
 import CardsContainer from "../../02-tables/cards/cardsContainer";

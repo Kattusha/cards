@@ -12,12 +12,11 @@ const CardsContainer: React.FC = (props: any) => {
     const dispatch = useDispatch();
     const {isLoading} = useSelector((store: AppStateType) => store.cards);
     const cards = useSelector((store: AppStateType) => store.cards.cards.cards);
-    debugger
     let deckId = props.match.params.deckId;
 
     useEffect(() => {
         dispatch(getCards(deckId))
-    }, []);
+    }, [dispatch, deckId]);
 
     const onDeleteCard = (id: string) => {
         dispatch(deleteCard(id));

@@ -1,13 +1,11 @@
 import React from 'react';
 import {MainContainer, MainWrapper} from '../style/bodyStyle';
 import SignIn from "../../../01-auth/registration/SignIn";
-import {Route, Redirect} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import Login from "../../../01-auth/login/Login";
 import RecoveryPassword from "../../../01-auth/recoveryPassword/RecoveryPassword";
 import NewPassword from "../../../01-auth/newPassword/NewPassword";
 import Profile from "../../../01-auth/profile/Profile";
-import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
-import CardsContainer from "../../../02-tables/cards/cardsContainer";
 
 export const LOGIN_PATH = '/login';
 export const SIGN_IN_PATH = '/signIn';

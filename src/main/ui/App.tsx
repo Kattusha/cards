@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import Header from "./components/Header";
-import Body, {LOGIN_PATH, PROFILE_PATH} from "./components/Body";
+import Body from "./components/Body";
 import {useDispatch, useSelector} from "react-redux";
-import {getMe} from "../../01-auth/login/login-reducer";
-import {Redirect} from "react-router-dom";
 import {AppStateType} from "../bll/store";
 import Preloader from "./components/preloader/Preloader";
 import {initializationApp} from "../bll/app-reducer";
@@ -22,7 +20,7 @@ const App: React.FC = () => {
     useEffect(()=>{
         console.log("initializationApp");
         dispatch(initializationApp());
-    },[])
+    },[dispatch])
 
     if (!isInitializedApp) return <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/>
 
