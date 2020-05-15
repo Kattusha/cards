@@ -8,11 +8,12 @@ import {IconDiv} from "../../main/ui/style/headerStyle";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../login/login-reducer";
 import {AppStateType} from "../../main/bll/store";
-import {Redirect} from "react-router-dom";
-import {LOGIN_PATH} from "../../main/ui/components/Body";
-import {MainContainer} from "../../main/ui/style/bodyStyle";
+import {Redirect, Route} from "react-router-dom";
+import {CARDS_PATH_WITH_USER, LOGIN_PATH, PROFILE_PATH} from "../../main/ui/components/Body";
+import {MainContainer, MainWrapper} from "../../main/ui/style/bodyStyle";
 import noUserPhoto from '../../main/ui/images/no-user-photo.jpg'
 import CardDecksContainer from "../../02-tables/cardDecks/cardDecksContainer";
+import CardsContainer from "../../02-tables/cards/cardsContainer";
 
 library.add(fas);
 
@@ -24,8 +25,8 @@ const Profile: React.FC = () => {
     const onLogOut = () => {
         dispatch(logOut());
     }
-
-    if (!isAuthorized) return <Redirect to={LOGIN_PATH}/>
+    if (!isAuthorized)
+        return <Redirect to={LOGIN_PATH}/>;
 
     return (
         <ProfileContainer>
@@ -40,8 +41,15 @@ const Profile: React.FC = () => {
                 </Button>
             </UserCardInfo>
             <UserDecksInfoContainer>
-                <CardDecksContainer />
+                <Route path={CARDS_PATH_WITH_USER}>
+                    <CardsContainer/>
+                </Route>
+                <Route exact path={PROFILE_PATH}>
+                    <CardDecksContainer/>
+                </Route>
             </UserDecksInfoContainer>
+
+
         </ProfileContainer>
     )
 }

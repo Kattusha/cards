@@ -1,11 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components/macro";
-import {CardPackType, CardType} from "../api";
+import {CardPackType} from "../api";
 import {InfoHeader, Name} from "./cardDecks";
 import {NavLink} from "react-router-dom";
-import { CARDS_PATH } from "../../main/ui/components/Body";
 
-const DeckWrapper = styled.div`
+export const DeckWrapper = styled.div`
   padding: 10px 0;
   display: flex;
   justify-content: space-around;
@@ -14,24 +13,24 @@ const DeckWrapper = styled.div`
   background-color: #fff;
 `;
 
-const DeleteButton = styled.button`
-  width: 100px;
-  height: 50px;
-  margin-left: 5px;
-  text-align: left;
-  line-height: 50px;
-  background-color: coral;
-  border-radius: 10px;
-  cursor: pointer;
-`;
+// const DeleteButton = styled.button`
+//   width: 100px;
+//   height: 50px;
+//   margin-left: 5px;
+//   text-align: left;
+//   line-height: 50px;
+//   background-color: coral;
+//   border-radius: 10px;
+//   cursor: pointer;
+// `;
 
-const ActionsMenu = styled.div`
+export const ActionsMenu = styled.div`
   display: flex;
   flex-flow: column;
   font-size: 15px;
 `;
 
-const Action = styled.div<{backgroundColor: string}>`
+export const Action = styled.div<{backgroundColor: string}>`
   border-radius: 10px;
   cursor: pointer;
   background-color: ${props => props.backgroundColor};
@@ -44,7 +43,7 @@ const Action = styled.div<{backgroundColor: string}>`
    opacity: .8;
   }
 `;
-const NameDeckNavLink = styled(NavLink)`
+export const NameDeckNavLink = styled(NavLink)`
     font-family: 'DINNextLTPro-Bold';
     //font-size: 15px;
     color: #32cdff;
@@ -57,19 +56,18 @@ const NameDeckNavLink = styled(NavLink)`
     }
 `;
 
-type PropsType = (CardPackType & AdditionalPropsType) | (CardType & AdditionalPropsType);//тут куча пропсов
+type PropsType = CardPackType & AdditionalPropsType;//тут куча пропсов
 
 type AdditionalPropsType = {
     deletePack: (id: string) => void
 }
 
-const Deck = ({_id, grade, shots, rating, deletePack, ...props}: PropsType) => {
+const Deck = ({_id, name, grade, shots, rating, deletePack, ...props}: PropsType) => {
     return (
         <DeckWrapper>
             <Name>
-                <NameDeckNavLink to={`${CARDS_PATH}/${_id}`}>
-                    {/*{props.name || props.question}*/}
-                    {_id}
+                <NameDeckNavLink to={`/profile/cards/${_id}`}>
+                    {name}
                 </NameDeckNavLink>
                 </Name>
             <InfoHeader>{grade}</InfoHeader>

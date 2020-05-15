@@ -1,7 +1,7 @@
 import React from 'react';
 import {MainContainer, MainWrapper} from '../style/bodyStyle';
 import SignIn from "../../../01-auth/registration/SignIn";
-import {Route} from "react-router-dom";
+import {Route, Redirect} from "react-router-dom";
 import Login from "../../../01-auth/login/Login";
 import RecoveryPassword from "../../../01-auth/recoveryPassword/RecoveryPassword";
 import NewPassword from "../../../01-auth/newPassword/NewPassword";
@@ -15,12 +15,16 @@ export const PROFILE_PATH = '/profile';
 export const RECOVERY_PASSWORD_PATH = '/recoveryPassword';
 export const NEW_PASSWORD_PATH = '/newPassword/:token?'
 export const CARD_DECKS_PATH = '/cardDecks';
-export const CARDS_PATH_WITH_USER = '/cards/:deckId?';
-export const CARDS_PATH = '/cards';
+export const CARDS_PATH_WITH_USER = '/profile/cards/:deckId?';
+// export const CARDS_PATH = '/cards';
 
 const Body: React.FC = () => {
     return (
         <MainWrapper>
+
+            {/*?????????*/}
+            <Route exact path={'/cards'} render={() => <Redirect to={LOGIN_PATH}/>}/>
+
             <Route path={SIGN_IN_PATH}>
                 <MainContainer whiteBox>
                     <SignIn/>
@@ -41,16 +45,16 @@ const Body: React.FC = () => {
                     <NewPassword/>
                 </MainContainer>
             </Route>
-            <Route path={CARD_DECKS_PATH}>
-                <MainContainer>
-                    <CardDecksContainer/>
-                </MainContainer>
-            </Route>
-            <Route path={CARDS_PATH_WITH_USER}>
-                <MainContainer>
-                    <CardsContainer/>
-                </MainContainer>
-            </Route>
+            {/*<Route path={CARD_DECKS_PATH}>*/}
+            {/*    <MainContainer>*/}
+            {/*        <CardDecksContainer/>*/}
+            {/*    </MainContainer>*/}
+            {/*</Route>*/}
+            {/*<Route path={CARDS_PATH_WITH_USER}>*/}
+            {/*    <MainContainer>*/}
+            {/*        <CardsContainer/>*/}
+            {/*    </MainContainer>*/}
+            {/*</Route>*/}
 
             <Route path={PROFILE_PATH} component={Profile} />
 

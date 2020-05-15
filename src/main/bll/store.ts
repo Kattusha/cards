@@ -8,8 +8,10 @@ import recoveryPasswordReducer from "../../01-auth/recoveryPassword/recoveryPass
 import profileReducer from "../../01-auth/profile/profile-reducer";
 import cardDecksReducer from "../../02-tables/cardDecks/cardDecksReducer";
 import cardsReducer from "../../02-tables/cards/cardsReducer";
+import appReducer from "./app-reducer";
 
 const rootReducer = combineReducers({
+    app: appReducer,
     login:loginReducer,
     registration: registrationReducer,
     newPassword: newPasswordReducer,

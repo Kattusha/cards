@@ -1,18 +1,15 @@
 import React from "react";
 import styled from "styled-components/macro";
 import Deck from "./deck";
-import {CardPackType, CardType} from "../api";
-import {CARD_DECKS_PATH} from "../../main/ui/components/Body";
-import {MenuNavLink} from "../../main/ui/style/headerStyle";
-import {NavLink} from "react-router-dom";
+import {CardPackType} from "../api";
 
-const DecksWrapper = styled.div`
+export const DecksWrapper = styled.div`
   width: 100%;
   border: 2px solid #e8e8e8;
   border-radius: 10px;
 `;
 
-const DeckHeader = styled.div`
+export const DeckHeader = styled.div`
   display: flex;
   justify-content: space-around;
   color: #c4c4c4;
@@ -34,7 +31,7 @@ export const InfoHeader = styled(Name)`
 `;
 
 type PropsType = {
-    decks: Array<CardPackType | CardType>,
+    decks: Array<CardPackType>,
     deletePack: (id: string) => void
 }
 

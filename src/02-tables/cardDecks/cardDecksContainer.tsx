@@ -29,7 +29,6 @@ const CardDecksContainer = () => {
         dispatch(addDeck(newPack))
     }
 
-
     return (
         <>
             {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :

@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import Preloader from "../../main/ui/components/preloader/Preloader";
-import {getCards} from "./cardsReducer";
-import CardDecks from "../cardDecks/cardDecks";
+import {getCards, deleteCard} from "./cardsReducer";
 import {compose} from "redux";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
+import CardsOfDecks from "./CardsOfDeck";
 
 const CardsContainer: React.FC = (props: any) => {
 
@@ -19,16 +19,15 @@ const CardsContainer: React.FC = (props: any) => {
         dispatch(getCards(deckId))
     }, []);
 
-    const deleteCard = (id: string) => {
-        // dispatch(deleteDeck(id))
-        console.log("need delete card")
+    const onDeleteCard = (id: string) => {
+        dispatch(deleteCard(id));
+        // console.log("need delete card")
     };
 
     return (
         <>
             {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
-                // <Cards cards={cards}/>
-                <CardDecks decks={cards} deletePack={deleteCard}/>
+                <CardsOfDecks cards={cards} deleteCard={onDeleteCard}/>
             }
         </>
     )

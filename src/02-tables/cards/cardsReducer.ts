@@ -18,6 +18,17 @@ const cardsReducer = (state = initialState, action: ActionsTypes): InitialStateT
                 cards: action.cards,
                 isLoading: false
             };
+        case "cardsReducer/DELETE_CARD":
+            return {
+                ...state,
+                cards: {
+                    ...state.cards,
+                    cards: state.cards.cards.filter(card => {
+                        return card._id !== action.id;
+                    })
+                },
+                isLoading: false
+            }
         case "cardsReducer/LOADING_STATUS":
             return {
                 ...state,
@@ -30,8 +41,8 @@ const cardsReducer = (state = initialState, action: ActionsTypes): InitialStateT
 
 const actions = {
     setCards: (cards: GetCardsType) => ({type: "cardsReducer/SET_CARDS", cards} as const),
-    // deleteDeck: (id: string) => ({type: "cardDeckReducer/DELETE_DECK", id} as const),
-     setLoadingStatus: (isLoading: boolean) => ({type: "cardsReducer/LOADING_STATUS", isLoading} as const),
+    deleteCard: (id: string) => ({type: "cardsReducer/DELETE_CARD", id} as const),
+    setLoadingStatus: (isLoading: boolean) => ({type: "cardsReducer/LOADING_STATUS", isLoading} as const),
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>;
@@ -40,21 +51,19 @@ export const getCards = (deckId: string): ThunkAction<void, AppStateType, unknow
     async (dispatch: any) => {
         dispatch(actions.setLoadingStatus(true));
         let token = getCookie('token');
-        debugger
         let data = await cardsAPI.getCards(token, deckId);
-        debugger
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
         dispatch(actions.setCards(data))
     };
-//
-// export const deleteDeck = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>//Напоминалка: словить ошибки try catch
-//     async (dispatch: any) => {
-//         dispatch(actions.setLoadingStatus(true));
-//         let token = getCookie('token');
-//         let data = await decksAPI.deleteDeck(token, id);
-//         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-//         if (data.success) dispatch(actions.deleteDeck(data.deletedCardsPack._id))
-//     };
+
+export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>//Напоминалка: словить ошибки try catch
+    async (dispatch: any) => {
+        dispatch(actions.setLoadingStatus(true));
+        let token = getCookie('token');
+        let data = await cardsAPI .deleteCard(token, id);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        if (data.success) dispatch(actions.deleteCard(data.deletedCard._id))
+    };
 //
 // export const addDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
 //     async (dispatch: any) => {

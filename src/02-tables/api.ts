@@ -104,13 +104,21 @@ export type GetCardsType = {
     tokenDeathTime: number
 };
 
+export type DeleteCardResponseType = {
+    deletedCard: { _id: string },
+    success: boolean,
+    token: string,
+    tokenDeathTime: number,
+};
+
 export const cardsAPI = {
     getCards: (token: string | null, deckId: string) => (
         instance.get<GetCardsType>(`cards/card?&token=${token}&cardsPack_id=${deckId}`)
             .then(res => res.data)
-    )
-    // deleteDeck: (token: string | null, id: string) =>
-    //     (instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`).then(res => res.data)),
+    ),
+    deleteCard: (token: string | null, id: string) =>
+        (instance.delete<DeleteCardResponseType>(`cards/card?&token=${token}&id=${id}`)
+            .then(res => res.data)),
     // postDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
     // putDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
 }

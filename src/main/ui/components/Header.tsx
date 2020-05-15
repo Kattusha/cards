@@ -37,7 +37,7 @@ const Header: React.FC = () => {
                     {/*<MenuNavLink to={recoveryPasswordPath}>Recovery</MenuNavLink>*/}
                     {/*<MenuNavLink to={newPasswordPath}>New password</MenuNavLink>*/}
                     {/*<MenuNavLink to={profilePath}>Profile</MenuNavLink>*/}
-                    <MenuNavLink to={CARD_DECKS_PATH}>Decks</MenuNavLink>
+                    {/*<MenuNavLink to={CARD_DECKS_PATH}>Decks</MenuNavLink>*/}
 
 
                     {isAuthorized ?
