@@ -10,7 +10,8 @@ import styled from "styled-components/macro";
 const CardDecksContainer = () => {
 
     const isLoading = useSelector((store: AppStateType) => store.cardDecksReducer.isLoading);
-    const decks = useSelector((store: AppStateType) => store.cardDecksReducer.decks.cardPacks);
+    const decks = useSelector((store: AppStateType) => store.cardDecksReducer.cardPacks);
+    const {cardPacksTotalCount} = useSelector((store: AppStateType) => store.cardDecksReducer);
     const userId = useSelector((store: AppStateType) => store.login.userId);
     const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ const CardDecksContainer = () => {
         <>
             {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
                 <Wrapper>
+                    {cardPacksTotalCount}
                     <AddDeckReduxForm onSubmit={addPack} isLoading={isLoading}/>
                     <CardDecks decks={decks} deletePack={deletePack}/>
                 </Wrapper>}
