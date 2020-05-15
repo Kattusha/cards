@@ -4,7 +4,7 @@ import {cardsAPI, CardType, GetCardsType} from "../api";
 import {getCookie, setCookie} from "../../01-auth/login/cookies";
 
 type CardsType = {
-    cards: Array<CardType> ,
+    cards: Array<CardType>,
     cardsTotalCount: number,
     maxGrade: string,
     minGrade: number,
@@ -15,7 +15,7 @@ type CardsType = {
     isLoading: boolean
 }
 
-let initialState : CardsType = {
+let initialState: CardsType = {
     cards: [],
     cardsTotalCount: 0,
     maxGrade: '',
@@ -72,7 +72,7 @@ export const getCards = (deckId: string): ThunkAction<void, AppStateType, unknow
         dispatch(actions.setCards(data))
     };
 
-export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>//Напоминалка: словить ошибки try catch
+export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
     async (dispatch: any) => {
         dispatch(actions.setLoadingStatus(true));
         let token = getCookie('token');
@@ -80,31 +80,5 @@ export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown,
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
         if (data.success) dispatch(actions.deleteCard(data.deletedCard._id))
     };
-//
-// export const addDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-//     async (dispatch: any) => {
-//         dispatch(actions.setLoadingStatus(true));
-//         let token = getCookie('token');
-//         let newDeck = {
-//             cardsPack: newPack,
-//             token
-//         };
-//         let data = await decksAPI.postDeck(newDeck);
-//         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-//         dispatch(getDecks());
-//     };
-//
-// export const changeDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-//     async (dispatch: any) => {
-//         dispatch(actions.setLoadingStatus(true));
-//         let token = getCookie('token');
-//         let newDeck = {
-//             cardsPack: newPack,
-//             token
-//         };
-//         let data = await decksAPI.postDeck(newDeck);
-//         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-//         dispatch(getDecks());
-//     };
 
 export default cardsReducer;

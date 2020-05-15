@@ -27,11 +27,6 @@ let initialState: DecksType = {
     isLoading: false
 };
 
-// let initialState = {
-//     decks: {cardPacks: [{}]} as GetDecksType,
-//     isLoading: false
-// };
-
 type InitialStateType = typeof initialState;
 
 const cardDecksReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -77,7 +72,7 @@ export const getDecks = (): ThunkAction<void, AppStateType, unknown, ActionsType
         dispatch(actions.setDecks(data))
     };
 
-export const deleteDeck = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>//Напоминалка: словить ошибки try catch
+export const deleteDeck = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
     async (dispatch: any) => {
         dispatch(actions.setLoadingStatus(true));
         let token = getCookie('token');
@@ -87,19 +82,6 @@ export const deleteDeck = (id: string): ThunkAction<void, AppStateType, unknown,
     };
 
 export const addDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: any) => {
-        dispatch(actions.setLoadingStatus(true));
-        let token = getCookie('token');
-        let newDeck = {
-            cardsPack: newPack,
-            token
-        };
-        let data = await decksAPI.postDeck(newDeck);
-        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-        dispatch(getDecks());
-    };
-
-export const changeDeck = (newPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
     async (dispatch: any) => {
         dispatch(actions.setLoadingStatus(true));
         let token = getCookie('token');
