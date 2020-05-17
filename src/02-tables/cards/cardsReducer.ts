@@ -1,6 +1,6 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction} from "redux-thunk";
-import {cardsAPI, CardType, GetCardsType} from "../api";
+import {cardsAPI, CardType, GetCardsType, PostOrPutCardType} from "../api";
 import {getCookie, setCookie} from "../../01-auth/login/cookies";
 
 type CardsType = {
@@ -24,7 +24,7 @@ let initialState: CardsType = {
     pageCount: 0,
     token: '',
     tokenDeathTime: 0,
-    isLoading: false
+    isLoading: false,
 };
 
 type InitialStateType = typeof initialState;
@@ -50,6 +50,11 @@ const cardsReducer = (state = initialState, action: ActionsTypes): InitialStateT
                 ...state,
                 isLoading: action.isLoading,
             }
+        case "cardReducer/SET_PAGE":
+            return {
+                ...state,
+                page: action.page
+            }
         default:
             return state;
     }
@@ -59,6 +64,7 @@ const actions = {
     setCards: (cards: GetCardsType) => ({type: "cardsReducer/SET_CARDS", cards} as const),
     deleteCard: (id: string) => ({type: "cardsReducer/DELETE_CARD", id} as const),
     setLoadingStatus: (isLoading: boolean) => ({type: "cardsReducer/LOADING_STATUS", isLoading} as const),
+    setPage: (page: number) => ({type: "cardReducer/SET_PAGE", page} as const)
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>;
@@ -79,6 +85,36 @@ export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown,
         let data = await cardsAPI.deleteCard(token, id);
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
         if (data.success) dispatch(actions.deleteCard(data.deletedCard._id))
+    };
+
+export const postCard = (card: PostOrPutCardType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        dispatch(actions.setLoadingStatus(true));
+        let token = getCookie('token');
+        let newCard = { card, token };
+        let data = await cardsAPI.postCard(newCard);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(getCards(card.cardsPack_id));
+    };
+
+export const chooseCardsPage = (page: number, deckId: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any, getState: () => AppStateType) => {
+        dispatch(actions.setLoadingStatus(true));
+        let token = getCookie('token');
+        let data = await cardsAPI.getCards(token, deckId, page);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(actions.setCards(data));
+        dispatch(actions.setPage(page))
+    };
+
+export const putCard = (card: PostOrPutCardType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        dispatch(actions.setLoadingStatus(true));
+        let token = getCookie('token');
+        let editedCard = { card, token };
+        let data = await cardsAPI.putCard(editedCard);
+        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+        dispatch(getCards(card.cardsPack_id));
     };
 
 export default cardsReducer;

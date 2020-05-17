@@ -17,6 +17,7 @@ import {AppStateType} from "../../bll/store";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {far} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import SearchDeck from "../../../02-tables/cardDecks/searchDeck";
 
 library.add(far);
 
@@ -31,6 +32,7 @@ const Header: React.FC = () => {
                     {/*<LogoLinkBlock as={NavLink} to='/login'>*/}
                     <LogoImg src={logo} alt="logo"/>
                     <LogoText>cards</LogoText>
+                    <SearchDeck/>
                 </LogoLinkBlock>
                 <FlexRowCenter>
                     {/*<MenuNavLink to={loginPath}>Log in</MenuNavLink>*/}

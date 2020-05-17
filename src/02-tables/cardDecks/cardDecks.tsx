@@ -32,10 +32,11 @@ export const InfoHeader = styled(Name)`
 
 type PropsType = {
     decks: Array<CardPackType>,
-    deletePack: (id: string) => void
+    deletePack: (id: string) => void,
+    editPack: (id: string) => void,
 }
 
-const CardDecks = ({decks, deletePack}: PropsType) => {
+const CardDecks = ({decks, deletePack, editPack}: PropsType) => {
     return (
         <DecksWrapper>
             <DeckHeader>
@@ -45,7 +46,7 @@ const CardDecks = ({decks, deletePack}: PropsType) => {
                 <InfoHeader>Rating</InfoHeader>
                 <InfoHeader>Actions</InfoHeader>
             </DeckHeader>
-            {decks.map(deck => <Deck key={deck._id} {...deck} deletePack={deletePack}/>)}
+            {decks.map(deck => <Deck key={deck._id} {...deck} deletePack={deletePack} editPack={editPack}/>)}
         </DecksWrapper>
     )
 }

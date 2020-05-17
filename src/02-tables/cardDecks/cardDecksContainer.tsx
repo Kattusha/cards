@@ -1,17 +1,19 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
-import {addDeck, deleteDeck, getDecks} from "./cardDecksReducer";
+import {addDeck, choosePage, deleteDeck, getDecks, putDeck} from "./cardDecksReducer";
 import Preloader from "../../main/ui/components/preloader/Preloader";
 import CardDecks from "./cardDecks";
 import {AddDeckReduxForm} from "./addDeckForm";
 import styled from "styled-components/macro";
+import Pagination from "../pagination";
+import Modal from "./modal";
+import {EditDeckReduxForm} from "./editDeckForm";
 
 const CardDecksContainer = () => {
 
-    const isLoading = useSelector((store: AppStateType) => store.cardDecksReducer.isLoading);
-    const decks = useSelector((store: AppStateType) => store.cardDecksReducer.cardPacks);
-    const {cardPacksTotalCount} = useSelector((store: AppStateType) => store.cardDecksReducer);
+    const {isLoading, cardPacksTotalCount, cardPacks, page, pageCount} =
+        useSelector((store: AppStateType) => store.cardDecksReducer);
     const userId = useSelector((store: AppStateType) => store.login.userId);
     const dispatch = useDispatch();
 
@@ -28,7 +30,24 @@ const CardDecksContainer = () => {
             name,
         }
         dispatch(addDeck(newPack))
+    };
+    const changePage = (page: number) => {
+        dispatch(choosePage(page))
+    };
+
+    const [{isModalOpened, editedDeckId}, setChangeModal] = useState({isModalOpened: false, editedDeckId: ''});
+    const closeModalWindow = () => setChangeModal({isModalOpened: false, editedDeckId: ''});
+    const editDeck = (deckId: string) => {
+        setChangeModal({isModalOpened: true, editedDeckId: deckId});
     }
+    const changePack = ({name}: any) => {
+        let editedPack = {
+            _id: editedDeckId,
+            name
+        }
+        dispatch(putDeck(editedPack));
+        closeModalWindow()
+    };
 
     return (
         <>
@@ -36,8 +55,16 @@ const CardDecksContainer = () => {
                 <Wrapper>
                     {cardPacksTotalCount}
                     <AddDeckReduxForm onSubmit={addPack} isLoading={isLoading}/>
-                    <CardDecks decks={decks} deletePack={deletePack}/>
+                    <CardDecks decks={cardPacks} deletePack={deletePack} editPack={editDeck}/>
+                    <Pagination totalCount={cardPacksTotalCount} onPageCount={pageCount} currentPage={page}
+                                changePage={changePage}/>
                 </Wrapper>}
+            {isModalOpened &&
+            <Modal closeModal={closeModalWindow}>
+                <EditDeckReduxForm isLoading={isLoading} onSubmit={changePack}
+                                   deck={cardPacks.find(deck => deck._id === editedDeckId)}/>
+            </Modal>
+            }
         </>
     )
 }

@@ -36,7 +36,7 @@ export type GetDecksType = {
 };
 
 export type PostOrPutCardsPackType = {
-    user_id: string | null,
+    user_id?: string | null,
     name?: string,
     path?: string,
     grade?: string,
@@ -51,35 +51,39 @@ export type PostOrPutDeckType = {
 };
 
 export type PostDeckResponseType = {
-    newCardsPack: {},
+    newCardsPack: CardPackType,
     success: boolean,
     token: string,
     tokenDeathTime: number
 };
 
 export type DeleteDeckResponseType = {
-    deletedCardsPack: { _id: string },
+    deletedCardsPack: CardPackType,
     success: boolean,
     token: string,
     tokenDeathTime: number,
 };
 
 export type PutDeckResponseType = {
-    updatedCardsPack: {},
+    updatedCardsPack: CardPackType,
     success: boolean,
     token: string,
     tokenDeathTime: number,
 }
 
 export const decksAPI = {
-    getDecks: (token: string | null, userID: string | null) => (
-        instance.get<GetDecksType>(`cards/pack?&token=${token}&user_id=${userID}&pageCount=6`)
+    getDecks: (token: string | null, page?: number) => (
+        instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=6&page=${page}`)
+            .then(res => res.data)
+    ),
+    searchDecks: (token: string | null, deckName: string) => (
+        instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=6&&packName=${deckName}`)
             .then(res => res.data)
     ),
     deleteDeck: (token: string | null, id: string) =>
         (instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`).then(res => res.data)),
     postDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
-    putDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
+    putDeck: (object: PostOrPutDeckType) => (instance.put<PutDeckResponseType>(`cards/pack`, object).then(res => res.data)),
 }
 
 export type CardType = {
@@ -108,20 +112,50 @@ export type GetCardsType = {
 };
 
 export type DeleteCardResponseType = {
-    deletedCard: { _id: string },
+    deletedCard: CardType,
     success: boolean,
     token: string,
     tokenDeathTime: number,
 };
 
+export type PostOrPutCardType = {
+    cardsPack_id: string,
+    _id?: string,
+    question?: string,
+    answer?: string,
+    grade?: number,
+    shots?: number,
+    rating?: number,
+    type?: string,
+}
+
+export type PostOrPutCardObjectType = {
+    card: PostOrPutCardType,
+    token: string | null
+}
+
+export type PostCardResponseType = {
+    newCard: CardType,
+    success: boolean,
+    token: string,
+    tokenDeathTime: number,
+}
+
+export type PutCardResponseType = {
+    updatedCard: CardType,
+    success: boolean,
+    token: string,
+    tokenDeathTime: number,
+}
+
 export const cardsAPI = {
-    getCards: (token: string | null, deckId: string) => (
-        instance.get<GetCardsType>(`cards/card?&token=${token}&cardsPack_id=${deckId}`)
+    getCards: (token: string | null, deckId: string, page?: number) => (
+        instance.get<GetCardsType>(`cards/card?&token=${token}&cardsPack_id=${deckId}&pageCount=6&page=${page}`)
             .then(res => res.data)
     ),
     deleteCard: (token: string | null, id: string) =>
         (instance.delete<DeleteCardResponseType>(`cards/card?&token=${token}&id=${id}`)
             .then(res => res.data)),
-    // postDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
-    // putDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
+    postCard: (object: PostOrPutCardObjectType) => (instance.post<PostCardResponseType>(`cards/card`, object).then(res => res.data)),
+    putCard: (object: PostOrPutCardObjectType) => (instance.put<PutCardResponseType>(`cards/card`, object).then(res => res.data)),
 }

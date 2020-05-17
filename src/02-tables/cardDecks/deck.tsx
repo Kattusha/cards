@@ -59,10 +59,11 @@ export const NameDeckNavLink = styled(NavLink)`
 type PropsType = CardPackType & AdditionalPropsType;//тут куча пропсов
 
 type AdditionalPropsType = {
-    deletePack: (id: string) => void
+    deletePack: (id: string) => void,
+    editPack: (id: string) => void
 }
 
-const Deck = ({_id, name, grade, shots, rating, deletePack, ...props}: PropsType) => {
+const Deck = ({_id, name, grade, shots, rating, deletePack, editPack}: PropsType) => {
     return (
         <DeckWrapper>
             <Name>
@@ -75,7 +76,7 @@ const Deck = ({_id, name, grade, shots, rating, deletePack, ...props}: PropsType
             <InfoHeader>{rating}</InfoHeader>
             <ActionsMenu>
                 <Action backgroundColor={"#ff506480"} onClick={() => deletePack(_id)}>Delete</Action>
-                <Action backgroundColor={"#ffff0080"}>Change</Action>
+                <Action backgroundColor={"#ffff0080"} onClick={() => editPack(_id)}>Change</Action>
             </ActionsMenu>
         </DeckWrapper>
     )
