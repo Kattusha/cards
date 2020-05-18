@@ -3,7 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {CardPackType, decksAPI, GetDecksType, PostOrPutCardsPackType} from "../api";
 import {getCookie, setCookie} from "../../01-auth/login/cookies";
 
-type DecksType = {
+export type DecksType = {
     cardPacks: Array<CardPackType>,
     cardPacksTotalCount: number,
     maxGrade: string,

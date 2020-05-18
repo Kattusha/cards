@@ -28,20 +28,12 @@ const Header: React.FC = () => {
     return (
         <HeaderWrapper>
             <HeaderContainer>
-                <LogoLinkBlock>
-                    {/*<LogoLinkBlock as={NavLink} to='/login'>*/}
+                <LogoLinkBlock as={NavLink} to='/'>
                     <LogoImg src={logo} alt="logo"/>
                     <LogoText>cards</LogoText>
                     <SearchDeck/>
                 </LogoLinkBlock>
                 <FlexRowCenter>
-                    {/*<MenuNavLink to={loginPath}>Log in</MenuNavLink>*/}
-                    {/*<MenuNavLink to={recoveryPasswordPath}>Recovery</MenuNavLink>*/}
-                    {/*<MenuNavLink to={newPasswordPath}>New password</MenuNavLink>*/}
-                    {/*<MenuNavLink to={profilePath}>Profile</MenuNavLink>*/}
-                    {/*<MenuNavLink to={CARD_DECKS_PATH}>Decks</MenuNavLink>*/}
-
-
                     {isAuthorized ?
                         <MenuNavLink to={PROFILE_PATH}>
                             <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>

@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../login/login-reducer";
 import {AppStateType} from "../../main/bll/store";
 import {Redirect, Route} from "react-router-dom";
-import {CARDS_PATH_WITH_USER, LOGIN_PATH, PROFILE_PATH} from "../../main/ui/components/Body";
+import {DECK_CARDS_PATH_ME, LOGIN_PATH, PROFILE_PATH} from "../../main/ui/components/Body";
 import {MainContainer} from "../../main/ui/style/bodyStyle";
 import noUserPhoto from '../../main/ui/images/no-user-photo.jpg'
 import CardDecksContainer from "../../02-tables/cardDecks/cardDecksContainer";
@@ -41,8 +41,10 @@ const Profile: React.FC = () => {
                 </Button>
             </UserCardInfo>
             <UserDecksInfoContainer>
-                <Route path={CARDS_PATH_WITH_USER}>
-                    <CardsContainer/>
+                <Route path={`/profile/cards/:deckId?`}>
+                     {/*path={DECK_CARDS_PATH_ME}>*/}
+                    <p>kjlkjljlj</p>
+                    {/*<CardsContainer/>*/}
                 </Route>
                 <Route exact path={PROFILE_PATH}>
                     <CardDecksContainer/>
@@ -56,11 +58,11 @@ const Profile: React.FC = () => {
 
 export default Profile;
 
-const ProfileContainer = styled(MainContainer)`
+export const ProfileContainer = styled(MainContainer)`
   align-items: flex-start;
   justify-content: left;
 `;
-const UserDecksInfoContainer = styled(MainContainer)`
+export const UserDecksInfoContainer = styled(MainContainer)`
   background-color: #fff;
   //border-radius: 15px;
   margin-left: 64px;
@@ -72,7 +74,7 @@ const UserDecksInfoContainer = styled(MainContainer)`
   justify-content: center;
 `;
 
-const UserCardInfo = styled.div`
+export const UserCardInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

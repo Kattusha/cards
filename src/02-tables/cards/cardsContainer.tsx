@@ -11,7 +11,7 @@ import Modal from "../cardDecks/modal";
 import {EditCardReduxForm} from "./editCardForm";
 
 const CardsContainer: React.FC = (props: any) => {
-
+debugger
     const dispatch = useDispatch();
     const {isLoading, cards, cardsTotalCount, pageCount, page} = useSelector((store: AppStateType) => store.cards);
     let deckId = props.match.params.deckId;
@@ -55,6 +55,7 @@ const CardsContainer: React.FC = (props: any) => {
                 <>
                     <CardsOfDecks cards={cards} deleteCard={onDeleteCard} editCard={editCard} addCard={openAddModal}/>
                     <Pagination totalCount={cardsTotalCount} onPageCount={pageCount} currentPage={page}
+                                textAlign={'center'}
                                 changePage={changePage}/>
                 </>
             }

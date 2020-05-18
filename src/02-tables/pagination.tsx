@@ -2,9 +2,9 @@ import React, {useMemo} from "react";
 import styled from "styled-components/macro";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const PaginationWrapper = styled.div`
+const PaginationWrapper = styled.div<{textAlign: string}>`
   margin: 10px 0;
-  text-align: center;
+  text-align: ${props => props.textAlign};
   user-select: none;
 `;
 
@@ -41,10 +41,11 @@ type PropsType = {
     totalCount: number,
     onPageCount: number,
     currentPage: number,
+    textAlign: string,
     changePage: (page: number) => void
 }
 
-const Pagination = ({totalCount, onPageCount, currentPage, changePage}: PropsType) => {
+const Pagination = ({totalCount, onPageCount, currentPage, textAlign, changePage}: PropsType) => {
 
     const pages = useMemo(() => {
         let pages = [];
@@ -63,7 +64,7 @@ const Pagination = ({totalCount, onPageCount, currentPage, changePage}: PropsTyp
     }
 
     return (
-        <PaginationWrapper>
+        <PaginationWrapper textAlign={textAlign}>
             <PageWrapper onClick={previousPageClick}>
                 <Page current={false}><FontAwesomeIcon icon='angle-up' rotation={270}/></Page>
             </PageWrapper>

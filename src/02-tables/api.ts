@@ -13,6 +13,7 @@ export type CommonResponseType = {
 export type CardPackType = {
     _id: string,
     user_id: string,
+    user_name: string,
     name: string,
     path: string,
     grade: number,
@@ -73,8 +74,11 @@ export type PutDeckResponseType = {
 
 export const decksAPI = {
     getDecks: (token: string | null, page?: number) => (
-        instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=6&page=${page}`)
-            .then(res => res.data)
+        instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=12&page=${page}`)
+            .then(res => {
+                // debugger
+                return res.data
+            })
     ),
     searchDecks: (token: string | null, deckName: string) => (
         instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=6&&packName=${deckName}`)

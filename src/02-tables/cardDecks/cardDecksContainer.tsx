@@ -57,6 +57,7 @@ const CardDecksContainer = () => {
                     <AddDeckReduxForm onSubmit={addPack} isLoading={isLoading}/>
                     <CardDecks decks={cardPacks} deletePack={deletePack} editPack={editDeck}/>
                     <Pagination totalCount={cardPacksTotalCount} onPageCount={pageCount} currentPage={page}
+                                textAlign={'center'}
                                 changePage={changePage}/>
                 </Wrapper>}
             {isModalOpened &&
