@@ -9,9 +9,11 @@ import CardsOfDecks from "./CardsOfDeck";
 import Pagination from "../pagination";
 import Modal from "../cardDecks/modal";
 import {EditCardReduxForm} from "./editCardForm";
+import {H3} from "../../main/ui/style/commonStyle";
+import { Wrapper } from "../cardDecks/cardDecksContainer";
 
 const CardsContainer: React.FC = (props: any) => {
-debugger
+
     const dispatch = useDispatch();
     const {isLoading, cards, cardsTotalCount, pageCount, page} = useSelector((store: AppStateType) => store.cards);
     let deckId = props.match.params.deckId;
@@ -52,12 +54,17 @@ debugger
     return (
         <>
             {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
-                <>
-                    <CardsOfDecks cards={cards} deleteCard={onDeleteCard} editCard={editCard} addCard={openAddModal}/>
-                    <Pagination totalCount={cardsTotalCount} onPageCount={pageCount} currentPage={page}
-                                textAlign={'center'}
-                                changePage={changePage}/>
-                </>
+                <Wrapper>
+                    {cards.length === 0 ? <H3>This user has no decks.</H3> :
+                        <>
+                            <CardsOfDecks cards={cards} deleteCard={onDeleteCard} editCard={editCard}
+                                          addCard={openAddModal}/>
+                            <Pagination totalCount={cardsTotalCount} onPageCount={pageCount} currentPage={page}
+                                        textAlign={'center'}
+                                        changePage={changePage}/>
+                        </>
+                    }
+                </Wrapper>
             }
             {isEditOpened &&
             <Modal closeModal={closeEditModal}>

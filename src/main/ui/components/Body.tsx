@@ -16,8 +16,8 @@ export const PROFILE_PATH = '/profile';
 export const RECOVERY_PASSWORD_PATH = '/recoveryPassword';
 export const NEW_PASSWORD_PATH = '/newPassword/:token?'
 export const DECKS_PATH = '/decks';
-// export const DECK_CARDS_PATH_ME = '/profile/cards/:deckId?';
-export const DECK_CARDS_PATH_ME = '/cards/:deckId?';
+export const DECK_CARDS_PATH_ME = '/profile/cards/:deckId?';
+//export const DECK_CARDS_PATH_ME = '/cards/:deckId?';
 export const DECK_CARDS_PATH_USER = '/deck/:deckName?/cards/:deckId?';
 // export const CARDS_PATH = '/cards';
 
@@ -26,8 +26,10 @@ const Body: React.FC = () => {
         <MainWrapper>
 
             {/*?????????*/}
-            <Route exact path={'/cards'} render={() => <Redirect to={DECKS_PATH}/>}/>
-            <Route exact path={'/'} render={() => <Redirect to={DECKS_PATH}/>}/>
+            {/*<Route exact path={'/cards'} render={() => <Redirect to={DECKS_PATH}/>}/>*/}
+            {/*<Route exact path={'/'} render={() => <Redirect to={DECKS_PATH}/>}/>*/}
+            <Route exact path={'/cards'} render={() => <Redirect to={LOGIN_PATH}/>}/>
+            <Route exact path={'/'} render={() => <Redirect to={LOGIN_PATH}/>}/>
 
             <Route path={SIGN_IN_PATH}>
                 <MainContainer whiteBox>
@@ -60,7 +62,7 @@ const Body: React.FC = () => {
             {/*    </MainContainer>*/}
             {/*</Route>*/}
 
-            <Route exact path={PROFILE_PATH} component={Profile} />
+            <Route path={PROFILE_PATH} component={Profile} />
             <Route exact path={DECKS_PATH} component={DecksAllContainer} />
             <Route path={DECK_CARDS_PATH_USER} component={DeckInfo} />
         </MainWrapper>

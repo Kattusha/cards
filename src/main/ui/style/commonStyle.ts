@@ -9,10 +9,10 @@ export const H1 = styled.h1`
     margin: 20px 0 0;
 `;
 
-export const H3 = styled.h3`
+export const H3 = styled.h3<{color?: string}>`
     font-size: 21px;
     text-align: center;
-    color: #5c5c5c;
+    color: ${props => props.color ? props.color : "#5c5c5c"};
 `;
 
 export const Span = styled.p`

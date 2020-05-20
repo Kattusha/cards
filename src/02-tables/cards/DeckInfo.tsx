@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import {H1} from "../../main/ui/style/commonStyle";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
-import reactImg from '../../main/ui/images/react.jpg'
+import noDeckCover from "../../main/ui/images/no-deck-cover.jpg";
 import {ProfileContainer, UserCardInfo, UserDecksInfoContainer} from '../../01-auth/profile/Profile';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
@@ -34,16 +34,16 @@ const DeckInfo: React.FC = (props: any) => {
     return (
         <ProfileContainer>
             <BlockDeckAbout>
-                <DeckCover src={reactImg} alt="deck cover"/>
+                <DeckCover src={noDeckCover} alt="deck cover"/>
                 <H1>{deck?.name}
                     {/*{email}*/}
                 </H1>
                 <p>User: {deck?.user_name}</p>
             </BlockDeckAbout>
             <UserDecksInfoContainer>
-                <Route path={DECK_CARDS_PATH_USER}>
+                {/*<Route path={DECK_CARDS_PATH_USER}>*/}
                     <CardsContainer/>
-                </Route>
+                {/*</Route>*/}
                 {/*<Route exact path={PROFILE_PATH}>*/}
                 {/*    <CardDecksContainer/>*/}
                 {/*</Route>*/}

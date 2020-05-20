@@ -7,6 +7,7 @@ export const DecksWrapper = styled.div`
   width: 100%;
   border: 2px solid #e8e8e8;
   border-radius: 10px;
+  position: relative;
 `;
 
 export const DeckHeader = styled.div`

@@ -27,8 +27,8 @@ const Profile: React.FC = () => {
     }
     if (!isAuthorized)
         return <Redirect to={LOGIN_PATH}/>;
-
     return (
+
         <ProfileContainer>
             <UserCardInfo>
                 <UserPhoto src={noUserPhoto} alt="no user photo"/>
@@ -41,17 +41,26 @@ const Profile: React.FC = () => {
                 </Button>
             </UserCardInfo>
             <UserDecksInfoContainer>
-                <Route path={`/profile/cards/:deckId?`}>
-                     {/*path={DECK_CARDS_PATH_ME}>*/}
-                    <p>kjlkjljlj</p>
-                    {/*<CardsContainer/>*/}
+
+                <Route path={DECK_CARDS_PATH_ME}>
+                    <CardsContainer/>
                 </Route>
                 <Route exact path={PROFILE_PATH}>
                     <CardDecksContainer/>
                 </Route>
+
+
+
+                {/*<Route exact path={PROFILE_PATH}>*/}
+                {/*    <CardDecksContainer/>*/}
+                {/*</Route>*/}
+                {/*<Route exact path={PROFILE_PATH}>*/}
+                {/*    /!*path={`/profile/cards/:deckId?`}>*!/*/}
+                {/*     /!*path={DECK_CARDS_PATH_ME}>*!/*/}
+                {/*    <p>kjlkjljlj</p>*/}
+                {/*    /!*<CardsContainer/>*!/*/}
+                {/*</Route>*/}
             </UserDecksInfoContainer>
-
-
         </ProfileContainer>
     )
 }
@@ -73,13 +82,11 @@ export const UserDecksInfoContainer = styled(MainContainer)`
   align-items: flex-start;
   justify-content: center;
 `;
-
 export const UserCardInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
-
 const UserPhoto = styled.img`
   border: 5px solid #fff;
   border-radius: 100%;
@@ -87,7 +94,6 @@ const UserPhoto = styled.img`
   margin: auto;
   width: 120px;
 `;
-
 const Line = styled.div`
   background-color: #e8e8e8;
   height: 1px;

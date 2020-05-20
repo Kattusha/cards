@@ -6,14 +6,14 @@ import {setCookie, getCookie} from "./cookies";
 
 export type LoginType = {// или это
     email: string | null
-    userId: string | null
+    userId: string
     isAuthorized: boolean
     isLoading: boolean
 }
 
 let initialState: LoginType = {
     email: null,
-    userId: null,
+    userId: '',
     isAuthorized: false,
     isLoading: false
 };
@@ -40,7 +40,7 @@ const loginReducer = (state = initialState, action: ActionsTypes): InitialStateT
 };
 
 const actions = {
-    setAuthUserData: (email: string | null, userId: string | null, isAuthorized: boolean) => ({
+    setAuthUserData: (email: string | null, userId: string, isAuthorized: boolean) => ({
         type: "login-reducer/SET_AUTH_USER_DATA",
         email, userId, isAuthorized
     } as const),
@@ -62,6 +62,7 @@ export const login = (email: string, password: string, rememberMe: boolean):
         } catch (error) {
             dispatch(actions.setAuthUserData("", '', false));
             dispatch(actions.setLoading(false));
+            debugger
             dispatch(stopSubmit("login", {_error: error.response.data.error}));
         }
     }
@@ -69,18 +70,27 @@ export const login = (email: string, password: string, rememberMe: boolean):
 export const getMe = () =>
     async (dispatch: any, getState: () => AppStateType) => {
         try {
-            const token = getCookie('token') || '';
-            dispatch(actions.setLoading(true));
-            console.log("token: " + token);
-            const response = await authAPI.getMe(token);
-            console.log(response);
-            setCookie('token', response.token, Math.floor(response.tokenDeathTime / 1000) - 180);
-            console.log("NewToken: " + response.token);
-            dispatch(actions.setAuthUserData(response.email, response._id, response.success));
-            dispatch(actions.setLoading(false));
+            const token: string | null = getCookie('token');
+            if (token !== null) {
+                dispatch(actions.setLoading(true));
+                console.log("token from cookie: " + token);
+                const response = await authAPI.getMe(token);
+                console.log(response);
+                setCookie('token', response.token, Math.floor(response.tokenDeathTime / 1000) - 180);
+                console.log("response authAPI.getMe => new token: " + response.token);
+                dispatch(actions.setAuthUserData(response.email, response._id, response.success));
+                dispatch(actions.setLoading(false));
+                return {success: true, error: false, errorMessage: null}
+            }
+            else {
+                console.log("token is null ");
+                return {success: false, error: true, errorMessage: 'token is null'}
+            }
         } catch (error) {
-            dispatch(actions.setAuthUserData(null, null, false));
+            dispatch(actions.setAuthUserData(null, '', false));
             dispatch(actions.setLoading(false));
+            console.log("response authAPI.getMe: " + error.response.data.error);
+            return {success: false, error: true, errorMessage: error.response.data.error}
         }
     }
 
@@ -89,7 +99,7 @@ export const logOut = () => {
 
         dispatch(actions.setLoading(true));
         setCookie('token', '', -1000);
-        dispatch(actions.setAuthUserData(null, null, false));
+        dispatch(actions.setAuthUserData(null, '', false));
         dispatch(actions.setLoading(false));
 
     }

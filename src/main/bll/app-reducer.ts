@@ -1,17 +1,17 @@
-import {InferActionTypes} from "./store";
+import {AppStateType, InferActionTypes} from "./store";
 import {getMe} from "../../01-auth/login/login-reducer";
 
-// export type InitializationType = {// или это
-//     isInitializedApp: boolean
-// }
+export type InitializationType = {// или это
+    isInitializedApp: boolean | null
+}
 
 let initialState = {
-    isInitializedApp: false
+    isInitializedApp: null
 };
 
-type InitialStateType = typeof initialState;
+// type InitialStateType = typeof initialState;
 
-const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const appReducer = (state = initialState, action: ActionsTypes): InitializationType => {
     switch (action.type) {
         case "app-reducer/INITIALIZED":
             return {
@@ -30,11 +30,11 @@ const actions = {
 type ActionsTypes = InferActionTypes<typeof actions>
 
 export const initializationApp = () => {
-    return (dispatch: any) => {
+    return (dispatch: any, getState: () => AppStateType) => {
         let promise = dispatch(getMe());
-
-        promise.then(() => {
-            dispatch(actions.setInitializationStatus(true));
+        promise
+            .then((response: {success: boolean, error: boolean, errorMessage: string}) => {
+                dispatch(actions.setInitializationStatus(response.success))
         })
     }
 }

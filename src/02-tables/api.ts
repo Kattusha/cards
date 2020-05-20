@@ -48,7 +48,7 @@ export type PostOrPutCardsPackType = {
 
 export type PostOrPutDeckType = {
     cardsPack: PostOrPutCardsPackType,
-    token: string | null
+    token: string
 };
 
 export type PostDeckResponseType = {
@@ -73,21 +73,36 @@ export type PutDeckResponseType = {
 }
 
 export const decksAPI = {
-    getDecks: (token: string | null, page?: number) => (
+    getDecks: (token: string, page?: number) => (
         instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=12&page=${page}`)
             .then(res => {
                 // debugger
                 return res.data
             })
     ),
-    searchDecks: (token: string | null, deckName: string) => (
-        instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=6&&packName=${deckName}`)
+    getDecksMe: (token: string, myUserId: string, page?: number) => (
+        instance.get<GetDecksType>(`cards/pack?&token=${token}&user_id=${myUserId}&pageCount=12&page=${page}`)
+            .then(res => {
+                // debugger
+                return res.data
+            })
+    ),
+    searchDecks: (token: string, deckName: string) => (
+        instance.get<GetDecksType>(`cards/pack?&token=${token}&pageCount=12&packName=${deckName}`)
             .then(res => res.data)
     ),
-    deleteDeck: (token: string | null, id: string) =>
-        (instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`).then(res => res.data)),
-    postDeck: (object: PostOrPutDeckType) => (instance.post<PostDeckResponseType>(`cards/pack`, object).then(res => res.data)),
-    putDeck: (object: PostOrPutDeckType) => (instance.put<PutDeckResponseType>(`cards/pack`, object).then(res => res.data)),
+    deleteDeck: (token: string, id: string) => (
+        instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`)
+            .then(res => res.data)
+    ),
+    postDeck: (object: PostOrPutDeckType) => (
+        instance.post<PostDeckResponseType>(`cards/pack`, object)
+            .then(res => res.data)
+    ),
+    putDeck: (object: PostOrPutDeckType) => (
+        instance.put<PutDeckResponseType>(`cards/pack`, object)
+            .then(res => res.data)
+    )
 }
 
 export type CardType = {
@@ -135,7 +150,7 @@ export type PostOrPutCardType = {
 
 export type PostOrPutCardObjectType = {
     card: PostOrPutCardType,
-    token: string | null
+    token: string
 }
 
 export type PostCardResponseType = {
@@ -153,13 +168,23 @@ export type PutCardResponseType = {
 }
 
 export const cardsAPI = {
-    getCards: (token: string | null, deckId: string, page?: number) => (
-        instance.get<GetCardsType>(`cards/card?&token=${token}&cardsPack_id=${deckId}&pageCount=6&page=${page}`)
+    getCards: (token: string, deckId: string, page?: number) => (
+        instance.get<GetCardsType>(`cards/card?&token=${token}&cardsPack_id=${deckId}&pageCount=10&page=${page}`)
+            .then(res => {
+                // debugger
+                return res.data
+            })
+    ),
+    deleteCard: (token: string, id: string) => (
+        instance.delete<DeleteCardResponseType>(`cards/card?&token=${token}&id=${id}`)
             .then(res => res.data)
     ),
-    deleteCard: (token: string | null, id: string) =>
-        (instance.delete<DeleteCardResponseType>(`cards/card?&token=${token}&id=${id}`)
-            .then(res => res.data)),
-    postCard: (object: PostOrPutCardObjectType) => (instance.post<PostCardResponseType>(`cards/card`, object).then(res => res.data)),
-    putCard: (object: PostOrPutCardObjectType) => (instance.put<PutCardResponseType>(`cards/card`, object).then(res => res.data)),
+    postCard: (object: PostOrPutCardObjectType) => (
+        instance.post<PostCardResponseType>(`cards/card`, object)
+            .then(res => res.data)
+    ),
+    putCard: (object: PostOrPutCardObjectType) => (
+        instance.put<PutCardResponseType>(`cards/card`, object)
+            .then(res => res.data)
+    )
 }

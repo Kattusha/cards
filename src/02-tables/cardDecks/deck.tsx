@@ -11,6 +11,9 @@ export const DeckWrapper = styled.div`
   align-items: center;
   border-top: 2px solid #e8e8e8;
   background-color: #fff;
+  &:hover {
+        filter: brightness(95%);
+    }
 `;
 
 // const DeleteButton = styled.button`
