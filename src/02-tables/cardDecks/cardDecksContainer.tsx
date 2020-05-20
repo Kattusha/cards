@@ -99,4 +99,5 @@ export const Wrapper = styled.div`
   display: flex;
   flex-flow: column;
   width: 100%;
+  align-items: flex-end;
 `;

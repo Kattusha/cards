@@ -78,7 +78,7 @@ export const UserDecksInfoContainer = styled(MainContainer)`
   max-width: 776px;
   //vertical-align: top;
   //width: 776px;
-  padding: 40px 30px;
+  padding: 20px 30px;
   align-items: flex-start;
   justify-content: center;
 `;

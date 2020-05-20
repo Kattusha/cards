@@ -3,7 +3,7 @@ import {BlockWrapper, ContainerWrapper} from "./commonStyle";
 
 export const MainWrapper = styled(BlockWrapper)`
     //height: 650px;
-    //min-height: 500px;
+    min-height: 500px;
 `;
 export const MainContainer = styled(ContainerWrapper)<{whiteBox?: boolean}>`
     background-color: ${p => p.whiteBox ? '#fff' : '#f7f7f7'}; 

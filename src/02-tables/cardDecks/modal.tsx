@@ -21,7 +21,7 @@ const ChildWrapper = styled.div`
 `;
 
 type PropsType = {
-    children: React.ReactElement,
+    children: any, /* React.ReactElement,*/
     closeModal: () => void
 }
 
