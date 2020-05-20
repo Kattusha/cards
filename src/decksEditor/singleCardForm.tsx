@@ -6,6 +6,7 @@ import {Input} from "../main/ui/components/forForms/FormsControls";
 import {useDispatch} from "react-redux";
 import {AddCardButton} from "../02-tables/cards/CardsOfDeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {CardType} from "../02-tables/api";
 
 const FormStyled = styled.div`
   width: 100%;
@@ -85,10 +86,12 @@ type PropsType = {
     error?: string,
     index?: number,
     card?: string,
+    cardForEdit?: CardType
     fields?: FieldArrayFieldsProps<{}>
 }
 
-const SingleCardForm: React.FC<PropsType> = ({error, index, card, fields}) => {
+const SingleCardForm: React.FC<PropsType> =
+    ({error, index, card, fields, cardForEdit}) => {
 
     const dispatch = useDispatch();
 

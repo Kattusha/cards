@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components/macro";
 import {Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxForm} from "redux-form";
 import {Button, Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import CardsEditor from "./cardsEditor";
+import {getCards} from "../02-tables/cards/cardsReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../main/bll/store";
+import Preloader from "../main/ui/components/preloader/Preloader";
 
 const EditorWrapper = styled.form`
   display: flex;
@@ -35,25 +39,41 @@ const SubmitButton = styled(Button)`
   float: right;
 `;
 
-type PropsType = {};
+type PropsType = {
+    deckId?: string,
+    name?: string,
+};
 
 const FieldArrayCustom = FieldArray as new () => GenericFieldArray<Field, any>;
 
-const Editor: React.FC<InjectedFormProps> =
-    ({error, handleSubmit}) => {
+const Editor: React.FC<PropsType & InjectedFormProps<PropsType>> =
+    ({error, handleSubmit, deckId, name}) => {
+    debugger
+        const dispatch = useDispatch();
+        const {isLoading, cards} = useSelector((store: AppStateType) => store.cards);
+
+        useEffect(() => {
+            if (deckId) dispatch(getCards(deckId))
+        }, [deckId]);
+
         return (
-            <EditorWrapper onSubmit={handleSubmit}>
-                <HeaderWrapper>
-                    <DeckNameWrapper>
-                        <Field name="name" component={StyledInput} type="text" placeholder={'Enter title'}/>
-                        {error && <Span color={"red"}>{error}</Span>}
-                    </DeckNameWrapper>
-                    <SubmitButton type="submit">
-                        Create
-                    </SubmitButton>
-                </HeaderWrapper>
-                <FieldArrayCustom name="cards" component={CardsEditor}/>
-            </EditorWrapper>
+            <>
+                {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
+                    <EditorWrapper onSubmit={handleSubmit}>
+                        <HeaderWrapper>
+                            <DeckNameWrapper>
+                                <Field name="name" component={StyledInput} type="text"
+                                       placeholder={name? name : 'Enter title'}/>
+                                {error && <Span color={"red"}>{error}</Span>}
+                            </DeckNameWrapper>
+                            <SubmitButton type="submit">
+                                {deckId? 'Submit changes' : 'Create'}
+                            </SubmitButton>
+                        </HeaderWrapper>
+                        <FieldArrayCustom name="cards" component={CardsEditor} cards={cards}/>
+                    </EditorWrapper>
+                }
+            </>
         );
     };
 

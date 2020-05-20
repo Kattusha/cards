@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {AddCardButton} from "../02-tables/cards/CardsOfDeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import SingleCardForm from "./singleCardForm";
+import {CardType} from "../02-tables/api";
 
 const FormStyled = styled.div`
   width: 100%;
@@ -83,18 +84,23 @@ const DeleteCard = styled.button`
 `;
 
 type PropsType = {
-    error: string
+    error?: string,
+    cards: Array<CardType>
 }
 
-const CardsEditor: React.FC<WrappedFieldArrayProps<{}>> = ({fields, meta: {error}}) => {
+const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({fields, meta: {error}, cards}) => {
 
     useEffect(() => {
         fields.push({})
     }, [])
-
+    console.log(cards.length === 0)
     return (
         <>
-            {fields.map((card, index) =>
+            {cards.length !== 0 ?
+                cards.map((card, index) =>
+                    <SingleCardForm cardForEdit={card} index={index} fields={fields} error={error} key={index}/>
+                ) :
+                fields.map((card, index) =>
                 <SingleCardForm card={card} index={index} fields={fields} error={error} key={index}/>
             )}
             <AddCardButtonEditor type="button" onClick={() => fields.push({})}>+</AddCardButtonEditor>

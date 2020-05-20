@@ -1,9 +1,9 @@
 import React from "react";
-import Modal from "../02-tables/cardDecks/modal";
 import styled from "styled-components/macro";
 import SingleCardForm from "./singleCardForm";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {Button} from "../main/ui/style/commonStyle";
+import {CardType} from "../02-tables/api";
 
 const StyledForm = styled.form`
   display: flex;
@@ -12,10 +12,10 @@ const StyledForm = styled.form`
 `;
 
 type PropsType = {
-
+    card?: CardType
 }
 
-const CardEditor: React.FC<PropsType & InjectedFormProps<{}, PropsType>> = ({handleSubmit, error}) => {
+const CardEditor: React.FC<PropsType & InjectedFormProps<PropsType>> = ({handleSubmit, error, card}) => {
     return(
         <form onSubmit={handleSubmit}>
             <SingleCardForm card='editedCard' error={error}/>

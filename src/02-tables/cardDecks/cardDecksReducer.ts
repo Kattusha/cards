@@ -74,14 +74,14 @@ const cardDecksReducer = (state = initialState, action: ActionsTypes): InitialSt
     }
 };
 
-const actions = {
+export const actions = {
     setDecks: (decks: GetDecksType) => ({type: "cardDeckReducer/SET_DECK", decks} as const),
     deleteDeck: (id: string) => ({type: "cardDeckReducer/DELETE_DECK", id} as const),
     setLoadingStatus: (isLoading: boolean) => ({type: "cardDeckReducer/LOADING_STATUS", isLoading} as const),
     setPage: (page: number) => ({type: "cardDeckReducer/SET_PAGE", page} as const),
     setEditedDeckId: (editedDeckId: string) => ({type: "cardDeckReducer/SET_EDITED_PACK_ID", editedDeckId} as const),
     setRedirectedId: (redirectedId: string) => ({type: "cardDeckReducer/SET_REDIRECTED_PACK_ID", redirectedId} as const)
-}
+};
 
 type ActionsTypes = InferActionTypes<typeof actions>;
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>;
@@ -158,7 +158,7 @@ export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array
                 }
             };
             if (cards[0] && cards[0].answer && cards[0].question) await processCardsArray(cards);
-            dispatch(actions.setRedirectedId(data.newCardsPack._id))
+            dispatch(actions.setRedirectedId(data.newCardsPack._id));
             dispatch(actions.setLoadingStatus(false));
         } else console.log('ERROR: token is null!!!');
     };

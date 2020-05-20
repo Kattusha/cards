@@ -4,9 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../main/bll/store";
 import {addDeckWithCards} from "../02-tables/cardDecks/cardDecksReducer";
 import {postCard} from "../02-tables/cards/cardsReducer";
-import { Redirect } from "react-router-dom";
 import Modal from "../02-tables/cardDecks/modal";
-import { SingleCardReduxForm } from "./singleCardEditor";
+import {SingleCardReduxForm} from "./singleCardEditor";
 import {useHistory} from "react-router-dom";
 
 type PropsType = {
@@ -41,11 +40,15 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
         dispatch(addDeckWithCards(newPack, cards));
     };
 
-    if (editorType === 'Card Editor') return(
+    if (editorType === 'Card Editor') return (
         <Modal closeModal={switchCardEditor}>
             <SingleCardReduxForm onSubmit={addCard}/>
         </Modal>
-        );
+    );
+
+    if (editedDeckId !== '') return (
+            <EditorReduxForm onSubmit={addCard} name={"deck name"} deckId={editedDeckId}/>
+    );
 
     return <EditorReduxForm onSubmit={createNewDeck}/>
 
