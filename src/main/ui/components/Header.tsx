@@ -51,8 +51,8 @@ const Header: React.FC = () => {
                     <LogoLinkBlock as={NavLink} to='/'>
                         <LogoImg src={logo} alt="logo"/>
                         <LogoText>cards</LogoText>
-                        {isAuthorized ? <SearchDeck/> : <></>}
                     </LogoLinkBlock>
+                    {isAuthorized ? <SearchDeck/> : <></>}
                     <FlexRowCenter>
                         {isAuthorized ?
                             <>

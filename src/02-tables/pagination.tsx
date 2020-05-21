@@ -14,10 +14,9 @@ const PageWrapper = styled.div`
   font-size: 18px;
   font-weight: bold;
   margin: 0 2px;
-  cursor: pointer;
 `;
 
-const Page = styled.div<{current: boolean}>`
+const Page = styled.div<{current: boolean, disabled?: boolean}>`
   position: relative;
   border-radius: 4px;
   display: block;
@@ -30,10 +29,11 @@ const Page = styled.div<{current: boolean}>`
   transition: .3s;
   background-color: ${props => props.current? '#32cdff' : 'inherit'};
   border-color: ${props => props.current? '#32cdff' : 'inherit'};
+  cursor: ${props => props.disabled? 'inherit' : 'pointer'};
   &:hover, &:focus, &:active {
-    background-color: #32cdff;
-    border-color: #32cdff;
-    color: #fff;
+    background-color: ${props => props.disabled? 'inherit' : '#32cdff'};
+    border-color: ${props => props.disabled? 'inherit' : '#32cdff'};
+    color: ${props => props.disabled? 'inherit' : 'white'};
   }
 `;
 
@@ -66,7 +66,7 @@ const Pagination = ({totalCount, onPageCount, currentPage, textAlign, changePage
     return (
         <PaginationWrapper textAlign={textAlign}>
             <PageWrapper onClick={previousPageClick}>
-                <Page current={false}><FontAwesomeIcon icon='angle-up' rotation={270}/></Page>
+                <Page current={false} disabled={currentPage === 1}><FontAwesomeIcon icon='angle-up' rotation={270}/></Page>
             </PageWrapper>
             {pages.map(page =>
                 <PageWrapper key={page} onClick={() => changePage(page)}>
@@ -75,7 +75,9 @@ const Pagination = ({totalCount, onPageCount, currentPage, textAlign, changePage
                     </Page>
                 </PageWrapper>)}
             <PageWrapper onClick={nextPageClick}>
-                <Page current={false}><FontAwesomeIcon icon='angle-up' rotation={90}/></Page>
+                <Page current={false} disabled={currentPage === pages[pages.length - 1]}>
+                    <FontAwesomeIcon icon='angle-up' rotation={90}/>
+                </Page>
             </PageWrapper>
         </PaginationWrapper>
 

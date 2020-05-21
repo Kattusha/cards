@@ -10,6 +10,7 @@ const SearchWrapper = styled.div`
   margin-left: 55px;
   position: relative;
   cursor: default;
+  margin-right: auto;
 `;
 
 const SearchingInput = styled.input`
@@ -57,7 +58,7 @@ const SearchDeck = () => {
 
     const [searching, setSearching] = useState('');
     const submitSearching = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter" && searching !== '') dispatch(searchDeck(searching))
+        if (e.key === "Enter" && /^\S+$/.test(searching)) dispatch(searchDeck(searching))
     }
 
     return(
