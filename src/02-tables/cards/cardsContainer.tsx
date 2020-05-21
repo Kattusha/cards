@@ -12,7 +12,7 @@ import {EditCardReduxForm} from "./editCardForm";
 import {Button, H3} from "../../main/ui/style/commonStyle";
 import { Wrapper } from "../cardDecks/cardDecksContainer";
 import {LOGIN_PATH} from "../../main/ui/components/Body";
-import LearnCards from "./LearnCards";
+import LearnCards from "../../04-learn cards/LearnCards";
 
 const CardsContainer: React.FC = (props: any) => {
 
@@ -69,7 +69,7 @@ const CardsContainer: React.FC = (props: any) => {
         <>
             {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
                 <Wrapper>
-                    {cards.length === 0 ? <H3>This user has no decks.</H3> :
+                    {cards.length === 0 ? <H3>This deck has no cards.</H3> :
                         <>
                             <Button color={"blue"} onClick={openLearnModal} >Learn</Button>
                             <CardsOfDecks cards={cards} deleteCard={onDeleteCard} editCard={editCard}
@@ -93,8 +93,8 @@ const CardsContainer: React.FC = (props: any) => {
             </Modal>
             }
             {isLearnModalOpened &&
-            <Modal closeModal={closeLearnModal}>
-                <LearnCards></LearnCards>
+            <Modal closeModal={closeLearnModal} height={'604px'} width={'1082px'}>
+                <LearnCards cards={cards}></LearnCards>
                 {/*<EditCardReduxForm isLoading={isLoading} onSubmit={addCard} modalType={'add'}/>*/}
             </Modal>
             }
