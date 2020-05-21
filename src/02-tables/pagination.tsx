@@ -25,15 +25,15 @@ const Page = styled.div<{current: boolean, disabled?: boolean}>`
   height: 42px;
   line-height: 42px;
   margin-left: -1px;
-  color: ${props => props.current? 'white' : 'black'};
+  color: ${props => props.current ? 'white' : props.disabled ? '#B0B0B0' : 'black'};
   transition: .3s;
-  background-color: ${props => props.current? '#32cdff' : 'inherit'};
-  border-color: ${props => props.current? '#32cdff' : 'inherit'};
-  cursor: ${props => props.disabled? 'inherit' : 'pointer'};
+  background-color: ${props => props.current ? '#32cdff' : 'inherit'};
+  border-color: ${props => props.current ? '#32cdff' : 'inherit'};
+  cursor: ${props => props.disabled || props.current ? 'inherit' : 'pointer'};
   &:hover, &:focus, &:active {
-    background-color: ${props => props.disabled? 'inherit' : '#32cdff'};
-    border-color: ${props => props.disabled? 'inherit' : '#32cdff'};
-    color: ${props => props.disabled? 'inherit' : 'white'};
+    background-color: ${props => props.disabled ? 'inherit' : '#32cdff'};
+    border-color: ${props => props.disabled ? 'inherit' : '#32cdff'};
+    color: ${props => props.disabled ? '#B0B0B0' : 'white'};
   }
 `;
 

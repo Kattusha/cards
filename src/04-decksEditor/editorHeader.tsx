@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/macro";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Span} from "../../main/ui/style/commonStyle";
-import {Input} from "../../main/ui/components/forForms/FormsControls";
+import {Span} from "../main/ui/style/commonStyle";
+import {Input} from "../main/ui/components/forForms/FormsControls";
 
 const FormStyled = styled.form`
   height: 34px;

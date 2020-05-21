@@ -9,6 +9,7 @@ import Profile from "../../../01-auth/profile/Profile";
 import DeckInfo from "../../../02-tables/cards/DeckInfo";
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
 import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
+import DecksEditorContainer from "../../../04-decksEditor/decksEditorContainer";
 
 export const LOGIN_PATH = '/login';
 export const SIGN_IN_PATH = '/signIn';
@@ -19,6 +20,7 @@ export const DECKS_PATH = '/decks';
 export const DECK_CARDS_PATH_ME = '/profile/cards/:deckId?';
 //export const DECK_CARDS_PATH_ME = '/cards/:deckId?';
 export const DECK_CARDS_PATH_USER = '/deck/:deckName?/cards/:deckId?';
+export const DECKS_CREATE = '/create'
 // export const CARDS_PATH = '/cards';
 
 const Body: React.FC = () => {
@@ -49,6 +51,11 @@ const Body: React.FC = () => {
             <Route path={NEW_PASSWORD_PATH}>
                 <MainContainer whiteBox>
                     <NewPassword/>
+                </MainContainer>
+            </Route>
+            <Route path={DECKS_CREATE}>
+                <MainContainer whiteBox>
+                    <DecksEditorContainer/>
                 </MainContainer>
             </Route>
             {/*<Route path={CARD_DECKS_PATH}>*/}
