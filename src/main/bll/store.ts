@@ -6,13 +6,19 @@ import registrationReducer from "../../01-auth/registration/registration-reducer
 import newPasswordReducer from "../../01-auth/newPassword/newPassword-reducer";
 import recoveryPasswordReducer from "../../01-auth/recoveryPassword/recoveryPassword-reducer";
 import profileReducer from "../../01-auth/profile/profile-reducer";
+import cardDecksReducer from "../../02-tables/cardDecks/cardDecksReducer";
+import cardsReducer from "../../02-tables/cards/cardsReducer";
+import appReducer from "./app-reducer";
 
 const rootReducer = combineReducers({
+    app: appReducer,
     login:loginReducer,
     registration: registrationReducer,
     newPassword: newPasswordReducer,
     recoveryPassword: recoveryPasswordReducer,
     profile: profileReducer,
+    cardDecksReducer: cardDecksReducer,
+    cards: cardsReducer,
     form: formReducer
 });
 

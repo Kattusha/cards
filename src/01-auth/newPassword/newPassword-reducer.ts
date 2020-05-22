@@ -1,11 +1,16 @@
-import {AuthType} from "../entity-auth";
+import {AuthorizationType} from "../entity-auth";
 import {InferActionTypes} from "../../main/bll/store";
 
-let initialState: AuthType = {
-    email: "",
-    login: "",
-    idUser: "",
-    isAuth: false
+export type ForgotType = {
+    isSendEmail: boolean
+    isLoading: boolean
+    errorMessage: string
+}
+
+let initialState: AuthorizationType = {
+    email: '',
+    isAuthorized: false,
+    isLoading: false
 };
 
 type InitialStateType = typeof initialState;

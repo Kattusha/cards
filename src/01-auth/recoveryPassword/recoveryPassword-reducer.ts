@@ -1,61 +1,89 @@
-import {AuthType} from "../entity-auth";
-import {InferActionTypes} from "../../main/bll/store";
+import {AppStateType, InferActionTypes} from "../../main/bll/store";
+import {ThunkAction} from "redux-thunk";
+import {authAPI} from "../api";
+import {stopSubmit} from "redux-form";
 
-let initialState: AuthType = {
-    email: "",
-    login: "",
-    idUser: "",
-    isAuth: false
+export type ForgotType = {
+    isSendEmail: boolean
+    isSaveNewPassword: boolean
+    isLoading: boolean
+    errorMessage: string
+}
+
+let initialState: ForgotType = {
+    isSendEmail: false,
+    isSaveNewPassword: false,
+    isLoading: false,
+    errorMessage: ""
 };
 
 type InitialStateType = typeof initialState;
 
 const recoveryPasswordReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case "LOGIN":
+        case "recoveryPassword-reducer/SET_STATUS_SENT_EMAIL":
             return {
                 ...state,
-                ...action.data
-                // isAuth: true
+                isSendEmail: action.isSendEmail
             };
+        case "recoveryPassword-reducer/SET_LOADING":
+            return {
+                ...state,
+                isLoading: action.isLoading
+            };
+        case "recoveryPassword-reducer/SET_STATUS_SAVE_NEW_PASSWORD":
+            return {
+                ...state,
+                isSaveNewPassword: action.isSaveNewPassword
+            }
         default:
             return state;
     }
 };
 
 const actions = {
-    setAuthUserData: (userId:number, email:string, login:string) =>
-        ({type: "LOGIN", data: {userId, email, login}})
+    setStatusSendEmail: (isSendEmail: boolean) => ({
+        type: "recoveryPassword-reducer/SET_STATUS_SENT_EMAIL",
+        isSendEmail
+    } as const),
+    setStatusSaveNewPassword: (isSaveNewPassword: boolean) => ({
+        type: "recoveryPassword-reducer/SET_STATUS_SAVE_NEW_PASSWORD",
+        isSaveNewPassword
+    } as const),
+    setLoading: (isLoading: boolean) => ({type: "recoveryPassword-reducer/SET_LOADING", isLoading} as const)
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>
 
-//example thunk
+//thunks
+export const recoveryPassword = (email: string):
+    ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        try {
+            dispatch(actions.setLoading(true));
+            const response = await authAPI.forgotPassword(email)
+            dispatch(actions.setStatusSendEmail(response));
+            dispatch(actions.setLoading(false));
+        } catch (error) {
+            dispatch(actions.setStatusSendEmail(false));
+            dispatch(actions.setLoading(false));
+            dispatch(stopSubmit("recoveryPassword", {_error: error.response.data.error}));
+        }
+    }
 
-// export const login = (email:string, password:string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-//     async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
-//         const response = await authAPI.login(email, password)
-//         if (response.resultCode === 0) {
-//             dispatch(actions.setAuthUserData(response.data.data.userId, response.data.data.email, response.data.data.login))
-//         }
-//         else{
-//             let message = response.messages.length > 0 ? response.messages[0] : "Some error";
-//             dispatch(stopSubmit("login", {_error: message}));
-//         }
-//     }
-
-// example thunk from socialNetwork
-
-// export const logout = () => {
-//     return (dispatch) => {
-//         authAPI.logout()
-//             .then(response => {
-//                 debugger
-//                 if (response.resultCode === 0) {
-//                     dispatch(setAuthUserData(null, null, null, false));
-//                 }
-//             });
-//     }
-// };
+export const setNewPassword = (token: string, password: string):
+    ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        try {
+            dispatch(actions.setLoading(true));
+            const response = await authAPI.setNewPassword(token, password);
+            dispatch(actions.setStatusSaveNewPassword(response))
+            dispatch(actions.setLoading(false));
+        } catch (error) {
+            dispatch(actions.setStatusSaveNewPassword(false))
+            dispatch(actions.setLoading(false));
+            dispatch(stopSubmit("newPassword", {_error: error.response.data.error}));
+        }
+    }
 
 export default recoveryPasswordReducer;

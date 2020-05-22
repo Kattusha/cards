@@ -1,33 +1,28 @@
-import React, {useCallback, useEffect} from 'react';
-import {H3, Span} from "../../main/ui/style/commonStyle";
+import React from 'react';
+import {H3, Span, TextLink} from "../../main/ui/style/commonStyle";
 import {LoginForm} from "../../main/ui/style/forForms/formsStyle";
 import {LoginReduxForm} from "./LoginForm";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "./login-reducer";
 import {AppStateType} from "../../main/bll/store";
-import {useHistory} from "react-router-dom";
-import {profilePath} from "../../main/ui/components/Body";
+import {Redirect} from "react-router-dom";
+import {PROFILE_PATH, SIGN_IN_PATH} from "../../main/ui/components/Body";
 
 const Login: React.FC = () => {
 
-    const isAuth = useSelector((store: AppStateType) => store.login.isAuth);
-    const isLoading = useSelector((store: AppStateType) => store.login.isloading);
     const dispatch = useDispatch();
-    const history = useHistory();
+    const {isAuthorized, isLoading}  = useSelector((store: AppStateType) => store.login);
 
-    const onLogin = useCallback(({email, password, rememberMe}: any) => {
+    const onLogin = ({email, password, rememberMe}: any) => {
         dispatch(login(email, password, rememberMe));
-    }, []);
+    }
 
-    useEffect(() => {
-        if (isAuth)
-            history.push(profilePath)
-    }, [isAuth])
+    if (isAuthorized) return <Redirect to={PROFILE_PATH}/>
 
     return (
         <LoginForm>
             <H3>Log in with your account</H3>
-            <Span>Don't have an account??</Span>
+            <Span>Don't have an account?<TextLink to={SIGN_IN_PATH}>Sign in</TextLink></Span>
             <LoginReduxForm onSubmit={onLogin} isLoading={isLoading}/>
         </LoginForm>
     )

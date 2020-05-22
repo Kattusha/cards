@@ -5,9 +5,9 @@ export const requiredField = (value: string) => {
 }
 
 export const maxLength = (maxLength: number) => (value: string) => {
-    if (value.length > maxLength)
-        return `Max length is ${maxLength} symbols`;
-    else return undefined;
+    if (value.length >= maxLength)
+        return  undefined;
+    else return `Password must be more than ${maxLength-1} characters`;
 }
 
 export const emailValidation = (value: string) => {
