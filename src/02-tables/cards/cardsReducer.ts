@@ -55,6 +55,15 @@ const cardsReducer = (state = initialState, action: ActionsTypes): InitialStateT
                 ...state,
                 page: action.page
             }
+        case "cardReducer/SET_GRATE_CARD":
+            return {
+                ...state,
+                cards: state.cards.map((card) => {
+                    if (card._id === action.id)
+                        return {...card, grade: action.grate}
+                    else return card
+                })
+            }
         default:
             return state;
     }
@@ -64,7 +73,8 @@ const actions = {
     setCards: (cards: GetCardsType) => ({type: "cardsReducer/SET_CARDS", cards} as const),
     deleteCard: (id: string) => ({type: "cardsReducer/DELETE_CARD", id} as const),
     setLoadingStatus: (isLoading: boolean) => ({type: "cardsReducer/LOADING_STATUS", isLoading} as const),
-    setPage: (page: number) => ({type: "cardReducer/SET_PAGE", page} as const)
+    setPage: (page: number) => ({type: "cardReducer/SET_PAGE", page} as const),
+    setGrateCard: (id: string, grate: number) => ({type: "cardReducer/SET_GRATE_CARD", id, grate} as const),
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>;
@@ -77,8 +87,7 @@ export const getCards = (deckId: string): ThunkAction<void, AppStateType, unknow
             let data = await cardsAPI.getCards(token, deckId);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
             dispatch(actions.setCards(data))
-        }
-        else console.log('ERROR: token is null!!!');
+        } else console.log('ERROR: token is null!!!');
     };
 
 export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
@@ -89,8 +98,7 @@ export const deleteCard = (id: string): ThunkAction<void, AppStateType, unknown,
             let data = await cardsAPI.deleteCard(token, id);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
             if (data.success) dispatch(actions.deleteCard(data.deletedCard._id))
-        }
-        else console.log('ERROR: token is null!!!');
+        } else console.log('ERROR: token is null!!!');
     };
 
 export const postCard = (card: PostOrPutCardType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
@@ -102,8 +110,7 @@ export const postCard = (card: PostOrPutCardType): ThunkAction<void, AppStateTyp
             let data = await cardsAPI.postCard(newCard);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
             dispatch(getCards(card.cardsPack_id));
-        }
-        else console.log('ERROR: token is null!!!');
+        } else console.log('ERROR: token is null!!!');
     };
 
 export const chooseCardsPage = (page: number, deckId: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
@@ -115,8 +122,7 @@ export const chooseCardsPage = (page: number, deckId: string): ThunkAction<void,
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
             dispatch(actions.setCards(data));
             dispatch(actions.setPage(page))
-        }
-        else console.log('ERROR: token is null!!!');
+        } else console.log('ERROR: token is null!!!');
     };
 
 export const putCard = (card: PostOrPutCardType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
@@ -128,8 +134,12 @@ export const putCard = (card: PostOrPutCardType): ThunkAction<void, AppStateType
             let data = await cardsAPI.putCard(editedCard);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
             dispatch(getCards(card.cardsPack_id));
-        }
-        else console.log('ERROR: token is null!!!');
+        } else console.log('ERROR: token is null!!!');
+    };
+
+export const putGradeCard = (id: string, grate: number): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        dispatch(actions.setGrateCard(id, grate))
     };
 
 export default cardsReducer;

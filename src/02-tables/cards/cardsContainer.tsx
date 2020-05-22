@@ -93,8 +93,8 @@ const CardsContainer: React.FC = (props: any) => {
             </Modal>
             }
             {isLearnModalOpened &&
-            <Modal closeModal={closeLearnModal} height={'604px'} width={'1082px'}>
-                <LearnCards cards={cards}></LearnCards>
+            <Modal closeModal={closeLearnModal} height={'500px'} width={'800px'}>
+                <LearnCards cards={cards} closeModal={closeLearnModal}></LearnCards>
                 {/*<EditCardReduxForm isLoading={isLoading} onSubmit={addCard} modalType={'add'}/>*/}
             </Modal>
             }
