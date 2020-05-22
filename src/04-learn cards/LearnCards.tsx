@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Button, H3, Span} from "../main/ui/style/commonStyle";
+import {Button, H3} from "../main/ui/style/commonStyle";
 import {CardType} from "../02-tables/api";
 import OneCard from "./OneCard";
 import styled from "styled-components/macro";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDizzy, faFrown, faMehRollingEyes, faGrimace, faGrinStars} from '@fortawesome/free-regular-svg-icons'
-import {IconDiv} from "../main/ui/style/headerStyle";
+import {faDizzy, faFrown, faGrimace, faGrinStars, faMehRollingEyes} from '@fortawesome/free-regular-svg-icons'
 import GradeIcon from "./GradeIcon";
-import {useDispatch, useSelector} from "react-redux";
-import {getCards, putGradeCard} from "../02-tables/cards/cardsReducer";
-import {AppStateType} from "../main/bll/store";
+import {useDispatch} from "react-redux";
+import {putGradeCard} from "../02-tables/cards/cardsReducer";
 
 const grades = [
     {iconTitle: faDizzy, tooltip: 'did not know', grade: 1},

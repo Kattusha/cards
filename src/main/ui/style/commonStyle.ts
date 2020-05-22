@@ -9,7 +9,7 @@ export const H1 = styled.h1`
     margin: 20px 0 0;
 `;
 
-export const H3 = styled.h3<{color?: string, fontSize?: string}>`
+export const H3 = styled.h3<{ color?: string, fontSize?: string }>`
     font-size: ${props => props.fontSize ? props.fontSize : "21px"}; 
     text-align: center;
     color: ${props => props.color ? props.color : "#5c5c5c"};
@@ -35,7 +35,17 @@ export const FlexRowCenter = styled.div`
 `;
 export const ContainerWrapper = styled(FlexRowCenter)`
     margin: 0 auto;
-    width: 1082px;
+    //width: 1082px;
+    @media (min-width: 1160px) {
+      max-width: 1082px;
+    }
+    @media (min-width: 925px){
+      max-width: 912px;
+    }
+    @media (max-width: 924px){
+      margin: 2% 2%;
+    }
+    
 `;
 export const Button = styled.button`
     font-family: 'DINNextLTPro-Bold';

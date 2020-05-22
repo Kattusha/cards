@@ -5,6 +5,7 @@ export const FormStyled = styled.form`
     flex-direction: column;
     min-width: 300px;
     text-align: center;
+    margin-bottom: 30px;
 `;
 
 export const InputCheckBoxDiv = styled.div`
