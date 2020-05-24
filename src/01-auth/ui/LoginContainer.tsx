@@ -6,7 +6,11 @@ import {Redirect} from "react-router-dom";
 import {PROFILE_PATH} from "../../main/ui/components/Body";
 import Login from "./Login";
 
-const LoginContainer: React.FC = () => {
+type PropsType = {
+    closeLogInModal: () => void
+}
+
+const LoginContainer: React.FC<PropsType> = ({closeLogInModal}) => {
 
     const dispatch = useDispatch();
     const {isAuthorized}  = useSelector((store: AppStateType) => store.login);
@@ -19,7 +23,7 @@ const LoginContainer: React.FC = () => {
     if (isAuthorized)
         return <Redirect to={PROFILE_PATH}/>
 
-    return <Login submitFnc={login} isLoading={isLoading}/>
+    return <Login submitFnc={login} isLoading={isLoading} closeLogInModal={closeLogInModal}/>
 }
 
 export default LoginContainer;

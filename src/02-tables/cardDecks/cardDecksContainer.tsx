@@ -6,7 +6,7 @@ import Preloader from "../../main/ui/components/preloader/Preloader";
 import CardDecks from "./cardDecks";
 import styled from "styled-components/macro";
 import Pagination from "../pagination";
-import Modal from "./modal";
+import Modal from "../../main/ui/components/modal-forms/modal";
 import {EditDeckReduxForm} from "./editDeckForm";
 import {H3} from "../../main/ui/style/commonStyle";
 

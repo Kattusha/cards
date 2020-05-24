@@ -7,7 +7,7 @@ import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import CardsOfDecks from "./CardsOfDeck";
 import Pagination from "../pagination";
-import Modal from "../cardDecks/modal";
+import Modal from "../../main/ui/components/modal-forms/modal";
 import {EditCardReduxForm} from "./editCardForm";
 import {Button, H3} from "../../main/ui/style/commonStyle";
 import {Wrapper} from "../cardDecks/cardDecksContainer";

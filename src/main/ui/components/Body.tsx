@@ -26,23 +26,20 @@ const Body: React.FC = () => {
     DEV_VERSION && console.log(`RENDER Body`);
     return (
         <MainWrapper>
-
             {/*?????????*/}
-            {/*<Route exact path={'/cards'} render={() => <Redirect to={DECKS_PATH}/>}/>*/}
-            {/*<Route exact path={'/'} render={() => <Redirect to={DECKS_PATH}/>}/>*/}
-            <Route exact path={'/cards'} render={() => <Redirect to={LOGIN_PATH}/>}/>
-            <Route exact path={'/'} render={() => <Redirect to={LOGIN_PATH}/>}/>
+            {/*<Route exact path={'/cards'} render={() => <Redirect to={LOGIN_PATH}/>}/>*/}
+            {/*<Route exact path={'/'} render={() => <Redirect to={LOGIN_PATH}/>}/>*/}
 
-            <Route path={SIGN_IN_PATH}>
-                <MainContainer whiteBox>
-                    <SignInContainer/>
-                </MainContainer>
-            </Route>
-            <Route path={LOGIN_PATH}>
-                <MainContainer whiteBox>
-                    <LoginContainer/>
-                </MainContainer>
-            </Route>
+            {/*<Route path={SIGN_IN_PATH}>*/}
+            {/*    <MainContainer whiteBox>*/}
+            {/*        <SignInContainer/>*/}
+            {/*    </MainContainer>*/}
+            {/*</Route>*/}
+            {/*<Route path={LOGIN_PATH}>*/}
+            {/*    <MainContainer whiteBox>*/}
+            {/*        <LoginContainer/>*/}
+            {/*    </MainContainer>*/}
+            {/*</Route>*/}
             <Route path={RECOVERY_PASSWORD_PATH}>
                 <MainContainer whiteBox>
                     <RecoveryPasswordContainer/>

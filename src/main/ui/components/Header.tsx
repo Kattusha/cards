@@ -19,10 +19,12 @@ import {far} from "@fortawesome/free-regular-svg-icons";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import SearchDeck from "../../../02-tables/cardDecks/searchDeck";
-import Modal from "../../../02-tables/cardDecks/modal";
+import Modal from "./modal-forms/modal";
 import {AddDeckReduxForm} from "../../../02-tables/cardDecks/addDeckForm";
 import {addDeck} from "../../../02-tables/cardDecks/cardDecksReducer";
 import {DEV_VERSION} from "../../../config";
+import LearnCards from "../../../04-learn cards/LearnCards";
+import LoginContainer from "../../../01-auth/ui/LoginContainer";
 
 library.add(far, fas);
 
@@ -44,6 +46,21 @@ const Header: React.FC = () => {
         dispatch(addDeck(newPack))
         switchAddModal(false)
     };
+
+    const [isLogInModalOpened, switchLogInModal] = useState(false);
+    const openLogInModal = () => switchLogInModal(true);
+    const closeLogInModal = () => {
+        debugger
+        switchLogInModal(false)
+    }
+    // const addPack = ({name}: any) => {
+    //     let newPack = {
+    //         user_id: userId,
+    //         name,
+    //     }
+    //     dispatch(addDeck(newPack))
+    //     switchAddModal(false)
+    // };
 
     DEV_VERSION && console.log(`RENDER Header`);
     return (
@@ -70,14 +87,21 @@ const Header: React.FC = () => {
                                 </MenuNavLink>
                             </>
                             :
-                            <Button as={NavLink} to={LOGIN_PATH} color={"white"}>Log in</Button>
+                            <Button color={"white"} onClick={openLogInModal}>Log in</Button>
                         }
                     </FlexRowCenter>
                 </HeaderContainer>
             </HeaderWrapper>
+
             {isAddModalOpened &&
             <Modal closeModal={closeAddModal}>
                 <AddDeckReduxForm isLoading={isLoading} onSubmit={addPack}/>
+            </Modal>
+            }
+
+            {isLogInModalOpened &&
+            <Modal closeModal={closeLogInModal}>
+                <LoginContainer closeLogInModal={closeLogInModal} />
             </Modal>
             }
         </>
