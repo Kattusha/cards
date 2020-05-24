@@ -22,6 +22,7 @@ import SearchDeck from "../../../02-tables/cardDecks/searchDeck";
 import Modal from "../../../02-tables/cardDecks/modal";
 import {AddDeckReduxForm} from "../../../02-tables/cardDecks/addDeckForm";
 import {addDeck} from "../../../02-tables/cardDecks/cardDecksReducer";
+import {DEV_VERSION} from "../../../config";
 
 library.add(far, fas);
 
@@ -44,6 +45,7 @@ const Header: React.FC = () => {
         switchAddModal(false)
     };
 
+    DEV_VERSION && console.log(`RENDER Header`);
     return (
         <>
             <HeaderWrapper>
@@ -63,8 +65,8 @@ const Header: React.FC = () => {
                                 </MenuNavLink>
                                 <MenuNavLink to={PROFILE_PATH}>
                                     <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>
-                                    {/*User*/}
-                                    {email}
+                                    User
+                                    {/*{email}*/}
                                 </MenuNavLink>
                             </>
                             :

@@ -63,7 +63,7 @@ const Dot = styled.div`
     ${createCSS()}
 `;
 
-const Preloader = () => {
+const Preloader_Illia = () => {
     return (
         <Wrapper>
             <PreloaderWrapper>
@@ -73,4 +73,4 @@ const Preloader = () => {
     )
 }
 
-export default Preloader
+export default Preloader_Illia

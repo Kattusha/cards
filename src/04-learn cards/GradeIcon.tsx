@@ -1,11 +1,7 @@
-import React, {useState} from "react";
-import {Button, H3, Span} from "../main/ui/style/commonStyle";
-import {CardType} from "../02-tables/api";
-import OneCard from "./OneCard";
+import React from "react";
 import styled from "styled-components/macro";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faDizzy, faFrown, faMehRollingEyes, faGrimace, faGrinStars, IconDefinition  } from '@fortawesome/free-regular-svg-icons'
-import {IconDiv} from "../main/ui/style/headerStyle";
+import {IconDefinition} from '@fortawesome/free-regular-svg-icons'
 
 type PropsType = {
     index: number

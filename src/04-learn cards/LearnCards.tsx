@@ -34,7 +34,7 @@ const LearnCards: React.FC<PropsType> = ({cards, closeModal}) => {
 
     useEffect(() => {
         setCurrentCard(cards[countCard-1])
-    }, [cards]);
+    }, [cards, countCard]);
 
     const onChangeShow = (isShow: boolean) => {
         setIsShowAnswer(isShow)

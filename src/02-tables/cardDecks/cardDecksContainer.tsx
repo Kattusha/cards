@@ -1,24 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
-import {addDeck, choosePage, deleteDeck, getDecks, putDeck, getDecksMe} from "./cardDecksReducer";
+import {choosePage, deleteDeck, getDecksMe, putDeck} from "./cardDecksReducer";
 import Preloader from "../../main/ui/components/preloader/Preloader";
 import CardDecks from "./cardDecks";
-import {AddDeckReduxForm} from "./addDeckForm";
 import styled from "styled-components/macro";
 import Pagination from "../pagination";
 import Modal from "./modal";
 import {EditDeckReduxForm} from "./editDeckForm";
-import {CardPackType} from "../api";
 import {H3} from "../../main/ui/style/commonStyle";
-import {EditCardReduxForm} from "../cards/editCardForm";
-import {postCard} from "../cards/cardsReducer";
 
 const CardDecksContainer = () => {
 
     const {isLoading, cardPacksTotalCount, cardPacks, page, pageCount} =
         useSelector((store: AppStateType) => store.cardDecksReducer);
-    const userId = useSelector((store: AppStateType) => store.login.userId);
+    // const userId = useSelector((store: AppStateType) => store.login.userId);
     const dispatch = useDispatch();
 
     useEffect(() => {

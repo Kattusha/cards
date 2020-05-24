@@ -1,7 +1,7 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {CardPackType, decksAPI, GetDecksType, PostOrPutCardsPackType} from "../api";
-import {getCookie, setCookie} from "../../01-auth/login/cookies";
+import {getCookie, setCookie} from "../../01-auth/bll/cookies";
 
 export type DecksType = {
     cardPacks: Array<CardPackType>,
@@ -82,8 +82,8 @@ export const getDecks = (): ThunkAction<void, AppStateType, unknown, ActionsType
 export const getDecksMe = (): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
     async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
         let token = getCookie('token');
-        if (token !== null) {
-            let myUserId = getState().login.userId;
+        let myUserId = getState().login.userId;
+        if (token !== null && myUserId !== null) {
             dispatch(actions.setLoadingStatus(true));
             let data = await decksAPI.getDecksMe(token, myUserId);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);

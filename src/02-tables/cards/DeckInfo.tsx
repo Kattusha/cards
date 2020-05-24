@@ -4,19 +4,17 @@ import {H1} from "../../main/ui/style/commonStyle";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import noDeckCover from "../../main/ui/images/no-deck-cover.jpg";
-import {ProfileContainer, UserCardInfo, UserDecksInfoContainer} from '../../01-auth/profile/Profile';
-import {useDispatch, useSelector} from "react-redux";
+import {ProfileContainer, UserCardInfo, UserDecksInfoContainer} from '../../main/ui/components/Profile';
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import {CardPackType} from "../api";
-import {DECK_CARDS_PATH_USER} from "../../main/ui/components/Body";
-import { Route } from 'react-router-dom';
 import CardsContainer from "./cardsContainer";
 
 library.add(fas);
 
 const DeckInfo: React.FC = (props: any) => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     let deckId: string = props.match.params.deckId;
 
     const {cardPacks} = useSelector((store: AppStateType) => store.cardDecksReducer);

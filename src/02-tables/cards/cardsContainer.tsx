@@ -4,14 +4,13 @@ import {AppStateType} from "../../main/bll/store";
 import Preloader from "../../main/ui/components/preloader/Preloader";
 import {chooseCardsPage, deleteCard, getCards, postCard, putCard} from "./cardsReducer";
 import {compose} from "redux";
-import {NavLink, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import CardsOfDecks from "./CardsOfDeck";
 import Pagination from "../pagination";
 import Modal from "../cardDecks/modal";
 import {EditCardReduxForm} from "./editCardForm";
 import {Button, H3} from "../../main/ui/style/commonStyle";
-import { Wrapper } from "../cardDecks/cardDecksContainer";
-import {LOGIN_PATH} from "../../main/ui/components/Body";
+import {Wrapper} from "../cardDecks/cardDecksContainer";
 import LearnCards from "../../04-learn cards/LearnCards";
 
 const CardsContainer: React.FC = (props: any) => {

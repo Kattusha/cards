@@ -31,21 +31,18 @@ export const FlexRowCenter = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
 `;
 export const ContainerWrapper = styled(FlexRowCenter)`
     margin: 0 auto;
-    //width: 1082px;
-    @media (min-width: 1160px) {
-      max-width: 1082px;
+    @media (max-width: 924px){
+      margin: 2% 2%;
     }
     @media (min-width: 925px){
       max-width: 912px;
     }
-    @media (max-width: 924px){
-      margin: 2% 2%;
+    @media (min-width: 1100px) {
+      max-width: 1082px;
     }
-    
 `;
 export const Button = styled.button`
     font-family: 'DINNextLTPro-Bold';

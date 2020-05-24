@@ -1,6 +1,4 @@
-import React, {useState} from "react";
-import {H3} from "../main/ui/style/commonStyle";
-import {CardType} from "../02-tables/api";
+import React from "react";
 import styled from "styled-components/macro";
 
 type PropsType = {

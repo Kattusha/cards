@@ -1,22 +1,21 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form'
-import loginReducer from "../../01-auth/login/login-reducer";
-import registrationReducer from "../../01-auth/registration/registration-reducer";
-import newPasswordReducer from "../../01-auth/newPassword/newPassword-reducer";
-import recoveryPasswordReducer from "../../01-auth/recoveryPassword/recoveryPassword-reducer";
-import profileReducer from "../../01-auth/profile/profile-reducer";
+import loginReducer from "../../01-auth/bll/login-reducer";
+import registrationReducer from "../../01-auth/bll/registration-reducer";
+import recoveryPasswordReducer from "../../01-auth/bll/recoveryPassword-reducer";
 import cardDecksReducer from "../../02-tables/cardDecks/cardDecksReducer";
 import cardsReducer from "../../02-tables/cards/cardsReducer";
-import appReducer from "./app-reducer";
+import initReducer from "../../01-auth/bll/init-reducer";
+import requestStatusesReducer from "../../01-auth/bll/request-statuses-reducer";
 
 const rootReducer = combineReducers({
-    app: appReducer,
-    login:loginReducer,
+    init: initReducer,
+    requestStatus: requestStatusesReducer,
     registration: registrationReducer,
-    newPassword: newPasswordReducer,
+    login:loginReducer,
     recoveryPassword: recoveryPasswordReducer,
-    profile: profileReducer,
+
     cardDecksReducer: cardDecksReducer,
     cards: cardsReducer,
     form: formReducer

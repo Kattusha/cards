@@ -1,14 +1,14 @@
 import React from 'react';
 import {MainContainer, MainWrapper} from '../style/bodyStyle';
-import SignIn from "../../../01-auth/registration/SignIn";
 import {Redirect, Route} from "react-router-dom";
-import Login from "../../../01-auth/login/Login";
-import RecoveryPassword from "../../../01-auth/recoveryPassword/RecoveryPassword";
-import NewPassword from "../../../01-auth/newPassword/NewPassword";
-import Profile from "../../../01-auth/profile/Profile";
+import Profile from "./Profile";
 import DeckInfo from "../../../02-tables/cards/DeckInfo";
-import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
 import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
+import SignInContainer from "../../../01-auth/ui/SignInContainer";
+import LoginContainer from "../../../01-auth/ui/LoginContainer";
+import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordContainer";
+import NewPasswordContainer from "../../../01-auth/ui/NewPasswordContainer";
+import {DEV_VERSION} from "../../../config";
 
 export const LOGIN_PATH = '/login';
 export const SIGN_IN_PATH = '/signIn';
@@ -22,6 +22,8 @@ export const DECK_CARDS_PATH_USER = '/deck/:deckName?/cards/:deckId?';
 // export const CARDS_PATH = '/cards';
 
 const Body: React.FC = () => {
+
+    DEV_VERSION && console.log(`RENDER Body`);
     return (
         <MainWrapper>
 
@@ -33,22 +35,22 @@ const Body: React.FC = () => {
 
             <Route path={SIGN_IN_PATH}>
                 <MainContainer whiteBox>
-                    <SignIn/>
+                    <SignInContainer/>
                 </MainContainer>
             </Route>
             <Route path={LOGIN_PATH}>
                 <MainContainer whiteBox>
-                    <Login/>
+                    <LoginContainer/>
                 </MainContainer>
             </Route>
             <Route path={RECOVERY_PASSWORD_PATH}>
                 <MainContainer whiteBox>
-                    <RecoveryPassword/>
+                    <RecoveryPasswordContainer/>
                 </MainContainer>
             </Route>
             <Route path={NEW_PASSWORD_PATH}>
                 <MainContainer whiteBox>
-                    <NewPassword/>
+                    <NewPasswordContainer/>
                 </MainContainer>
             </Route>
             {/*<Route path={CARD_DECKS_PATH}>*/}
@@ -62,9 +64,9 @@ const Body: React.FC = () => {
             {/*    </MainContainer>*/}
             {/*</Route>*/}
 
-            <Route path={PROFILE_PATH} component={Profile} />
-            <Route exact path={DECKS_PATH} component={DecksAllContainer} />
-            <Route path={DECK_CARDS_PATH_USER} component={DeckInfo} />
+            <Route path={PROFILE_PATH} component={Profile}/>
+            <Route exact path={DECKS_PATH} component={DecksAllContainer}/>
+            <Route path={DECK_CARDS_PATH_USER} component={DeckInfo}/>
         </MainWrapper>
     )
 }

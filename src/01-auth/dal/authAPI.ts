@@ -1,27 +1,5 @@
 import axios from "axios";
-
-type RegistrationResponseType = {
-    addedUser: {
-        email: string
-        isAdmin: boolean
-    },
-    success: boolean
-}
-
-export type AuthorizationResponseType = {
-    email: string
-    name: string
-    isAdmin: boolean
-    rememberMe: boolean
-    token: string
-    tokenDeathTime: number
-    success: boolean
-    _id: string
-}
-
-export type SuccessResponseType = {
-    success: boolean
-}
+import {AuthorizationResponseType, RegistrationResponseType, SuccessResponseType} from "./entities-authAPI";
 
 const instance = axios.create({
     baseURL: "https://cards-nya-back.herokuapp.com/1.0/"
@@ -34,7 +12,10 @@ export const authAPI = {
     },
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<AuthorizationResponseType>(`auth/login`, {email, password, rememberMe})
-            .then(response => response.data)
+            .then(response => {
+                debugger
+                return response.data
+            })
     },
     forgotPassword(email: string){
         return instance.post<SuccessResponseType>(`auth/forgot`,

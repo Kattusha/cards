@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from "styled-components/macro";
-import {Button, H1} from "../../main/ui/style/commonStyle";
+import {Button, H1} from "../style/commonStyle";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {IconDiv} from "../../main/ui/style/headerStyle";
+import {IconDiv} from "../style/headerStyle";
 import {useDispatch, useSelector} from "react-redux";
-import {logOut} from "../login/login-reducer";
-import {AppStateType} from "../../main/bll/store";
+import {logOut} from "../../../01-auth/bll/login-reducer";
+import {AppStateType} from "../../bll/store";
 import {Redirect, Route} from "react-router-dom";
-import {DECK_CARDS_PATH_ME, LOGIN_PATH, PROFILE_PATH} from "../../main/ui/components/Body";
-import {MainContainer} from "../../main/ui/style/bodyStyle";
-import noUserPhoto from '../../main/ui/images/no-user-photo.jpg'
-import CardDecksContainer from "../../02-tables/cardDecks/cardDecksContainer";
-import CardsContainer from "../../02-tables/cards/cardsContainer";
+import {DECK_CARDS_PATH_ME, LOGIN_PATH, PROFILE_PATH} from "./Body";
+import {MainContainer} from "../style/bodyStyle";
+import noUserPhoto from '../images/no-user-photo.jpg'
+import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
+import CardsContainer from "../../../02-tables/cards/cardsContainer";
 
 library.add(fas);
 
@@ -68,6 +68,7 @@ export const UserDecksInfoContainer = styled(MainContainer)`
   padding: 20px 30px;
   align-items: flex-start;
   justify-content: center;
+  width: 100%;
 `;
 export const UserCardInfo = styled.div`
   display: flex;

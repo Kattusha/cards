@@ -6,9 +6,11 @@ export const HeaderWrapper = styled(BlockWrapper)`
     background-color: #32cdff;
     box-shadow: 0 3px 5px rgba(0,0,0,.05);
     height: 60px;
+    display: flex;
 `;
 export const HeaderContainer = styled(ContainerWrapper)`
     justify-content: space-between;
+    width: 100%;
 `;
 export const LogoLinkBlock = styled(FlexRowCenter)`
     cursor: pointer;
@@ -37,9 +39,12 @@ export const MenuNavLink = styled(NavLink)`
     cursor: pointer;
     
     &:hover {
-        opacity: 1;
-        border-bottom: 2px solid #fff;
-        padding-top: 2px;
+      opacity: 1;
+      border-bottom: 2px solid #fff;
+      padding-top: 2px;
+    }
+    &:last-child{
+      margin-right: 0px
     }
 `;
 export const IconDiv = styled.div`

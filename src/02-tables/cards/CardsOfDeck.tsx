@@ -5,7 +5,7 @@ import Card from "./Card";
 import {DeckHeader, DecksWrapper, InfoHeader, Name} from "../cardDecks/cardDecks";
 import {Button} from "../../main/ui/style/commonStyle";
 import {Route} from "react-router-dom";
-import {NEW_PASSWORD_PATH, PROFILE_PATH} from "../../main/ui/components/Body";
+import {PROFILE_PATH} from "../../main/ui/components/Body";
 
 const AddCardButton = styled(Button)`
  font-size: 35px;
