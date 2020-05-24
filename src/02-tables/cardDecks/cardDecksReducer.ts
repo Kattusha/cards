@@ -1,7 +1,8 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {CardPackType, decksAPI, GetDecksType, PostOrPutCardsPackType} from "../api";
+import {CardPackType, cardsAPI, decksAPI, GetDecksType, PostOrPutCardsPackType, PostOrPutCardType} from "../api";
 import {getCookie, setCookie} from "../../01-auth/login/cookies";
+import {getCards} from "../cards/cardsReducer";
 
 export type DecksType = {
     cardPacks: Array<CardPackType>,
@@ -12,7 +13,8 @@ export type DecksType = {
     pageCount: number,
     token: string,
     tokenDeathTime: number,
-    isLoading: boolean
+    isLoading: boolean,
+    editedDeckId: string
 }
 
 let initialState: DecksType = {
@@ -24,7 +26,8 @@ let initialState: DecksType = {
     pageCount: 0,
     token: '',
     tokenDeathTime: 0,
-    isLoading: false
+    isLoading: false,
+    editedDeckId: ''
 };
 
 type InitialStateType = typeof initialState;
@@ -54,6 +57,11 @@ const cardDecksReducer = (state = initialState, action: ActionsTypes): InitialSt
                 ...state,
                 page: action.page
             }
+        case "cardDeckReducer/SET_EDITED_PACK_ID":
+            return {
+                ...state,
+                editedDeckId: action.editedDeckId
+            }
         default:
             return state;
     }
@@ -63,13 +71,17 @@ const actions = {
     setDecks: (decks: GetDecksType) => ({type: "cardDeckReducer/SET_DECK", decks} as const),
     deleteDeck: (id: string) => ({type: "cardDeckReducer/DELETE_DECK", id} as const),
     setLoadingStatus: (isLoading: boolean) => ({type: "cardDeckReducer/LOADING_STATUS", isLoading} as const),
-    setPage: (page: number) => ({type: "cardDeckReducer/SET_PAGE", page} as const)
+    setPage: (page: number) => ({type: "cardDeckReducer/SET_PAGE", page} as const),
+    setEditedDeckId: (editedDeckId: string) => ({type: "cardDeckReducer/SET_EDITED_PACK_ID", editedDeckId} as const)
 }
 
 type ActionsTypes = InferActionTypes<typeof actions>;
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>;
+type ThunkActionType = ThunkDispatch<AppStateType, unknown, ActionsTypes>;
 
-export const getDecks = (): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+//async functions
+
+export const getDecks = (): ThunkType => async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
@@ -79,8 +91,7 @@ export const getDecks = (): ThunkAction<void, AppStateType, unknown, ActionsType
         } else console.log('ERROR: token is null!!!');
     };
 
-export const getDecksMe = (): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>, getState: () => AppStateType) => {
+export const getDecksMe = (): ThunkType =>  async (dispatch: ThunkActionType, getState: () => AppStateType) => {
         let token = getCookie('token');
         if (token !== null) {
             let myUserId = getState().login.userId;
@@ -91,8 +102,7 @@ export const getDecksMe = (): ThunkAction<void, AppStateType, unknown, ActionsTy
         } else console.log('ERROR: token is null!!!');
     };
 
-export const deleteDeck = (id: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+export const deleteDeck = (id: string): ThunkType => async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
@@ -102,20 +112,52 @@ export const deleteDeck = (id: string): ThunkAction<void, AppStateType, unknown,
         } else console.log('ERROR: token is null!!!');
     };
 
-export const addDeck = (cardsPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+export const addDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
             let newDeck = {cardsPack, token};
             let data = await decksAPI.postDeck(newDeck);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(getDecks());
+            dispatch(getDecksMe());
         } else console.log('ERROR: token is null!!!');
     };
 
-export const choosePage = (page: number): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array<{answer: string, question: string}>): ThunkType =>
+    async (dispatch: ThunkActionType, getState: () => AppStateType) => {
+        let token = getCookie('token');
+        if (token !== null) {
+            dispatch(actions.setLoadingStatus(true));
+            let newDeck = {cardsPack, token};
+            let data = await decksAPI.postDeck(newDeck);
+            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+            const asyncAddCards = async (card: PostOrPutCardType) => {
+                let token = getCookie('token');
+                if (token !== null) {
+                    dispatch(actions.setLoadingStatus(true));
+                    let newCard = {card, token};
+                    let cardData = await cardsAPI.postCard(newCard);
+                    setCookie('token', cardData.token, Math.floor(cardData.tokenDeathTime / 1000) - 180);
+                }
+            };
+            const processCardsArray = async (cards: Array<{answer: string, question: string}>) => {
+                for (const card of cards) {
+                    let newCard = {
+                        cardsPack_id: data.newCardsPack._id,
+                        question: card.question,
+                        answer: card.answer
+                    }
+                    await asyncAddCards(newCard)
+                }
+            };
+            const result = await processCardsArray(cards);
+            dispatch(actions.setLoadingStatus(false));
+            dispatch(actions.setEditedDeckId(data.newCardsPack._id));
+            dispatch(actions.setEditedDeckId(''));
+        } else console.log('ERROR: token is null!!!');
+    };
+
+export const choosePage = (page: number): ThunkType => async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
@@ -126,8 +168,7 @@ export const choosePage = (page: number): ThunkAction<void, AppStateType, unknow
         } else console.log('ERROR: token is null!!!');
     };
 
-export const searchDeck = (deckName: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+export const searchDeck = (deckName: string): ThunkType => async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
@@ -137,8 +178,7 @@ export const searchDeck = (deckName: string): ThunkAction<void, AppStateType, un
         } else console.log('ERROR: token is null!!!');
     };
 
-export const putDeck = (cardsPack: PostOrPutCardsPackType): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+export const putDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));

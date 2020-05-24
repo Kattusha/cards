@@ -64,7 +64,7 @@ const SearchDeck = () => {
     return(
         <SearchWrapper>
             <SearchingInput placeholder={'SEARCH DECK'} value={searching} onBlur={switchEditMode} onFocus={switchEditMode}
-                            onChange={e => setSearching(e.currentTarget.value)} autoFocus={true} onKeyPress={e => submitSearching(e)}/>
+                            onChange={e => setSearching(e.currentTarget.value)} onKeyPress={e => submitSearching(e)}/>
             <SearchIcon isFocused={editMode}>
                 <FontAwesomeIcon icon='search'/>
             </SearchIcon>
