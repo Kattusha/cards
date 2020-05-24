@@ -9,7 +9,7 @@ import Profile from "../../../01-auth/profile/Profile";
 import DeckInfo from "../../../02-tables/cards/DeckInfo";
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
 import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
-import DecksEditorContainer from "../../../04-decksEditor/decksEditorContainer";
+import DecksEditorContainer from "../../../decksEditor/decksEditorContainer";
 
 export const LOGIN_PATH = '/login';
 export const SIGN_IN_PATH = '/signIn';
