@@ -9,8 +9,8 @@ export const H1 = styled.h1`
     margin: 20px 0 0;
 `;
 
-export const H3 = styled.h3<{color?: string}>`
-    font-size: 21px;
+export const H3 = styled.h3<{color?: string, fontSize?: string}>`
+    font-size: ${props => props.fontSize ? props.fontSize : "21px"}; 
     text-align: center;
     color: ${props => props.color ? props.color : "#5c5c5c"};
 `;

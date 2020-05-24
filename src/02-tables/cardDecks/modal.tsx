@@ -14,19 +14,28 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const ChildWrapper = styled.div`
+const ChildWrapper = styled.div<{height?: string, width?: string}>`
   background-color: white;
   border-radius: 10px;
-  border: none;
-  box-shadow: 0 0 10px 4px rgba(0,0,0,.18);
+  box-shadow: 0 0 15px dimgray;
+  padding: 40px 40px;
+  position: relative;
+  height: ${props => props.height ? props.height : 'auto'};
+  width: ${props => props.width ? props.width : 'auto'};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 type PropsType = {
     children: any, /* React.ReactElement,*/
+    height?: string
+    width?: string
     closeModal: () => void
 }
 
-const Modal = ({children, closeModal}: PropsType) => {
+const Modal = ({children, closeModal, height, width}: PropsType) => {
 
     const ref = useRef<HTMLDivElement>(null)
     const onClickHandler = (e: React.MouseEvent) => {
@@ -35,7 +44,7 @@ const Modal = ({children, closeModal}: PropsType) => {
 
     return(
         <Wrapper onClick={onClickHandler} ref={ref}>
-            <ChildWrapper>
+            <ChildWrapper height={height} width={width}>
                 {children}
             </ChildWrapper>
         </Wrapper>

@@ -41,25 +41,12 @@ const Profile: React.FC = () => {
                 </Button>
             </UserCardInfo>
             <UserDecksInfoContainer>
-
                 <Route path={DECK_CARDS_PATH_ME}>
                     <CardsContainer/>
                 </Route>
                 <Route exact path={PROFILE_PATH}>
                     <CardDecksContainer/>
                 </Route>
-
-
-
-                {/*<Route exact path={PROFILE_PATH}>*/}
-                {/*    <CardDecksContainer/>*/}
-                {/*</Route>*/}
-                {/*<Route exact path={PROFILE_PATH}>*/}
-                {/*    /!*path={`/profile/cards/:deckId?`}>*!/*/}
-                {/*     /!*path={DECK_CARDS_PATH_ME}>*!/*/}
-                {/*    <p>kjlkjljlj</p>*/}
-                {/*    /!*<CardsContainer/>*!/*/}
-                {/*</Route>*/}
             </UserDecksInfoContainer>
         </ProfileContainer>
     )

@@ -59,19 +59,20 @@ const CardDecksContainer = () => {
     //     //switchAddModal(false)
     // };
 
-    const decksMe: Array<CardPackType> = cardPacks.filter((deck) => deck.user_id === userId)
+    //фильтр уже не нужен, реализовано на стороне бэка
+    // const decksMe: Array<CardPackType> = cardPacks.filter((deck) => deck.user_id === userId)
 
     return (
         <>
             {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
                 <Wrapper>
                     {/*{cardPacksTotalCount}*/}
-                    {decksMe.length === 0 ? <H3 color={"#c4c4c4"}>This user has no decks.</H3>
+                    {cardPacks.length === 0 ? <H3 color={"#c4c4c4"}>This user has no decks.</H3>
                         :
                         <>
-                            <p>Total count decks: {decksMe.length}</p>
+                            <p>Total count decks: {cardPacks.length}</p>
                             {/*<AddDeckReduxForm onSubmit={addPack} isLoading={isLoading}/>*/}
-                            <CardDecks decks={decksMe} deletePack={deletePack} editPack={editDeck}/>
+                            <CardDecks decks={cardPacks} deletePack={deletePack} editPack={editDeck}/>
                             <Pagination totalCount={cardPacksTotalCount} onPageCount={pageCount} currentPage={page}
                                         textAlign={'center'}
                                         changePage={changePage}/>

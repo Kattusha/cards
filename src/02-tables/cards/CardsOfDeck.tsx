@@ -4,6 +4,8 @@ import {CardType} from "../api";
 import Card from "./Card";
 import {DeckHeader, DecksWrapper, InfoHeader, Name} from "../cardDecks/cardDecks";
 import {Button} from "../../main/ui/style/commonStyle";
+import {Route} from "react-router-dom";
+import {NEW_PASSWORD_PATH, PROFILE_PATH} from "../../main/ui/components/Body";
 
 const AddCardButton = styled(Button)`
  font-size: 35px;
@@ -53,10 +55,12 @@ const CardsOfDecks = ({cards, deleteCard, editCard, addCard}: PropsType) => {
                     <InfoHeader>Grade</InfoHeader>
                     <InfoHeader>Shots</InfoHeader>
                     <InfoHeader>Rating</InfoHeader>
-                    <InfoHeader>Actions</InfoHeader>
+                    <Route path={PROFILE_PATH}><InfoHeader>Actions</InfoHeader></Route>
                 </DeckHeader>
                 {cards.map(card => <Card key={card._id} {...card} deleteCard={deleteCard} editCard={editCard}/>)}
-                <AddCardButton onClick={addCard}>+</AddCardButton>
+                <Route path={PROFILE_PATH}>
+                    <AddCardButton onClick={addCard}>+</AddCardButton>
+                </Route>
             </DecksWrapper>
 
         </>
