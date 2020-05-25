@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {EditorReduxForm} from "./editor";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../main/bll/store";
@@ -7,6 +7,7 @@ import {postCard} from "../02-tables/cards/cardsReducer";
 import { Redirect } from "react-router-dom";
 import Modal from "../02-tables/cardDecks/modal";
 import { SingleCardReduxForm } from "./singleCardEditor";
+import {useHistory} from "react-router-dom";
 
 type PropsType = {
     editorType?: string
@@ -15,16 +16,20 @@ type PropsType = {
 const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const userId = useSelector((store: AppStateType) => store.login.userId);
-    const editedPackId = useSelector((store: AppStateType) => store.cardDecksReducer.editedDeckId);
+    const {editedDeckId, redirectedId} = useSelector((store: AppStateType) => store.cardDecksReducer);
 
     const [isCardEditorOpened, setCardEditor] = useState<boolean>(false);
     const switchCardEditor = () => setCardEditor(!isCardEditorOpened);
 
+    useEffect(() => {
+        if (redirectedId !== '') history.push(`/profile/cards/${redirectedId}`)
+    }, [redirectedId]);
 
     const addCard = ({question, answer}: any) => {
-        let card = {
-            cardsPack_id: editedPackId,
+        const card = {
+            cardsPack_id: editedDeckId,
             question, answer
         }
         dispatch(postCard(card));
@@ -32,13 +37,9 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
     };
 
     const createNewDeck = ({name, cards}: any) => {
-        let newPack = {user_id: userId, name};
+        const newPack = {user_id: userId, name};
         dispatch(addDeckWithCards(newPack, cards));
-    }
-
-    /*if (editorType === 'card editor')
-*/
-    if (editedPackId !== '') return <Redirect to={`/profile/cards/${editedPackId}`}/>;
+    };
 
     if (editorType === 'Card Editor') return(
         <Modal closeModal={switchCardEditor}>

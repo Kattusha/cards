@@ -88,8 +88,6 @@ type PropsType = {
 
 const CardsEditor: React.FC<WrappedFieldArrayProps<{}>> = ({fields, meta: {error}}) => {
 
-    const dispatch = useDispatch();
-
     useEffect(() => {
         fields.push({})
     }, [])
@@ -97,7 +95,7 @@ const CardsEditor: React.FC<WrappedFieldArrayProps<{}>> = ({fields, meta: {error
     return (
         <>
             {fields.map((card, index) =>
-                <SingleCardForm card={card} index={index} fields={fields} error={error}/>
+                <SingleCardForm card={card} index={index} fields={fields} error={error} key={index}/>
             )}
             <AddCardButtonEditor type="button" onClick={() => fields.push({})}>+</AddCardButtonEditor>
         </>

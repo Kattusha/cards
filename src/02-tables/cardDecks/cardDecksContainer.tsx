@@ -66,12 +66,10 @@ const CardDecksContainer = () => {
         <>
             {isLoading ? <Preloader size={30} backColor="#fff" frontColor="#32cdff" isLoading={isLoading}/> :
                 <Wrapper>
-                    {/*{cardPacksTotalCount}*/}
                     {cardPacks.length === 0 ? <H3 color={"#c4c4c4"}>This user has no decks.</H3>
                         :
                         <>
                             <p>Total count decks: {cardPacks.length}</p>
-                            {/*<AddDeckReduxForm onSubmit={addPack} isLoading={isLoading}/>*/}
                             <CardDecks decks={cardPacks} deletePack={deletePack} editPack={editDeck}/>
                             <Pagination totalCount={cardPacksTotalCount} onPageCount={pageCount} currentPage={page}
                                         textAlign={'center'}
@@ -85,11 +83,6 @@ const CardDecksContainer = () => {
                                    deck={cardPacks.find(deck => deck._id === editedDeckId)}/>
             </Modal>
             }
-            {/*{isAddModalOpened &&*/}
-            {/*<Modal closeModal={closeAddModal}>*/}
-            {/*    <AddDeckReduxForm isLoading={isLoading} onSubmit={addPack}/>*/}
-            {/*</Modal>*/}
-            {/*}*/}
         </>
     )
 }

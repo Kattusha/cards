@@ -56,14 +56,6 @@ const CardsContainer: React.FC = (props: any) => {
     const [isLearnModalOpened, switchLearnModal] = useState(false);
     const openLearnModal = () => switchLearnModal(true);
     const closeLearnModal = () => switchLearnModal(false);
-    // const addCard = ({question, answer}: any) => {
-    //     let card = {
-    //         cardsPack_id: deckId,
-    //         question, answer
-    //     }
-    //     dispatch(postCard(card));
-    //     switchAddModal(false)
-    // };
 
     return (
         <>
@@ -94,8 +86,7 @@ const CardsContainer: React.FC = (props: any) => {
             }
             {isLearnModalOpened &&
             <Modal closeModal={closeLearnModal} height={'500px'} width={'800px'}>
-                <LearnCards cards={cards} closeModal={closeLearnModal}></LearnCards>
-                {/*<EditCardReduxForm isLoading={isLoading} onSubmit={addCard} modalType={'add'}/>*/}
+                <LearnCards cards={cards} closeModal={closeLearnModal}/>
             </Modal>
             }
         </>
