@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch} from "react-redux";
 import {searchDeck} from "./cardDecksReducer";
+import {useHistory} from "react-router-dom";
 
 const SearchWrapper = styled.div`
   width: 320px;
@@ -50,6 +51,7 @@ const SearchIcon = styled.div<{isFocused: boolean}>`
 const SearchDeck = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [editMode, setEditMode] = useState(false);
     const switchEditMode = () => {
@@ -58,7 +60,8 @@ const SearchDeck = () => {
 
     const [searching, setSearching] = useState('');
     const submitSearching = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter" && /^\S+$/.test(searching)) dispatch(searchDeck(searching))
+        if (e.key === "Enter" && /^\S+$/.test(searching)) dispatch(searchDeck(searching));
+        history.push('/decks')
     }
 
     return(

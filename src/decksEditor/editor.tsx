@@ -48,7 +48,7 @@ const Editor: React.FC<InjectedFormProps> =
                         <Field name="name" component={StyledInput} type="text" placeholder={'Enter title'}/>
                         {error && <Span color={"red"}>{error}</Span>}
                     </DeckNameWrapper>
-                    <SubmitButton>
+                    <SubmitButton type="submit">
                         Create
                     </SubmitButton>
                 </HeaderWrapper>

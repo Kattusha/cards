@@ -79,7 +79,6 @@ type ActionsTypes = InferActionTypes<typeof actions>;
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>;
 type ThunkActionType = ThunkDispatch<AppStateType, unknown, ActionsTypes>;
 
-//async functions
 
 export const getDecks = (): ThunkType => async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
@@ -124,7 +123,7 @@ export const addDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (
     };
 
 export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array<{answer: string, question: string}>): ThunkType =>
-    async (dispatch: ThunkActionType, getState: () => AppStateType) => {
+    async (dispatch: ThunkActionType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
@@ -150,7 +149,7 @@ export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array
                     await asyncAddCards(newCard)
                 }
             };
-            const result = await processCardsArray(cards);
+            if (cards[0] && cards[0].answer && cards[0].question) await processCardsArray(cards);
             dispatch(actions.setLoadingStatus(false));
             dispatch(actions.setEditedDeckId(data.newCardsPack._id));
             dispatch(actions.setEditedDeckId(''));

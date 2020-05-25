@@ -29,13 +29,12 @@ const ChildWrapper = styled.div<{height?: string, width?: string}>`
 `;
 
 type PropsType = {
-    children: any, /* React.ReactElement,*/
     height?: string
     width?: string
     closeModal: () => void
 }
 
-const Modal = ({children, closeModal, height, width}: PropsType) => {
+const Modal: React.FC<PropsType> = ({children, closeModal, height, width}) => {
 
     const ref = useRef<HTMLDivElement>(null)
     const onClickHandler = (e: React.MouseEvent) => {
