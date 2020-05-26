@@ -11,7 +11,7 @@ import {
 import logo from '../images/logo.png'
 import {Button, FlexRowCenter} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
-import {DECKS_PATH, LOGIN_PATH, PROFILE_PATH} from './Body';
+import {DECKS_CREATE, DECKS_PATH, LOGIN_PATH, PROFILE_PATH} from './Body';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -70,13 +70,13 @@ const Header: React.FC = () => {
                     <LogoLinkBlock as={NavLink} to='/'>
                         <LogoImg src={logo} alt="logo"/>
                         <LogoText>cards</LogoText>
-                        {isAuthorized ? <SearchDeck/> : <></>}
                     </LogoLinkBlock>
+                    {isAuthorized ? <SearchDeck/> : <></>}
                     <FlexRowCenter>
                         {isAuthorized ?
                             <>
                                 <MenuNavLink to={DECKS_PATH}>All decks</MenuNavLink>
-                                <MenuNavLink to={PROFILE_PATH} onClick={openAddModal}>
+                                <MenuNavLink to={DECKS_CREATE}>
                                     <IconDiv><FontAwesomeIcon icon={['fas', 'plus']}/></IconDiv>
                                     Create deck
                                 </MenuNavLink>

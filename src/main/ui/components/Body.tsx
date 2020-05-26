@@ -4,6 +4,7 @@ import {Redirect, Route} from "react-router-dom";
 import Profile from "./Profile";
 import DeckInfo from "../../../02-tables/cards/DeckInfo";
 import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
+import DecksEditorContainer from "../../../decksEditor/decksEditorContainer";
 import SignInContainer from "../../../01-auth/ui/SignInContainer";
 import LoginContainer from "../../../01-auth/ui/LoginContainer";
 import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordContainer";
@@ -19,6 +20,7 @@ export const DECKS_PATH = '/decks';
 export const DECK_CARDS_PATH_ME = '/profile/cards/:deckId?';
 //export const DECK_CARDS_PATH_ME = '/cards/:deckId?';
 export const DECK_CARDS_PATH_USER = '/deck/:deckName?/cards/:deckId?';
+export const DECKS_CREATE = '/create'
 // export const CARDS_PATH = '/cards';
 
 const Body: React.FC = () => {
@@ -48,6 +50,11 @@ const Body: React.FC = () => {
             <Route path={NEW_PASSWORD_PATH}>
                 <MainContainer whiteBox>
                     <NewPasswordContainer/>
+                </MainContainer>
+            </Route>
+            <Route path={DECKS_CREATE}>
+                <MainContainer whiteBox>
+                    <DecksEditorContainer/>
                 </MainContainer>
             </Route>
             {/*<Route path={CARD_DECKS_PATH}>*/}
