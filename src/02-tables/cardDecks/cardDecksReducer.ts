@@ -1,6 +1,14 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {CardPackType, cardsAPI, decksAPI, GetDecksType, PostOrPutCardsPackType, PostOrPutCardType} from "../api";
+import {
+    CardPackType,
+    cardsAPI,
+    CardType,
+    decksAPI,
+    GetDecksType,
+    PostOrPutCardsPackType,
+    PostOrPutCardType
+} from "../api";
 import {getCookie, setCookie} from "../../01-auth/login/cookies";
 import {getCards} from "../cards/cardsReducer";
 
@@ -161,6 +169,11 @@ export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array
             dispatch(actions.setRedirectedId(data.newCardsPack._id));
             dispatch(actions.setLoadingStatus(false));
         } else console.log('ERROR: token is null!!!');
+    };
+
+export const editDeckWithCards = (cardsPack: CardPackType, cards: Array<PostOrPutCardType>): ThunkType =>
+    async (dispatch: ThunkActionType) => {
+
     };
 
 export const choosePage = (page: number): ThunkType => async (dispatch: ThunkActionType) => {

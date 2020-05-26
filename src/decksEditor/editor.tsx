@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import styled from "styled-components/macro";
-import {Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxForm} from "redux-form";
+import {change, Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxForm} from "redux-form";
 import {Button, Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import CardsEditor from "./cardsEditor";
@@ -48,12 +48,15 @@ const FieldArrayCustom = FieldArray as new () => GenericFieldArray<Field, any>;
 
 const Editor: React.FC<PropsType & InjectedFormProps<PropsType>> =
     ({error, handleSubmit, deckId, name}) => {
-    debugger
+
         const dispatch = useDispatch();
         const {isLoading, cards} = useSelector((store: AppStateType) => store.cards);
 
         useEffect(() => {
-            if (deckId) dispatch(getCards(deckId))
+            if (deckId) {
+                dispatch(getCards(deckId));
+                dispatch(change("editor", "name", name));
+            }
         }, [deckId]);
 
         return (

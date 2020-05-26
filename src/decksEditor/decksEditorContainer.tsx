@@ -17,7 +17,7 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const userId = useSelector((store: AppStateType) => store.login.userId);
-    const {editedDeckId, redirectedId} = useSelector((store: AppStateType) => store.cardDecksReducer);
+    const {editedDeckId, redirectedId, cardPacks} = useSelector((store: AppStateType) => store.cardDecksReducer);
 
     const [isCardEditorOpened, setCardEditor] = useState<boolean>(false);
     const switchCardEditor = () => setCardEditor(!isCardEditorOpened);
@@ -35,6 +35,10 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
         switchCardEditor()
     };
 
+    const editDeck = () => {
+
+    };
+
     const createNewDeck = ({name, cards}: any) => {
         const newPack = {user_id: userId, name};
         dispatch(addDeckWithCards(newPack, cards));
@@ -47,7 +51,8 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
     );
 
     if (editedDeckId !== '') return (
-            <EditorReduxForm onSubmit={addCard} name={"deck name"} deckId={editedDeckId}/>
+            <EditorReduxForm onSubmit={addCard} deckId={editedDeckId}
+                             name={cardPacks.find(deck => deck._id === editedDeckId)!.name}/>
     );
 
     return <EditorReduxForm onSubmit={createNewDeck}/>
