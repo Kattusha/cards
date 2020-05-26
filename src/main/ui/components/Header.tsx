@@ -11,7 +11,7 @@ import {
 import logo from '../images/logo.png'
 import {Button, FlexRowCenter} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
-import {DECKS_CREATE, DECKS_PATH, LOGIN_PATH, PROFILE_PATH} from './Body';
+import {DECKS_CREATE, DECKS_PATH, PROFILE_PATH} from './Body';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -23,8 +23,9 @@ import Modal from "./modal-forms/modal";
 import {AddDeckReduxForm} from "../../../02-tables/cardDecks/addDeckForm";
 import {addDeck} from "../../../02-tables/cardDecks/cardDecksReducer";
 import {DEV_VERSION} from "../../../config";
-import LearnCards from "../../../04-learn cards/LearnCards";
 import LoginContainer from "../../../01-auth/ui/LoginContainer";
+import SignInContainer from "../../../01-auth/ui/SignInContainer";
+import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordContainer";
 
 library.add(far, fas);
 
@@ -48,21 +49,31 @@ const Header: React.FC = () => {
     };
 
     const [isLogInModalOpened, switchLogInModal] = useState(false);
-    const openLogInModal = () => switchLogInModal(true);
-    const closeLogInModal = () => {
-        debugger
-        switchLogInModal(false)
+    const [isSignInModalOpened, switchSignInModal] = useState(false);
+    const [isRecoveryModalOpened, switchRecoveryModal] = useState(false);
+
+    const openLogInModal = () => {
+        closeSignInModal();
+        switchLogInModal(true);
     }
-    // const addPack = ({name}: any) => {
-    //     let newPack = {
-    //         user_id: userId,
-    //         name,
-    //     }
-    //     dispatch(addDeck(newPack))
-    //     switchAddModal(false)
-    // };
+    const closeLogInModal = () => switchLogInModal(false)
+
+    const openSignInModal = () => {
+        closeLogInModal();
+        switchSignInModal(true);
+    }
+    const closeSignInModal = () => switchSignInModal(false)
+
+    const openRecoveryModal = () => {
+        closeLogInModal();
+        switchRecoveryModal(true);
+    }
+    const closeRecoveryModal = () => switchRecoveryModal(false)
 
     DEV_VERSION && console.log(`RENDER Header`);
+    console.log('isLogInModalOpened: ' + isLogInModalOpened)
+    console.log('isSignInModalOpened: ' + isSignInModalOpened)
+    console.log('isRecoveryModalOpened: ' + isSignInModalOpened)
     return (
         <>
             <HeaderWrapper>
@@ -101,7 +112,23 @@ const Header: React.FC = () => {
 
             {isLogInModalOpened &&
             <Modal closeModal={closeLogInModal}>
-                <LoginContainer closeLogInModal={closeLogInModal} />
+                <LoginContainer closeLogInModal={closeLogInModal}
+                                openSignInModal={openSignInModal}
+                                openRecoveryModal={openRecoveryModal}
+                />
+            </Modal>
+            }
+
+            {isSignInModalOpened &&
+            <Modal closeModal={closeSignInModal}>
+                <SignInContainer closeSignInModal={closeSignInModal}
+                                 openLogInModal={openLogInModal}/>
+            </Modal>
+            }
+
+            {isRecoveryModalOpened &&
+            <Modal closeModal={closeRecoveryModal}>
+                <RecoveryPasswordContainer closeRecoveryModal={closeRecoveryModal} />
             </Modal>
             }
         </>

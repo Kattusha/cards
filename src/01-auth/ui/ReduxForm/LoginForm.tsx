@@ -5,10 +5,11 @@ import {Button, Span, TextLink} from "../../../main/ui/style/commonStyle";
 import {FormStyled, InputCheckBoxDiv} from "../../../main/ui/style/forForms/formControlsStyle";
 import {emailValidation, maxLength8, requiredField} from "../../../main/ui/components/forForms/validators";
 import Preloader from "../../../main/ui/components/preloader/Preloader";
-import {RECOVERY_PASSWORD_PATH} from "../../../main/ui/components/Body";
+import {MAIN_PATH} from "../../../main/ui/components/Body";
 
 type PropsType = {
     isLoading: boolean
+    openRecoveryModal: () => void
 }
 export type LoginFormDataType = {
     email: string
@@ -17,7 +18,7 @@ export type LoginFormDataType = {
 }
 
 const LoginForm: React.FC<PropsType & InjectedFormProps<LoginFormDataType, PropsType>> =
-    ({error, handleSubmit, invalid, isLoading, ...props}) => {
+    ({error, handleSubmit, invalid, isLoading, openRecoveryModal, ...props}) => {
         return (
             <FormStyled onSubmit={handleSubmit}>
                 <Field name="email" component={Input} type="email" placeholder="Email"
@@ -31,7 +32,7 @@ const LoginForm: React.FC<PropsType & InjectedFormProps<LoginFormDataType, Props
                 {error && <Span color={"red"}>{error}</Span>}
                 {isLoading && <Preloader isLoading={isLoading}/>}
 
-                <TextLink to={RECOVERY_PASSWORD_PATH}>Forgot password?</TextLink>
+                <TextLink to={MAIN_PATH} onClick={openRecoveryModal}>Forgot password?</TextLink>
                 <Button color={"blue"} disabled={invalid || isLoading}>Log in</Button>
             </FormStyled>
         );

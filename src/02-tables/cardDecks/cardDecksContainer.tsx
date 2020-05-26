@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
-import {addDeck, choosePage, deleteDeck, getDecks, putDeck, getDecksMe, actions} from "./cardDecksReducer";
-import {choosePage, deleteDeck, getDecksMe, putDeck} from "./cardDecksReducer";
+import {actions, choosePage, deleteDeck, getDecksMe, putDeck} from "./cardDecksReducer";
 import Preloader from "../../main/ui/components/preloader/Preloader";
 import CardDecks from "./cardDecks";
 import styled from "styled-components/macro";
@@ -10,8 +9,6 @@ import Pagination from "../pagination";
 import Modal from "../../main/ui/components/modal-forms/modal";
 import {EditDeckReduxForm} from "./editDeckForm";
 import {H3} from "../../main/ui/style/commonStyle";
-import {EditCardReduxForm} from "../cards/editCardForm";
-import {postCard} from "../cards/cardsReducer";
 import {useHistory} from "react-router-dom";
 
 const CardDecksContainer = () => {

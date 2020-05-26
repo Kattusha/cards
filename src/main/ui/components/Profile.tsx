@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../../01-auth/bll/login-reducer";
 import {AppStateType} from "../../bll/store";
 import {Redirect, Route} from "react-router-dom";
-import {DECK_CARDS_PATH_ME, LOGIN_PATH, PROFILE_PATH} from "./Body";
+import {DECK_CARDS_PATH_ME, MAIN_PATH, PROFILE_PATH} from "./Body";
 import {MainContainer} from "../style/bodyStyle";
 import noUserPhoto from '../images/no-user-photo.jpg'
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
         dispatch(logOut());
     }
     if (!isAuthorized)
-        return <Redirect to={LOGIN_PATH}/>;
+        return <Redirect to={MAIN_PATH}/>;
     return (
 
         <ProfileContainer>
@@ -34,7 +34,7 @@ const Profile: React.FC = () => {
                 <UserPhoto src={noUserPhoto} alt="no user photo"/>
                 {/*userName*/}
                 <H1>{email}</H1>
-                <Line />
+                <Line/>
                 <Button color={"blue"} onClick={onLogOut}>
                     <IconDiv><FontAwesomeIcon icon={['fas', 'sign-out-alt']}/></IconDiv>
                     Log out

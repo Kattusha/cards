@@ -2,15 +2,14 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import {registration} from "../bll/registration-reducer";
-import {Redirect} from 'react-router-dom';
-import {LOGIN_PATH} from "../../main/ui/components/Body";
 import SignIn from "./SignIn";
 
 type PropsType = {
     closeSignInModal: () => void
+    openLogInModal: () => void
 }
 
-const SignInContainer: React.FC<PropsType> = ({closeSignInModal}) => {
+const SignInContainer: React.FC<PropsType> = ({closeSignInModal, openLogInModal}) => {
     const dispatch = useDispatch();
     const {isRegistratedUser} = useSelector((store: AppStateType) => store.registration);
     const {isLoading} = useSelector((store: AppStateType) => store.requestStatus);
@@ -19,10 +18,12 @@ const SignInContainer: React.FC<PropsType> = ({closeSignInModal}) => {
         dispatch(registration(email, password))
     }
 
-    if (isRegistratedUser)
-        return <Redirect to={LOGIN_PATH}/>
+    if (isRegistratedUser) {
+        closeSignInModal();
+        // return <Redirect to={LOGIN_PATH}/>
+    }
 
-    return <SignIn submitFnc={register} isLoading={isLoading} closeSignInModal={closeSignInModal}/>
+    return <SignIn submitFnc={register} isLoading={isLoading} openLogInModal={openLogInModal}/>
 }
 
 export default SignInContainer

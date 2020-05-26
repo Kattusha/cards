@@ -1,9 +1,9 @@
 import styled from 'styled-components/macro';
 import {NavLink} from "react-router-dom";
 
-export const H1 = styled.h1`
+export const H1 = styled.h1<{color?: string}>`
     font-size: 27px;
-    //color: #5c5c5c;
+    color: ${props => props.color ? props.color : "#5c5c5c"};
     font-family: DINNextLTPro-Medium;
     font-weight: 400;
     margin: 20px 0 0;

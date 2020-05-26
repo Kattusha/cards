@@ -1,13 +1,12 @@
 import React, {useEffect, useRef} from "react";
 import styled from "styled-components/macro";
-import {change, Field, FieldArrayFieldsProps, WrappedFieldArrayProps} from "redux-form";
+import {change, Field} from "redux-form";
 import {Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import {useDispatch} from "react-redux";
 import {AddCardButton} from "../02-tables/cards/CardsOfDeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {CardType} from "../02-tables/api";
-import {isNumber} from "util";
 
 const FormStyled = styled.div`
   width: 100%;

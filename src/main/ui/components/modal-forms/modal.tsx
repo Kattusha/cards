@@ -14,8 +14,11 @@ const Modal: React.FC<PropsType> = ({children, closeModal, height, width}) => {
 
     const ref = useRef<HTMLDivElement>(null)
     const onClickHandler = (e: React.MouseEvent) => {
-        if (e.target === ref.current)
+
+        if (e.target === ref.current) {
+         debugger
             closeModal()
+        }
     }
 
     return(

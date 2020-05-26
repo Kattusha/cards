@@ -1,20 +1,20 @@
 import React from 'react';
 import {MainContainer, MainWrapper} from '../style/bodyStyle';
-import {Redirect, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import Profile from "./Profile";
 import DeckInfo from "../../../02-tables/cards/DeckInfo";
 import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
 import DecksEditorContainer from "../../../decksEditor/decksEditorContainer";
-import SignInContainer from "../../../01-auth/ui/SignInContainer";
-import LoginContainer from "../../../01-auth/ui/LoginContainer";
 import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordContainer";
 import NewPasswordContainer from "../../../01-auth/ui/NewPasswordContainer";
 import {DEV_VERSION} from "../../../config";
+import Home from "./Home";
 
-export const LOGIN_PATH = '/login';
-export const SIGN_IN_PATH = '/signIn';
+export const MAIN_PATH = '/'
+// export const LOGIN_PATH = '/login';
+// export const SIGN_IN_PATH = '/signIn';
 export const PROFILE_PATH = '/profile';
-export const RECOVERY_PASSWORD_PATH = '/recoveryPassword';
+// export const RECOVERY_PASSWORD_PATH = '/recoveryPassword';
 export const NEW_PASSWORD_PATH = '/newPassword/:token?'
 export const DECKS_PATH = '/decks';
 export const DECK_CARDS_PATH_ME = '/profile/cards/:deckId?';
@@ -29,24 +29,9 @@ const Body: React.FC = () => {
     return (
         <MainWrapper>
             {/*?????????*/}
-            {/*<Route exact path={'/cards'} render={() => <Redirect to={LOGIN_PATH}/>}/>*/}
-            {/*<Route exact path={'/'} render={() => <Redirect to={LOGIN_PATH}/>}/>*/}
+            <Route exact path={'/cards'} component={Home} />
+            <Route exact path={MAIN_PATH} component={Home}/>
 
-            {/*<Route path={SIGN_IN_PATH}>*/}
-            {/*    <MainContainer whiteBox>*/}
-            {/*        <SignInContainer/>*/}
-            {/*    </MainContainer>*/}
-            {/*</Route>*/}
-            {/*<Route path={LOGIN_PATH}>*/}
-            {/*    <MainContainer whiteBox>*/}
-            {/*        <LoginContainer/>*/}
-            {/*    </MainContainer>*/}
-            {/*</Route>*/}
-            <Route path={RECOVERY_PASSWORD_PATH}>
-                <MainContainer whiteBox>
-                    <RecoveryPasswordContainer/>
-                </MainContainer>
-            </Route>
             <Route path={NEW_PASSWORD_PATH}>
                 <MainContainer whiteBox>
                     <NewPasswordContainer/>

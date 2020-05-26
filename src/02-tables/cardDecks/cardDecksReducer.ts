@@ -1,16 +1,7 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {
-    CardPackType,
-    cardsAPI,
-    CardType,
-    decksAPI,
-    GetDecksType,
-    PostOrPutCardsPackType,
-    PostOrPutCardType
-} from "../api";
-import {getCookie, setCookie} from "../../01-auth/login/cookies";
-import {getCards} from "../cards/cardsReducer";
+import {CardPackType, cardsAPI, decksAPI, GetDecksType, PostOrPutCardsPackType, PostOrPutCardType} from "../api";
+import {getCookie, setCookie} from "../../01-auth/bll/cookies";
 
 export type DecksType = {
     cardPacks: Array<CardPackType>,
@@ -106,9 +97,10 @@ export const getDecks = (): ThunkType => async (dispatch: ThunkActionType) => {
         } else console.log('ERROR: token is null!!!');
     };
 
-export const getDecksMe = (): ThunkType =>  async (dispatch: ThunkActionType, getState: () => AppStateType) => {
+export const getDecksMe = (): ThunkType =>
+    async (dispatch: ThunkActionType, getState: () => AppStateType) => {
         let token = getCookie('token');
-        let myUserId = getState().login.userId;
+        let myUserId: string | null = getState().login.userId;
         if (token !== null && myUserId !== null) {
             dispatch(actions.setLoadingStatus(true));
             let data = await decksAPI.getDecksMe(token, myUserId);

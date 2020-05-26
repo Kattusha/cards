@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../main/bll/store";
 import {addDeckWithCards} from "../02-tables/cardDecks/cardDecksReducer";
 import {postCard} from "../02-tables/cards/cardsReducer";
-import Modal from "../02-tables/cardDecks/modal";
+import Modal from "../main/ui/components/modal-forms/modal";
 import {SingleCardReduxForm} from "./singleCardEditor";
 import {useHistory} from "react-router-dom";
 
@@ -35,9 +35,9 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
         switchCardEditor()
     };
 
-    const editDeck = () => {
-
-    };
+    // const editDeck = () => {
+    //
+    // };
 
     const createNewDeck = ({name, cards}: any) => {
         const newPack = {user_id: userId, name};
