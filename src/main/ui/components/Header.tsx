@@ -68,11 +68,6 @@ const Header: React.FC = () => {
         },
         []
     );
-
-    // const openSignInModal = () => {
-    //     closeLogInModal();
-    //     switchSignInModal(true);
-    // }
     const closeSignInModal = () => switchSignInModal(false)
 
     const openRecoveryModal = useCallback(
@@ -82,7 +77,6 @@ const Header: React.FC = () => {
         },
         []
     )
-
     const closeRecoveryModal = () => switchRecoveryModal(false)
 
     DEV_VERSION && console.log(`RENDER Header`);

@@ -23,7 +23,6 @@ const LoginContainer: React.FC<PropsType> =
     const login = ({email, password, rememberMe}: any) => {
         dispatch(logIn(email, password, rememberMe));
     }
-
     if (isAuthorized) {
         closeLogInModal();
         return <Redirect to={PROFILE_PATH}/>
