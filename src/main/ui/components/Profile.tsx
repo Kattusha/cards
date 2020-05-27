@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from "styled-components/macro";
-import {Button, H1} from "../style/commonStyle";
+import {Button, H1, TransparentButton, FlexRowCenter} from "../style/commonStyle";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {IconDiv} from "../style/headerStyle";
+import {IconDiv, LogoLinkBlock} from "../style/headerStyle";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../../01-auth/bll/login-reducer";
 import {AppStateType} from "../../bll/store";
-import {Redirect, Route} from "react-router-dom";
-import {DECK_CARDS_PATH_ME, MAIN_PATH, PROFILE_PATH} from "./Body";
+import {NavLink, Redirect, Route} from "react-router-dom";
+import {DECK_CARDS_PATH_ME, MAIN_PATH, PROFILE_PATH, SETTINGS_PATH} from "./Body";
 import {MainContainer} from "../style/bodyStyle";
 import noUserPhoto from '../images/no-user-photo.jpg'
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";
@@ -20,7 +20,7 @@ library.add(fas);
 const Profile: React.FC = () => {
 
     const dispatch = useDispatch();
-    const {isAuthorized, email} = useSelector((store: AppStateType) => store.login);
+    const {isAuthorized, name} = useSelector((store: AppStateType) => store.login);
 
     const onLogOut = () => {
         dispatch(logOut());
@@ -33,12 +33,18 @@ const Profile: React.FC = () => {
             <UserCardInfo>
                 <UserPhoto src={noUserPhoto} alt="no user photo"/>
                 {/*userName*/}
-                <H1>{email}</H1>
+                <H1>{name}</H1>
                 <Line/>
-                <Button color={"blue"} onClick={onLogOut}>
-                    <IconDiv><FontAwesomeIcon icon={['fas', 'sign-out-alt']}/></IconDiv>
-                    Log out
-                </Button>
+                <ButtonsBlock>
+                    <TransparentButton as={NavLink} to={SETTINGS_PATH}>
+                        <IconDiv><FontAwesomeIcon icon={['fas', 'cog']}/></IconDiv>
+                        Settings
+                    </TransparentButton>
+                    <TransparentButton onClick={onLogOut}>
+                        <IconDiv><FontAwesomeIcon icon={['fas', 'sign-out-alt']}/></IconDiv>
+                        Log out
+                    </TransparentButton>
+                </ButtonsBlock>
             </UserCardInfo>
             <UserDecksInfoContainer>
                 <Route path={DECK_CARDS_PATH_ME}>
@@ -61,19 +67,20 @@ export const ProfileContainer = styled(MainContainer)`
 export const UserDecksInfoContainer = styled(MainContainer)`
   background-color: #fff;
   //border-radius: 15px;
-  margin-left: 64px;
+  margin-left: 54px;
   max-width: 776px;
   //vertical-align: top;
   //width: 776px;
   padding: 20px 30px;
   align-items: flex-start;
   justify-content: center;
-  width: 100%;
+  width: 70%;
 `;
 export const UserCardInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 30%;
 `;
 const UserPhoto = styled.img`
   border: 5px solid #fff;
@@ -87,4 +94,9 @@ const Line = styled.div`
   height: 1px;
   margin: 15px 0;
   width: 100%;
+`;
+const ButtonsBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 `;

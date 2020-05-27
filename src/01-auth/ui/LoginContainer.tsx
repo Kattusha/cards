@@ -6,6 +6,7 @@ import {Redirect} from "react-router-dom";
 import {PROFILE_PATH} from "../../main/ui/components/Body";
 import Login from "./Login";
 import {DEV_VERSION} from "../../config";
+import {LoginFormDataType} from "./ReduxForm/LoginForm";
 
 type PropsType = {
     openSignInModal: () => void
@@ -20,7 +21,7 @@ const LoginContainer: React.FC<PropsType> =
     const {isAuthorized} = useSelector((store: AppStateType) => store.login);
     const {isLoading} = useSelector((store: AppStateType) => store.requestStatus);
 
-    const login = ({email, password, rememberMe}: any) => {
+    const login = ({email, password, rememberMe}: LoginFormDataType) => {
         dispatch(logIn(email, password, rememberMe));
     }
     if (isAuthorized) {

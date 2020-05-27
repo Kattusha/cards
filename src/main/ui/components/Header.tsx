@@ -32,7 +32,7 @@ library.add(far, fas);
 const Header: React.FC = () => {
 
     // const dispatch = useDispatch();
-    const {isAuthorized/*, email*/} = useSelector((store: AppStateType) => store.login);
+    const {isAuthorized, name} = useSelector((store: AppStateType) => store.login);
     // const {isLoading} = useSelector((store: AppStateType) => store.cardDecksReducer);
     // const userId = useSelector((store: AppStateType) => store.login.userId);
 
@@ -102,8 +102,7 @@ const Header: React.FC = () => {
                                 </MenuNavLink>
                                 <MenuNavLink to={PROFILE_PATH}>
                                     <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>
-                                    User
-                                    {/*{email}*/}
+                                    {name}
                                 </MenuNavLink>
                             </>
                             :

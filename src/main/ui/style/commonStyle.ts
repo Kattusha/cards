@@ -85,4 +85,31 @@ export const TextLink = styled(NavLink)`
         filter: brightness(95%);
     }
 `;
+export const TransparentButton = styled.button`
+    font-family: 'DINNextLTPro-Bold';
+    font-size: 15px;
+    padding: 10px 15px 6px;
+    margin: 20px 10px 0px 10px;
+    background-color: transparent;
+    border: 2px solid #32cdff;
+    border-radius: 7px;
+    color: #32cdff;
+    cursor: pointer;
+    text-align: center; 
+    text-transform: uppercase;
+    text-decoration: none;
+    
+    &:hover {
+        filter: brightness(95%);
+    }
+    &:focus {
+        outline: none;
+    }
+    &:disabled {
+        //cursor: default;
+        //opacity: .4;
+        background-color: #b0afaf;
+        cursor: not-allowed;
+    }
+`;
 

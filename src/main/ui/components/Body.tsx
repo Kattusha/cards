@@ -9,11 +9,13 @@ import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordConta
 import NewPasswordContainer from "../../../01-auth/ui/NewPasswordContainer";
 import {DEV_VERSION} from "../../../config";
 import Home from "./Home";
+import Settings from "./Settings";
 
 export const MAIN_PATH = '/'
 // export const LOGIN_PATH = '/login';
 // export const SIGN_IN_PATH = '/signIn';
 export const PROFILE_PATH = '/profile';
+export const SETTINGS_PATH = '/settings';
 // export const RECOVERY_PASSWORD_PATH = '/recoveryPassword';
 export const NEW_PASSWORD_PATH = '/newPassword/:token?'
 export const DECKS_PATH = '/decks';
@@ -54,6 +56,7 @@ const Body: React.FC = () => {
             {/*</Route>*/}
 
             <Route path={PROFILE_PATH} component={Profile}/>
+            <Route path={SETTINGS_PATH} component={Settings}/>
             <Route exact path={DECKS_PATH} component={DecksAllContainer}/>
             <Route path={DECK_CARDS_PATH_USER} component={DeckInfo}/>
         </MainWrapper>

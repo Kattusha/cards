@@ -5,7 +5,6 @@ export type RegistrationResponseType = {
     },
     success: boolean
 }
-
 export type AuthorizationResponseType = {
     email: string
     name: string
@@ -16,7 +15,12 @@ export type AuthorizationResponseType = {
     success: boolean
     _id: string
 }
-
 export type SuccessResponseType = {
     success: boolean
+}
+export type ChangeUserDataResponseType = {
+    updatedUser: AuthorizationResponseType
+    success: boolean
+    token: string
+    tokenDeathTime: number
 }
