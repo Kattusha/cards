@@ -2,6 +2,7 @@ import React from 'react';
 import {H3, Span, TextLink} from "../../main/ui/style/commonStyle";
 import {LoginForm} from "../../main/ui/style/forForms/formsStyle";
 import {LoginFormDataType, LoginReduxForm} from "./ReduxForm/LoginForm";
+import {DEV_VERSION} from "../../config";
 
 type PropsType = {
     isLoading: boolean
@@ -12,6 +13,7 @@ type PropsType = {
 
 const Login: React.FC<PropsType> = ({isLoading, submitFnc, openSignInModal, openRecoveryModal}) => {
 
+    DEV_VERSION && console.log(`RENDER Login`);
     return (
         <>
             <LoginForm>

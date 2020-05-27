@@ -8,7 +8,7 @@ import NewPassword from "./NewPassword";
 const NewPasswordContainer: React.FC = (props: any) => {
 
     const dispatch = useDispatch();
-    const {isSaveNewPassword} = useSelector((store: AppStateType) => store.recoveryPassword);
+    // const {isSaveNewPassword} = useSelector((store: AppStateType) => store.recoveryPassword);
     const {isLoading} = useSelector((store: AppStateType) => store.requestStatus);
 
     const setPassword = ({password, repeatPassword}: any) => {
