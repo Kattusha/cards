@@ -163,7 +163,7 @@ export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array
         } else console.log('ERROR: token is null!!!');
     };
 
-export const editDeckWithCards = (cardsPack?: PostOrPutCardsPackType, cards?: Array<PostOrPutCardType>): ThunkType =>
+export const editDeckWithCards = (cardsPack?: PostOrPutCardsPackType, editedCards?: Array<PostOrPutCardType>, newCards?: Array<PostOrPutCardType>): ThunkType =>
     async (dispatch: ThunkActionType, getState: () => AppStateType) => {
         let token = getCookie('token');
         if (token !== null) {
@@ -173,13 +173,12 @@ export const editDeckWithCards = (cardsPack?: PostOrPutCardsPackType, cards?: Ar
                 let data = await decksAPI.putDeck(editedDeck);
                 setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
             }
-            if (cards) {
+            if (editedCards) {
                 const editCards = async () => {
                     let existingCards: Array<string> = [];
                     const oldCards = getState().cards.cards;
-                    const createdCards = cards.filter(card => !!card._id);
                     ///редактирование
-                    for (let card of cards) {
+                    for (let card of editedCards) {
                         let iterableCard = oldCards.find(oldCard => oldCard._id === card._id)
                         if (iterableCard) {
                             existingCards.push(iterableCard._id);
@@ -197,7 +196,7 @@ export const editDeckWithCards = (cardsPack?: PostOrPutCardsPackType, cards?: Ar
                     if (existingCards.length !== 0) {
                         let cardsForDelete = oldCards.filter(card => {
                             for (let id of existingCards) {
-                                if (card._id === id) return true
+                                if (card._id === id) return false
                             }
                         })
                         if (cardsForDelete.length !== 0) {
@@ -210,20 +209,23 @@ export const editDeckWithCards = (cardsPack?: PostOrPutCardsPackType, cards?: Ar
                             }
                         }
                     }
-                    //добавление
-                    if (createdCards.length !== 0) {
-                        for (let card of createdCards) {
-                            let token = getCookie('token');
-                            if (token !== null) {
-                                let createdCard = {card, token};
-                                let data = await cardsAPI.postCard(createdCard);
-                                setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-                            }
-                        }
+                }
+                await editCards();
+            }
+            //добавление
+            if (newCards) {
+                for (let card of newCards) {
+                    let token = getCookie('token');
+                    if (token !== null) {
+                        let createdCard = {card, token};
+                        let data = await cardsAPI.postCard(createdCard);
+                        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
                     }
                 }
-
             }
+            dispatch(actions.setRedirectedId(getState().cardDecksReducer.editedDeckId));
+            dispatch(actions.setEditedDeckId(''));
+            dispatch(actions.setLoadingStatus(false));
         } else console.log('ERROR: token is null!!!');
     };
 

@@ -89,10 +89,10 @@ const SingleCardForm: React.FC<PropsType> =
 
         const dispatch = useDispatch();
 
-        const questionFieldName = cardForEdit && cardForEdit._id ? `editedCards.${cardForEdit._id}.question`
-            : cardForEdit ? `editedCards.newCards${index}.question` : `${card}.question`;
-        const answerFieldName = cardForEdit && cardForEdit._id ? `editedCards.${cardForEdit._id}.answer`
-            : cardForEdit ? `editedCards.newCards${index}.answer` : `${card}.answer`;
+        const questionFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].question`
+            : cardForEdit ? `newCards[${index}].question` : card ? `${card}.question` : 'question';
+        const answerFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].answer`
+            : cardForEdit ? `newCards[${index}].answer` : card ? `${card}.answer` : 'answer';
 
         const questionRef = useRef<HTMLDivElement>(null);
         const answerRef = useRef<HTMLDivElement>(null);
@@ -101,6 +101,7 @@ const SingleCardForm: React.FC<PropsType> =
             if (cardForEdit && cardForEdit._id) {
                 dispatch(change("editor", questionFieldName, cardForEdit.question));
                 dispatch(change("editor", answerFieldName, cardForEdit.answer));
+                dispatch(change("editor", `editedCards[${index}].id`, cardForEdit._id));
                 questionRef.current!.innerText = cardForEdit.question;
                 answerRef.current!.innerText = cardForEdit.answer;
             }
@@ -108,15 +109,19 @@ const SingleCardForm: React.FC<PropsType> =
 
         const onChangeQuestion = (e: React.FormEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
-            dispatch(change("editor", name, value ? value : ''))
+            dispatch(change("editor", name, value))
         };
         const onChangeAnswer = (e: React.FormEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
-            dispatch(change("editor", name, value ? value : ''));
+            dispatch(change("editor", name, value));
         };
-
+        console.log(questionFieldName, answerFieldName)
         return (
             <FormStyled key={index}>
+                {cardForEdit && cardForEdit._id &&
+                <InvisibleWrapper>
+                    <Field name={`editedCards[${index}].id`} component={Input} type="hidden"/>
+                </InvisibleWrapper>}
                 <InvisibleWrapper>
                     <Field name={questionFieldName} component={Input} type="hidden"/>
                 </InvisibleWrapper>

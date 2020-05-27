@@ -13,19 +13,21 @@ const AddCardButtonEditor = styled(AddCardButton)`
 
 type PropsType = {
     error?: string,
-    cards: Array<CardType>
+    cards: Array<CardType>,
+    isEdit: boolean
 }
 
-const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({fields, meta: {error}, cards}) => {
+const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({fields, meta: {error}, cards, isEdit}) => {
 
     useEffect(() => {
-       if (cards.length === 0) fields.push({})
+       if (cards.length === 0) fields.push({});
+       if (cards.length === 0 && isEdit) setEditedCards([...cardsForEdit,{} as CardType])
     }, []);
 
     const [cardsForEdit, setEditedCards] = useState<Array<CardType>>(cards);
 
     const addCard = () => {
-        if (cards.length === 0) {
+        if (cards.length === 0 && !isEdit) {
             fields.push({})
         } else {
             setEditedCards([...cardsForEdit,{} as CardType])
@@ -42,7 +44,7 @@ const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({fields, meta
 
     return (
         <>
-            {cards.length !== 0 ?
+            {isEdit ?
                 cardsForEdit.map((card, index) =>
                     <SingleCardForm cardForEdit={card} index={index} error={error} key={index} deleteCard={deleteCard}/>
                 ) :
