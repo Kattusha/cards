@@ -79,20 +79,20 @@ const DeleteCard = styled.button`
 type PropsType = {
     error?: string,
     index?: number,
-    card?: string,
-    deleteCard?: (index: number) => void,
+    deleteCard?: (index: number, fullCardName: string) => void,
     cardForEdit?: CardType,
 }
 
 const SingleCardForm: React.FC<PropsType> =
-    ({error, index, card, cardForEdit, deleteCard}) => {
+    ({error, index, cardForEdit, deleteCard}) => {
 
         const dispatch = useDispatch();
 
+        const fullCardName = cardForEdit && cardForEdit._id ? `editedCards` :  `newCards`;
         const questionFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].question`
-            : cardForEdit ? `newCards[${index}].question` : card ? `${card}.question` : 'question';
+            : cardForEdit ? `newCards[${index}].question` : 'question';
         const answerFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].answer`
-            : cardForEdit ? `newCards[${index}].answer` : card ? `${card}.answer` : 'answer';
+            : cardForEdit ? `newCards[${index}].answer` : 'answer';
 
         const questionRef = useRef<HTMLDivElement>(null);
         const answerRef = useRef<HTMLDivElement>(null);
@@ -135,7 +135,7 @@ const SingleCardForm: React.FC<PropsType> =
                       onInput={e => onChangeAnswer(e, answerFieldName)} ref={answerRef}/>
                 {error && <Span color={"red"}>{error}</Span>}
                 {typeof index === 'number' &&
-                <DeleteCard type="button" onClick={() => deleteCard!(index!)}>
+                <DeleteCard type="button" onClick={() => deleteCard!(index!,fullCardName)}>
                     <FontAwesomeIcon icon="trash"/>
                 </DeleteCard>}
             </FormStyled>

@@ -2,12 +2,11 @@ import React, {useEffect, useState} from "react";
 import {EditorReduxForm} from "./editor";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../main/bll/store";
-import {addDeckWithCards, editDeckWithCards} from "../02-tables/cardDecks/cardDecksReducer";
+import {createOrEditDeckWithCards} from "../02-tables/cardDecks/cardDecksReducer";
 import {postCard} from "../02-tables/cards/cardsReducer";
 import Modal from "../main/ui/components/modal-forms/modal";
 import {SingleCardReduxForm} from "./singleCardEditor";
 import {useHistory} from "react-router-dom";
-import {PostOrPutCardsPackType, PostOrPutCardType, PostOrPutDeckType} from "../02-tables/api";
 
 type PropsType = {
     editorType?: string
@@ -45,12 +44,12 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
         const correctedNewCards = newCards ? newCards.map((card: any) => {
             return {...card, cardsPack_id: editedDeckId}
         }) : undefined;
-        dispatch(editDeckWithCards(newPack, correctedCards, correctedNewCards))
+        dispatch(createOrEditDeckWithCards(newPack, correctedCards, correctedNewCards))
     };
 
-    const createNewDeck = ({name, cards}: any) => {
+    const createNewDeck = ({name, newCards}: any) => {
         const newPack = {user_id: userId!, name};
-        dispatch(addDeckWithCards(newPack, cards));
+        dispatch(createOrEditDeckWithCards(newPack, undefined, newCards));
     };
 
     if (editorType === 'Card Editor') return (
@@ -65,7 +64,6 @@ const DecksEditorContainer: React.FC<PropsType> = ({editorType}) => {
     );
 
     return <EditorReduxForm onSubmit={createNewDeck}/>
-
 };
 
 export default DecksEditorContainer

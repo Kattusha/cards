@@ -38,6 +38,7 @@ export type GetDecksType = {
 
 export type PostOrPutCardsPackType = {
     user_id?: string,
+    _id?: string,
     name?: string,
     path?: string,
     grade?: string,
