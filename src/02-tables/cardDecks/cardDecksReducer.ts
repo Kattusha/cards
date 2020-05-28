@@ -138,44 +138,13 @@ export const addDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (
     } else console.log('ERROR: token is null!!!');
 };
 
-export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array<{ answer: string, question: string }>): ThunkType =>
-    async (dispatch: ThunkActionType) => {
-        let token = getCookie('token');
-        if (token !== null) {
-            dispatch(actions.setLoadingStatus(true));
-            let newDeck = {cardsPack, token};
-            let data = await decksAPI.postDeck(newDeck);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            await (async () => {
-                for (let card of cards) {
-                    let newCard = {
-                        cardsPack_id: data.newCardsPack._id,
-                        question: card.question,
-                        answer: card.answer
-                    }
-                    await (async () => {
-                        let token = getCookie('token');
-                        if (token !== null) {
-                            dispatch(actions.setLoadingStatus(true));
-                            let createdCard = {card: newCard, token};
-                            let cardData = await cardsAPI.postCard(createdCard);
-                            setCookie('token', cardData.token, Math.floor(cardData.tokenDeathTime / 1000) - 180);
-                        }
-                    })()
-                }
-            })();
-            //if (cards[0] && cards[0].answer && cards[0].question) await processCardsArray();
-            dispatch(actions.setRedirectedId(data.newCardsPack._id));
-            dispatch(actions.setLoadingStatus(false));
-        } else console.log('ERROR: token is null!!!');
-    };
-
 export const createOrEditDeckWithCards = (cardsPack?: PostOrPutCardsPackType, editedCards?: Array<PostOrPutCardType>, newCards?: Array<PostOrPutCardType>): ThunkType =>
-    async (dispatch: ThunkActionType, getState: () => AppStateType) => {
+    async (dispatch: any, getState: () => AppStateType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
             let newCardPackId: string | undefined;
+            let editedPackId = getState().cardDecksReducer.editedDeckId;
             if (cardsPack) {
                 await (async () => {
                     if (cardsPack._id) {
@@ -229,43 +198,24 @@ export const createOrEditDeckWithCards = (cardsPack?: PostOrPutCardsPackType, ed
             }
             //добавление
             if (newCards) {
-                if (cardsPack?._id) {
-                    for (let card of newCards) {
-                        await (async () => {
-                            let token = getCookie('token');
-                            if (token !== null) {
-                                let newCard = {
-                                    cardsPack_id: cardsPack._id!,
-                                    question: card.question!,
-                                    answer: card.answer!
-                                }
-                                let createdCard = {card: newCard, token};
-                                let data = await cardsAPI.postCard(createdCard);
-                                setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                for (let card of newCards) {
+                    await (async () => {
+                        let token = getCookie('token');
+                        if (token !== null) {
+                            let newCard = {
+                                cardsPack_id: (editedPackId ? editedPackId : newCardPackId)!,
+                                question: card.question!,
+                                answer: card.answer!
                             }
-                        })()
-                    }
-                } else {
-                    for (let card of newCards) {
-                        await (async () => {
-                            let token = getCookie('token');
-                            if (token !== null) {
-                                let newCard = {
-                                    cardsPack_id: newCardPackId!,
-                                    question: card.question!,
-                                    answer: card.answer!
-                                }
-                                let postCardObject = {card: newCard, token};
-                                let cardData = await cardsAPI.postCard(postCardObject);
-                                setCookie('token', cardData.token, Math.floor(cardData.tokenDeathTime / 1000) - 180);
-                            }
-                        })()
-                    }
+                            let createdCard = {card: newCard, token};
+                            let data = await cardsAPI.postCard(createdCard);
+                            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                        }
+                    })()
                 }
             }
             if (newCardPackId) {
                 dispatch(actions.setRedirectedId(newCardPackId));
-                dispatch(actions.setLoadingStatus(false));
             } else {
                 dispatch(actions.setRedirectedId(getState().cardDecksReducer.editedDeckId));
                 dispatch(actions.setEditedDeckId(''));

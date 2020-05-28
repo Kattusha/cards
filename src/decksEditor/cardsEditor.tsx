@@ -15,10 +15,9 @@ const AddCardButtonEditor = styled(AddCardButton)`
 type PropsType = {
     error?: string,
     cards: Array<CardType>,
-    isEdit: boolean
 }
 
-const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({meta: {error}, cards, isEdit}) => {
+const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({meta: {error}, cards}) => {
 
     const dispatch = useDispatch();
 
@@ -43,6 +42,7 @@ const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({meta: {error
         dispatch(arrayRemove('editor', fullCardName, index));
         setNewCards(newCardsArr)
     };
+    console.log(cardsForEdit, newCards)
 
     return (
         <>

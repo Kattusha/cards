@@ -115,7 +115,7 @@ const SingleCardForm: React.FC<PropsType> =
             const value = e.currentTarget.textContent;
             dispatch(change("editor", name, value));
         };
-        console.log(questionFieldName, answerFieldName)
+
         return (
             <FormStyled key={index}>
                 {cardForEdit && cardForEdit._id &&
