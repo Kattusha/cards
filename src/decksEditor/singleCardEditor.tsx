@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import SingleCardForm from "./singleCardForm";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {Button} from "../main/ui/style/commonStyle";
-import {CardType} from "../02-tables/api";
+import {CardType} from "../02-tables/api/cardsAPI";
 
 const StyledForm = styled.form`
   display: flex;

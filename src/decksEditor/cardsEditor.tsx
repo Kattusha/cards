@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import {WrappedFieldArrayProps} from "redux-form";
 import {AddCardButton} from "../02-tables/cards/CardsOfDeck";
 import SingleCardForm from "./singleCardForm";
-import {CardType} from "../02-tables/api";
+import {CardType} from "../02-tables/api/cardsAPI";
 
 
 const AddCardButtonEditor = styled(AddCardButton)`

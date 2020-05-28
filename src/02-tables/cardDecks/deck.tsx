@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/macro";
-import {CardPackType} from "../api";
 import {InfoHeader, Name} from "./cardDecks";
 import {NavLink} from "react-router-dom";
+import {DeckType} from "../api/entities-decksAPI";
 
 export const DeckWrapper = styled.div`
   padding: 10px 0;
@@ -33,7 +33,7 @@ export const ActionsMenu = styled.div`
   font-size: 15px;
 `;
 
-export const Action = styled.div<{backgroundColor: string}>`
+export const Action = styled.div<{ backgroundColor: string }>`
   border-radius: 10px;
   cursor: pointer;
   background-color: ${props => props.backgroundColor};
@@ -59,7 +59,7 @@ export const NameDeckNavLink = styled(NavLink)`
     }
 `;
 
-type PropsType = CardPackType & AdditionalPropsType;//тут куча пропсов
+type PropsType = DeckType & AdditionalPropsType;//тут куча пропсов
 
 type AdditionalPropsType = {
     deletePack: (id: string) => void,
@@ -73,7 +73,7 @@ const Deck = ({_id, name, grade, shots, rating, deletePack, editPack}: PropsType
                 <NameDeckNavLink to={`/profile/cards/${_id}`}>
                     {name}
                 </NameDeckNavLink>
-                </Name>
+            </Name>
             <InfoHeader>{grade}</InfoHeader>
             <InfoHeader>{shots}</InfoHeader>
             <InfoHeader>{rating}</InfoHeader>

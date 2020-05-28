@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, H3} from "../main/ui/style/commonStyle";
-import {CardType} from "../02-tables/api";
+import {CardType} from "../02-tables/api/cardsAPI";
 import OneCard from "./OneCard";
 import styled from "styled-components/macro";
 import {faDizzy, faFrown, faGrimace, faGrinStars, faMehRollingEyes} from '@fortawesome/free-regular-svg-icons'

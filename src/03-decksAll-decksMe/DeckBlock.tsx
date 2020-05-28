@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components/macro";
-import {CardPackType} from "../02-tables/api";
 import {NavLink} from "react-router-dom";
 import {DeckCover} from "../02-tables/cards/DeckInfo";
 import noDeckCover from "../main/ui/images/no-deck-cover.jpg";
+import {DeckType} from "../02-tables/api/entities-decksAPI";
 
-const DeckBlock = ({_id, name, grade, shots, rating, ...props}: CardPackType) => {
+const DeckBlock = ({_id, name, grade, shots, rating, ...props}: DeckType) => {
     // debugger
     return (
         <DeckBlockWrapper as={NavLink} to={`/deck/${name}/cards/${_id}`}>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import Deck from "./deck";
-import {CardPackType} from "../api";
+import {DeckType} from "../api/entities-decksAPI";
 
 export const DecksWrapper = styled.div`
   width: 100%;
@@ -33,7 +33,7 @@ export const InfoHeader = styled(Name)`
 `;
 
 type PropsType = {
-    decks: Array<CardPackType>,
+    decks: Array<DeckType>,
     deletePack: (id: string) => void,
     editPack: (id: string) => void,
 }

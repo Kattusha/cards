@@ -6,7 +6,7 @@ import {Input} from "../main/ui/components/forForms/FormsControls";
 import {useDispatch} from "react-redux";
 import {AddCardButton} from "../02-tables/cards/CardsOfDeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {CardType} from "../02-tables/api";
+import {CardType} from "../02-tables/api/cardsAPI";
 
 const FormStyled = styled.div`
   width: 100%;

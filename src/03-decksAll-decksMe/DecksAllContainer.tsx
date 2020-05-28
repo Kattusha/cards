@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../main/bll/store";
-import {choosePage, getDecks} from "../02-tables/cardDecks/cardDecksReducer";
+import {choosePage, getDecks} from "../02-tables/bll/cardDecksReducer";
 import Preloader from "../main/ui/components/preloader/Preloader";
 import Pagination from "../02-tables/pagination";
 import {MainContainer} from "../main/ui/style/bodyStyle";
@@ -53,6 +53,7 @@ const DecksContainer = styled(MainContainer)`
   align-items: stretch;
   justify-content: normal;
   text-align: end;
+  padding: 15px 25px;
 `;
 const DecksAllWrapper = styled.div`
   display: flex;

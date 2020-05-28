@@ -1,9 +1,9 @@
 import React from "react";
-import {CardType} from "../api";
 import {InfoHeader, Name} from "../cardDecks/cardDecks";
 import {ActionsMenu, DeckWrapper, Action} from "../cardDecks/deck";
 import {PROFILE_PATH} from "../../main/ui/components/Body";
 import {Route} from "react-router-dom";
+import {CardType} from "../api/entities-cardsAPI";
 
 type PropsType = CardType & AdditionalPropsType;//тут куча пропсов
 

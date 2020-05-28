@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {EditorReduxForm} from "./editor";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../main/bll/store";
-import {addDeckWithCards} from "../02-tables/cardDecks/cardDecksReducer";
+import {addDeckWithCards} from "../02-tables/bll/cardDecksReducer";
 import {postCard} from "../02-tables/cards/cardsReducer";
 import Modal from "../main/ui/components/modal-forms/modal";
 import {SingleCardReduxForm} from "./singleCardEditor";

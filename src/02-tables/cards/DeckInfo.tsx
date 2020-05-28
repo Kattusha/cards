@@ -7,8 +7,8 @@ import noDeckCover from "../../main/ui/images/no-deck-cover.jpg";
 import {ProfileContainer, UserCardInfo, UserDecksInfoContainer} from '../../main/ui/components/Profile';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
-import {CardPackType} from "../api";
 import CardsContainer from "./cardsContainer";
+import {DeckType} from "../api/entities-decksAPI";
 
 library.add(fas);
 
@@ -19,7 +19,7 @@ const DeckInfo: React.FC = (props: any) => {
 
     const {cardPacks} = useSelector((store: AppStateType) => store.cardDecksReducer);
 
-    const deck: CardPackType | undefined = cardPacks.find((deck) => deck._id === deckId);
+    const deck: DeckType | undefined = cardPacks.find((deck) => deck._id === deckId);
     // debugger
     // const {isAuthorized, email} = useSelector((store: AppStateType) => store.login);
     //
@@ -40,7 +40,7 @@ const DeckInfo: React.FC = (props: any) => {
             </BlockDeckAbout>
             <UserDecksInfoContainer>
                 {/*<Route path={DECK_CARDS_PATH_USER}>*/}
-                    <CardsContainer/>
+                <CardsContainer/>
                 {/*</Route>*/}
                 {/*<Route exact path={PROFILE_PATH}>*/}
                 {/*    <CardDecksContainer/>*/}

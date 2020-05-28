@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components/macro";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch} from "react-redux";
-import {searchDeck} from "./cardDecksReducer";
+import {searchDeck} from "../bll/cardDecksReducer";
 import {useHistory} from "react-router-dom";
 
 const SearchWrapper = styled.div`

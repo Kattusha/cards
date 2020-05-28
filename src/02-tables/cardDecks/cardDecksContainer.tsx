@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
-import {actions, choosePage, deleteDeck, getDecksMe, putDeck} from "./cardDecksReducer";
+import {actions, choosePage, deleteDeck, getDecksMe, putDeck} from "../bll/cardDecksReducer";
 import Preloader from "../../main/ui/components/preloader/Preloader";
 import CardDecks from "./cardDecks";
 import styled from "styled-components/macro";
