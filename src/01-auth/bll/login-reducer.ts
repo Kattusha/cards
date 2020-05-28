@@ -118,7 +118,6 @@ export const logOut = () => {
 export const changeProfile = (name: string, base64String: string | ArrayBuffer | null): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
     async (dispatch: any, getState: () => AppStateType) => {
 
-    debugger
     DEV_VERSION && console.log('CALL login-reducer -> changeProfile')
     try {
         const token: string | null = getCookie('token')
