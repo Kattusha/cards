@@ -4,7 +4,7 @@ import {change, Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxFo
 import {Button, Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import CardsEditor from "./cardsEditor";
-import {getCards} from "../02-tables/cards/cardsReducer";
+import {getCards} from "../02-tables/bll/cardsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../main/bll/store";
 import Preloader from "../main/ui/components/preloader/Preloader";
@@ -14,6 +14,7 @@ const EditorWrapper = styled.form`
   flex-direction: column;
   width: 100%;
   position: relative;
+  padding: 0px 40px;
 `;
 
 const HeaderWrapper = styled.div`

@@ -4,7 +4,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../main/ui/components/forForms/FormsControls";
 import {Button, Span} from "../../main/ui/style/commonStyle";
 import Preloader from "../../main/ui/components/preloader/Preloader";
-import {CardType} from "../api/cardsAPI";
+import {CardType} from "../api/entities-cardsAPI";
 
 const FormStyled = styled.form`
     display: flex;

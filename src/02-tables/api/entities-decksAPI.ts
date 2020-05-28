@@ -1,12 +1,14 @@
-export type DeckType = {
-    cardsCount: number
-    deckCover: string
+export type CommonResponseType = {
+    success: boolean
+    token: string
+    tokenDeathTime: number
+}
+export type CardPackType = {
     _id: string
     user_id: string
     user_name: string
     name: string
     path: string
-    private: boolean
     grade: number
     shots: number
     rating: number
@@ -16,7 +18,7 @@ export type DeckType = {
     __v: number
 }
 export type GetDecksType = {
-    cardPacks: Array<DeckType>
+    cardPacks: Array<CardPackType>
     cardPacksTotalCount: number
     maxGrade: string
     minGrade: number
@@ -26,7 +28,8 @@ export type GetDecksType = {
     tokenDeathTime: number
 }
 export type PostOrPutCardsPackType = {
-    user_id?: string | null
+    user_id?: string
+    _id?: string
     name?: string
     path?: string
     grade?: string
@@ -35,39 +38,24 @@ export type PostOrPutCardsPackType = {
     type?: string
 }
 export type PostOrPutDeckType = {
-    cardsPack: PostOrPutCardsPackType,
+    cardsPack: PostOrPutCardsPackType
     token: string
 }
-export type CommonResponseType = {
+export type PostDeckResponseType = {
+    newCardsPack: CardPackType
     success: boolean
     token: string
     tokenDeathTime: number
 }
-export type DeleteResponseType = {
-    deletedCardsPack: DeckType
+export type DeleteDeckResponseType = {
+    deletedCardsPack: CardPackType
+    success: boolean
+    token: string
+    tokenDeathTime: number
 }
-export type PutResponseType = {
-    updatedCardsPack: DeckType
+export type PutDeckResponseType = {
+    updatedCardsPack: CardPackType
+    success: boolean
+    token: string
+    tokenDeathTime: number
 }
-export type PostResponseType = {
-    newCardsPack: DeckType
-}
-
-// export type PostDeckResponseType = {
-//     newCardsPack: DeckType
-//     success: boolean
-//     token: string
-//     tokenDeathTime: number
-// }
-// export type DeleteDeckResponseType = {
-//     deletedCardsPack: DeckType
-//     success: boolean
-//     token: string
-//     tokenDeathTime: number
-// }
-// export type PutDeckResponseType = {
-//     updatedCardsPack: DeckType
-//     success: boolean
-//     token: string
-//     tokenDeathTime: number
-// }

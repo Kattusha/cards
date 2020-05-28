@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import {InfoHeader, Name} from "./cardDecks";
 import {NavLink} from "react-router-dom";
-import {DeckType} from "../api/entities-decksAPI";
+import {CardPackType} from "../api/entities-decksAPI";
 
 export const DeckWrapper = styled.div`
   padding: 10px 0;
@@ -59,7 +59,7 @@ export const NameDeckNavLink = styled(NavLink)`
     }
 `;
 
-type PropsType = DeckType & AdditionalPropsType;//тут куча пропсов
+type PropsType = CardPackType & AdditionalPropsType;//тут куча пропсов
 
 type AdditionalPropsType = {
     deletePack: (id: string) => void,

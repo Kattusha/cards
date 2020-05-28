@@ -3,11 +3,11 @@ export const requiredField = (value: string) => {
         return undefined;
     else return "Field is required";
 }
-export const compareField = (value: any, dispatch: any, props: any) => {
-    if (value !== props.initialValues.userName)
-        return undefined;
-    else return "Field not changed";
-}
+// export const compareField = (value: any, dispatch: any, props: any) => {
+//     if (value !== props.initialValues.userName)
+//         return undefined;
+//     else return "Field not changed";
+// }
 
 const maxLength = (maxLength: number) => (value: string) => {
     if (value.length >= maxLength)

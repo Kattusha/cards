@@ -5,7 +5,7 @@ import {Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import {useDispatch} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {CardType} from "../02-tables/api/cardsAPI";
+import {CardType} from "../02-tables/api/entities-cardsAPI";
 
 const FormStyled = styled.div`
   width: 100%;
@@ -59,7 +59,7 @@ const InvisibleWrapper = styled.div`
 const DeleteCard = styled.button`
   position: absolute;
   top: 20%;
-  right: 3%;
+  right: 1%;
   color: #32cdff;
   border-radius: 100%;
   font-size: 30px;

@@ -5,7 +5,7 @@ import loginReducer from "../../01-auth/bll/login-reducer";
 import registrationReducer from "../../01-auth/bll/registration-reducer";
 import recoveryPasswordReducer from "../../01-auth/bll/recoveryPassword-reducer";
 import cardDecksReducer from "../../02-tables/bll/cardDecksReducer";
-import cardsReducer from "../../02-tables/cards/cardsReducer";
+import cardsReducer from "../../02-tables/bll/cardsReducer";
 import initReducer from "../../01-auth/bll/init-reducer";
 import requestStatusesReducer from "../../01-auth/bll/request-statuses-reducer";
 

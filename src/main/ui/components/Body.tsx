@@ -4,12 +4,12 @@ import {Route} from "react-router-dom";
 import Profile from "./Profile";
 import DeckInfo from "../../../02-tables/cards/DeckInfo";
 import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
-import DecksEditorContainer from "../../../decksEditor/decksEditorContainer";
+import DecksEditorContainer from "../../../05-decksEditor/decksEditorContainer";
 import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordContainer";
 import NewPasswordContainer from "../../../01-auth/ui/NewPasswordContainer";
 import {DEV_VERSION} from "../../../config";
 import Home from "./Home";
-import Settings from "./Settings";
+import Settings from "../../../06-change profile/Settings";
 
 export const MAIN_PATH = '/'
 // export const LOGIN_PATH = '/login';

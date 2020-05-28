@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import Preloader from "../../main/ui/components/preloader/Preloader";
-import {chooseCardsPage, deleteCard, getCards, postCard, putCard} from "./cardsReducer";
+import {chooseCardsPage, deleteCard, getCards, postCard, putCard} from "../bll/cardsReducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import CardsOfDecks from "./CardsOfDeck";

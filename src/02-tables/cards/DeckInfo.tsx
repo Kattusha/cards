@@ -8,7 +8,7 @@ import {ProfileContainer, UserCardInfo, UserDecksInfoContainer} from '../../main
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import CardsContainer from "./cardsContainer";
-import {DeckType} from "../api/entities-decksAPI";
+import {CardPackType} from "../api/entities-decksAPI";
 
 library.add(fas);
 
@@ -19,7 +19,7 @@ const DeckInfo: React.FC = (props: any) => {
 
     const {cardPacks} = useSelector((store: AppStateType) => store.cardDecksReducer);
 
-    const deck: DeckType | undefined = cardPacks.find((deck) => deck._id === deckId);
+    const deck: CardPackType | undefined = cardPacks.find((deck) => deck._id === deckId);
     // debugger
     // const {isAuthorized, email} = useSelector((store: AppStateType) => store.login);
     //

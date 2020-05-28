@@ -1,12 +1,5 @@
 import axios from "axios";
-import {
-    CommonResponseType,
-    DeleteResponseType,
-    GetDecksType,
-    PostOrPutDeckType,
-    PostResponseType,
-    PutResponseType
-} from "./entities-decksAPI";
+import {DeleteDeckResponseType, GetDecksType, PostOrPutDeckType, PostDeckResponseType, PutDeckResponseType} from "./entities-decksAPI";
 
 const instance = axios.create({
     baseURL: 'https://cards-nya-back.herokuapp.com/1.0/'
@@ -32,18 +25,15 @@ export const decksAPI = {
             .then(res => res.data)
     ),
     deleteDeck: (token: string, id: string) => (
-        instance.delete<DeleteResponseType & CommonResponseType/*DeleteDeckResponseType*/>(`cards/pack?&token=${token}&id=${id}`)
-            .then(res => {
-                // debugger
-                return res.data
-            })
+        instance.delete<DeleteDeckResponseType>(`cards/pack?&token=${token}&id=${id}`)
+            .then(res => res.data)
     ),
     postDeck: (object: PostOrPutDeckType) => (
-        instance.post<PostResponseType & CommonResponseType/*PostDeckResponseType*/>(`cards/pack`, object)
+        instance.post<PostDeckResponseType>(`cards/pack`, object)
             .then(res => res.data)
     ),
     putDeck: (object: PostOrPutDeckType) => (
-        instance.put<PutResponseType & CommonResponseType /*PutDeckResponseType*/>(`cards/pack`, object)
+        instance.put<PutDeckResponseType>(`cards/pack`, object)
             .then(res => res.data)
     )
 }

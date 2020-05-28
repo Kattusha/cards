@@ -3,61 +3,57 @@ import styled from "styled-components/macro";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../bll/store";
-import {MainContainer} from "../style/bodyStyle";
+import {AppStateType} from "../main/bll/store";
+import {MainContainer} from "../main/ui/style/bodyStyle";
 import {EditProfileFormDataType, EditProfileReduxForm} from "./EditProfileForm";
-import {changeProfile} from '../../../01-auth/bll/login-reducer';
-import noUserPhoto from '../images/no-user-photo.jpg'
+import {changeProfile} from '../01-auth/bll/login-reducer';
+import noUserPhoto from '../main/ui/images/no-user-photo.jpg'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {IconDiv} from "../style/headerStyle";
-import {DEV_VERSION} from "../../../config";
+import {IconDiv} from "../main/ui/style/headerStyle";
+import {DEV_VERSION} from "../config";
 
 library.add(fas);
 
 const Settings: React.FC = () => {
 
     const dispatch = useDispatch();
-    const {name, avatar} = useSelector((store: AppStateType) => store.login)
+    const {avatar} = useSelector((store: AppStateType) => store.login)
     const {isLoading} = useSelector((store: AppStateType) => store.requestStatus);
 
     const [newAvatar, setNewAvatar] = useState<string | null>(null)
+    const [hasDataToSend, sethasDataToSend] = useState<boolean>(false)
 
-    // let base64String: string | ArrayBuffer | null = null
+    // ase64String: string | ArrayBuffer | null
     const updateProfile = ({userName}: EditProfileFormDataType) => {
-        dispatch(changeProfile(userName, newAvatar /*base64String*/));
+        sethasDataToSend(false)
+        dispatch(changeProfile(userName, newAvatar));
     }
 
     const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
-
         if (file !== null) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
 
             reader.onload = function () {
-
-                // base64String = reader.result
                 setNewAvatar(typeof (reader.result) === "string" ? reader.result : null)
+                sethasDataToSend(true)
                 DEV_VERSION && console.log('LOADING file success')
             };
             reader.onerror = function (error) {
                 DEV_VERSION && console.log(`LOADING file with error: ${error}`)
             };
         }
-
     }
 
     return (
         <SettingsContainer>
             <SettingsMenu>
-                {/*<MenuItem>Edit profile</MenuItem>*/}
                 <MenuItemActive>Edit profile</MenuItemActive>
                 <MenuItem>Account settings</MenuItem>
-                {/*<MenuItem>Notifications</MenuItem>*/}
-                {/*<MenuItem>Send feedback</MenuItem>*/}
             </SettingsMenu>
             <SettingsBody>
-                <EditProfileReduxForm onSubmit={updateProfile} isLoading={isLoading}/>
+                <EditProfileReduxForm onSubmit={updateProfile} isLoading={isLoading} hasDataToSend={hasDataToSend}/>
                 <PhotoInfo>
                     <UserPhoto src={newAvatar || avatar || noUserPhoto} alt="user photo"/>
                     <FileInputLabel htmlFor="upload">

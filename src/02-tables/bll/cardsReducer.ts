@@ -1,7 +1,8 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction} from "redux-thunk";
-import {cardsAPI, CardType, GetCardsType, PostOrPutCardType} from "../api/cardsAPI";
 import {getCookie, setCookie} from "../../01-auth/bll/cookies";
+import {CardType, GetCardsType, PostOrPutCardType} from "../api/entities-cardsAPI";
+import { cardsAPI } from "../api/cardsAPI";
 
 type CardsType = {
     cards: Array<CardType>,

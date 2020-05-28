@@ -2,7 +2,7 @@ import React from "react";
 import SingleCardForm from "./singleCardForm";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {Button} from "../main/ui/style/commonStyle";
-import {CardType} from "../02-tables/api/cardsAPI";
+import {CardType} from "../02-tables/api/entities-cardsAPI";
 
 type PropsType = {
     card?: CardType

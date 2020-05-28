@@ -1,15 +1,10 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {
-    CardPackType,
-    cardsAPI,
-    CardType,
-    decksAPI,
-    GetDecksType,
-    PostOrPutCardsPackType,
-    PostOrPutCardType
-} from "../api";
 import {getCookie, setCookie} from "../../01-auth/bll/cookies";
+import {CardPackType, GetDecksType, PostOrPutCardsPackType} from "../api/entities-decksAPI";
+import {decksAPI} from "../api/decksAPI";
+import {CardType, PostOrPutCardType} from "../api/entities-cardsAPI";
+import {cardsAPI} from "../api/cardsAPI";
 
 export type DecksType = {
     cardPacks: Array<CardPackType>,

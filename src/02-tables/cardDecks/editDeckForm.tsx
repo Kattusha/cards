@@ -4,7 +4,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../main/ui/components/forForms/FormsControls";
 import {Button, Span} from "../../main/ui/style/commonStyle";
 import Preloader from "../../main/ui/components/preloader/Preloader";
-import {DeckType} from "../api/entities-decksAPI";
+import {CardPackType} from "../api/entities-decksAPI";
 
 const FormStyled = styled.form`
     display: flex;
@@ -34,7 +34,7 @@ const StyledField = styled(Input)`
 
 type PropsType = {
     isLoading: boolean,
-    deck?: DeckType
+    deck?: CardPackType
 }
 
 const EditDeckForm: React.FC<PropsType & InjectedFormProps<{}, PropsType>> =
