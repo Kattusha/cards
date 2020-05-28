@@ -35,7 +35,7 @@ const CardDecksContainer = () => {
     const closeModalWindow = () => setChangeModal({isModalOpened: false, editedDeckId: ''});
     const editDeck = (deckId: string) => {
         dispatch(actions.setEditedDeckId(deckId));
-        history.push('/create')
+        history.push(`/edit/${deckId}`)
     };
     const changePack = ({name}: any) => {
         let editedPack = {

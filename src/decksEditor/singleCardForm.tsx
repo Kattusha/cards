@@ -4,7 +4,6 @@ import {change, Field} from "redux-form";
 import {Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import {useDispatch} from "react-redux";
-import {AddCardButton} from "../02-tables/cards/CardsOfDeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {CardType} from "../02-tables/api";
 
@@ -57,11 +56,6 @@ const InvisibleWrapper = styled.div`
   display: none;
 `;
 
-const AddCardButtonEditor = styled(AddCardButton)`
-  right: 20px;
-  left: auto;
-`;
-
 const DeleteCard = styled.button`
   position: absolute;
   top: 20%;
@@ -85,26 +79,29 @@ const DeleteCard = styled.button`
 type PropsType = {
     error?: string,
     index?: number,
-    card?: string,
-    deleteCard?: (index: number) => void,
+    deleteCard?: (index: number, fullCardName: string) => void,
     cardForEdit?: CardType,
 }
 
 const SingleCardForm: React.FC<PropsType> =
-    ({error, index, card, cardForEdit, deleteCard}) => {
+    ({error, index, cardForEdit, deleteCard}) => {
 
         const dispatch = useDispatch();
 
-        const questionFieldName = cardForEdit ? `${cardForEdit._id}.question` : `${card}.question`;
-        const answerFieldName = cardForEdit ? `${cardForEdit._id}.answer` : `${card}.answer`;
+        const fullCardName = cardForEdit && cardForEdit._id ? `editedCards` :  `newCards`;
+        const questionFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].question`
+            : cardForEdit ? `newCards[${index}].question` : 'question';
+        const answerFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].answer`
+            : cardForEdit ? `newCards[${index}].answer` : 'answer';
 
         const questionRef = useRef<HTMLDivElement>(null);
         const answerRef = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
-            if (cardForEdit) {
+            if (cardForEdit && cardForEdit._id) {
                 dispatch(change("editor", questionFieldName, cardForEdit.question));
                 dispatch(change("editor", answerFieldName, cardForEdit.answer));
+                dispatch(change("editor", `editedCards[${index}].id`, cardForEdit._id));
                 questionRef.current!.innerText = cardForEdit.question;
                 answerRef.current!.innerText = cardForEdit.answer;
             }
@@ -112,29 +109,33 @@ const SingleCardForm: React.FC<PropsType> =
 
         const onChangeQuestion = (e: React.FormEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
-            dispatch(change("editor", name, value ? value : ''))
+            dispatch(change("editor", name, value))
         };
         const onChangeAnswer = (e: React.FormEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
-            dispatch(change("editor", name, value ? value : ''));
+            dispatch(change("editor", name, value));
         };
 
         return (
             <FormStyled key={index}>
+                {cardForEdit && cardForEdit._id &&
+                <InvisibleWrapper>
+                    <Field name={`editedCards[${index}].id`} component={Input} type="hidden"/>
+                </InvisibleWrapper>}
                 <InvisibleWrapper>
                     <Field name={questionFieldName} component={Input} type="hidden"/>
                 </InvisibleWrapper>
-                <Card contentEditable={true} placeholder={cardForEdit ? '' : 'QUESTION'}
+                <Card contentEditable={true} placeholder={cardForEdit && cardForEdit._id ? '' : 'QUESTION'}
                       onInput={e => onChangeQuestion(e, questionFieldName)} ref={questionRef}/>
                 {error && <Span color={"red"}>{error}</Span>}
                 <InvisibleWrapper>
                     <Field name={answerFieldName} component={Input} type="hidden"/>
                 </InvisibleWrapper>
-                <Card contentEditable={true} placeholder={cardForEdit ? '' : 'ANSWER'}
+                <Card contentEditable={true} placeholder={cardForEdit && cardForEdit._id ? '' : 'ANSWER'}
                       onInput={e => onChangeAnswer(e, answerFieldName)} ref={answerRef}/>
                 {error && <Span color={"red"}>{error}</Span>}
                 {typeof index === 'number' &&
-                <DeleteCard type="button" onClick={() => deleteCard!(index!)} onMouseOver={() => console.log(index)}>
+                <DeleteCard type="button" onClick={() => deleteCard!(index!,fullCardName)}>
                     <FontAwesomeIcon icon="trash"/>
                 </DeleteCard>}
             </FormStyled>

@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import styled from "styled-components/macro";
-import {change, Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxForm} from "redux-form";
+import {change, Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxForm, reset} from "redux-form";
 import {Button, Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import CardsEditor from "./cardsEditor";
@@ -73,7 +73,7 @@ const Editor: React.FC<PropsType & InjectedFormProps<PropsType>> =
                                 {deckId? 'Submit changes' : 'Create'}
                             </SubmitButton>
                         </HeaderWrapper>
-                        <FieldArrayCustom name="cards" component={CardsEditor} cards={cards}/>
+                        <FieldArrayCustom component={CardsEditor} cards={deckId ? cards : []} name="cards"/>
                     </EditorWrapper>
                 }
             </>
