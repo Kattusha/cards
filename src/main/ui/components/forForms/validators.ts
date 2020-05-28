@@ -3,7 +3,7 @@ export const requiredField = (value: string) => {
         return undefined;
     else return "Field is required";
 }
-export const compareField = (value:any, dispatch: any, props: any) => {
+export const compareField = (value: any, dispatch: any, props: any) => {
     if (value !== props.initialValues.userName)
         return undefined;
     else return "Field not changed";
@@ -11,8 +11,8 @@ export const compareField = (value:any, dispatch: any, props: any) => {
 
 const maxLength = (maxLength: number) => (value: string) => {
     if (value.length >= maxLength)
-        return  undefined;
-    else return `Password must be more than ${maxLength-1} characters`;
+        return undefined;
+    else return `Password must be more than ${maxLength - 1} characters`;
 }
 export const maxLength8 = maxLength(8);
 

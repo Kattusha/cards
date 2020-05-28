@@ -20,7 +20,7 @@ library.add(fas);
 const Profile: React.FC = () => {
 
     const dispatch = useDispatch();
-    const {isAuthorized, name} = useSelector((store: AppStateType) => store.login);
+    const {isAuthorized, name, avatar} = useSelector((store: AppStateType) => store.login);
 
     const onLogOut = () => {
         dispatch(logOut());
@@ -31,7 +31,7 @@ const Profile: React.FC = () => {
 
         <ProfileContainer>
             <UserCardInfo>
-                <UserPhoto src={noUserPhoto} alt="no user photo"/>
+                <UserPhoto src={avatar || noUserPhoto} alt="no user photo"/>
                 {/*userName*/}
                 <H1>{name}</H1>
                 <Line/>

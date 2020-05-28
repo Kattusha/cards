@@ -33,10 +33,14 @@ export const authAPI = {
     },
     getMe(token: string) {
         return instance.post<AuthorizationResponseType>(`auth/me`, {token})
-            .then(response => response.data)
+            .then(response => {
+                debugger
+                return response.data
+            })
     },
-    changeMe(token: string, name: string){
-        return instance.put<ChangeUserDataResponseType>(`auth/me`, {token, name})
+    changeMe(token: string, name: string, avatar: string | null){
+        debugger
+        return instance.put<ChangeUserDataResponseType>(`auth/me`, {token, name, avatar})
             .then(response => {
                 debugger
                 return response.data

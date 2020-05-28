@@ -14,6 +14,7 @@ export type RegistrationType = {
 export type LoginType = {
     email: string | null
     name: string | null
+    avatar: string | null
     userId: string | null
     isAuthorized: boolean | null
 }

@@ -6,10 +6,12 @@ import {getCookie, setTokenInCookie} from "./cookies";
 import {DEV_VERSION} from "../../config";
 import {requestStatusesActions} from "./request-statuses-reducer";
 import { LoginType } from "./entities-auth-bll";
+import {act} from "react-dom/test-utils";
 
 let initialState: LoginType = {
     email: null,
     name: null,
+    avatar: null,
     userId: null,
     isAuthorized: false
 };
@@ -21,13 +23,15 @@ const loginReducer = (state = initialState, action: ActionsTypes): LoginType => 
                 ...state,
                 email: action.email,
                 name: action.name,
+                avatar: action.avatar,
                 userId: action.userId,
                 isAuthorized: action.isAuthorized
             };
         case "login-reducer/SET_USER_DATA":
             return {
                 ...state,
-                name: action.name
+                name: action.name,
+                avatar: action.avatar
             };
         default:
             return state;
@@ -35,10 +39,12 @@ const loginReducer = (state = initialState, action: ActionsTypes): LoginType => 
 };
 
 const actions = {
-    setAuthUserData: (email: string | null, name: string | null, userId: string | null, isAuthorized: boolean) =>
-        ({type: "login-reducer/SET_AUTH_USER_DATA", email, name, userId, isAuthorized} as const),
+    setAuthUserData: (email: string | null, name: string | null, avatar: string | null,
+                      userId: string | null, isAuthorized: boolean) =>
+        ({type: "login-reducer/SET_AUTH_USER_DATA", email, name, avatar, userId, isAuthorized} as const),
 
-    setUserData: (name: string | null) => ({type: "login-reducer/SET_USER_DATA", name} as const)
+    setUserData: (name: string | null, avatar: string | null) =>
+        ({type: "login-reducer/SET_USER_DATA", name, avatar} as const)
 }
 type ActionsTypes = InferActionTypes<typeof actions>
 
@@ -53,10 +59,10 @@ export const logIn = (email: string, password: string, rememberMe: boolean):
             DEV_VERSION && console.log('    response:')
             DEV_VERSION && console.log(response)
             setTokenInCookie(response.token, response.tokenDeathTime)
-            dispatch(actions.setAuthUserData(response.email, response.name, response._id, response.success))
+            dispatch(actions.setAuthUserData(response.email, response.name, response.avatar, response._id, response.success))
             dispatch(requestStatusesActions.setLoading(false))
         } catch (error) {
-            dispatch(actions.setAuthUserData(null, null, null, false))
+            dispatch(actions.setAuthUserData(null, null, null, null, false))
             dispatch(requestStatusesActions.setLoading(false))
             // debugger
             DEV_VERSION && console.log('    response:')
@@ -78,7 +84,7 @@ export const getMe = () => async (dispatch: any, getState: () => AppStateType) =
             DEV_VERSION && console.log('    response authAPI.getMe:')
             DEV_VERSION && console.log(response)
             setTokenInCookie(response.token, response.tokenDeathTime)
-            dispatch(actions.setAuthUserData(response.email, response.name, response._id, response.success))
+            dispatch(actions.setAuthUserData(response.email, response.name, response.avatar, response._id, response.success))
             dispatch(requestStatusesActions.setLoading(false))
 
             return {success: true, error: false, errorMessage: null}
@@ -87,7 +93,7 @@ export const getMe = () => async (dispatch: any, getState: () => AppStateType) =
             return {success: false, error: true, errorMessage: 'token is null'}
         }
     } catch (error) {
-        dispatch(actions.setAuthUserData(null, null, null, false))
+        dispatch(actions.setAuthUserData(null, null, null, null, false))
         dispatch(requestStatusesActions.setLoading(false))
         DEV_VERSION && console.log('    response authAPI.getMe:')
         DEV_VERSION && console.log(error.response.data.error)
@@ -103,15 +109,16 @@ export const logOut = () => {
         dispatch(requestStatusesActions.setLoading(true))
         setTokenInCookie('', -1000)
         DEV_VERSION && console.log(`    token: null`)
-        dispatch(actions.setAuthUserData(null, null, null, false))
+        dispatch(actions.setAuthUserData(null, null, null,  null, false))
         dispatch(requestStatusesActions.setLoading(false))
 
     }
 }
 
-export const changeProfile = (name: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+export const changeProfile = (name: string, base64String: string | ArrayBuffer | null): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
     async (dispatch: any, getState: () => AppStateType) => {
 
+    debugger
     DEV_VERSION && console.log('CALL login-reducer -> changeProfile')
     try {
         const token: string | null = getCookie('token')
@@ -119,12 +126,11 @@ export const changeProfile = (name: string): ThunkAction<void, AppStateType, unk
 
         if (token !== null) {
             dispatch(requestStatusesActions.setLoading(true))
-            const response = await authAPI.changeMe(token, name)
+            const response = await authAPI.changeMe(token, name, typeof(base64String) === "string" ? base64String : null)
             DEV_VERSION && console.log('    response authAPI.changeMe:')
             DEV_VERSION && console.log(response)
             setTokenInCookie(response.token, response.tokenDeathTime)
-            debugger
-            dispatch(actions.setUserData(response.updatedUser.name))
+            dispatch(actions.setUserData(response.updatedUser.name, response.updatedUser.avatar))
             dispatch(requestStatusesActions.setLoading(false))
 
             return {success: true, error: false, errorMessage: null}

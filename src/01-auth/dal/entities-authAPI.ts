@@ -6,6 +6,7 @@ export type RegistrationResponseType = {
     success: boolean
 }
 export type AuthorizationResponseType = {
+    avatar: string
     email: string
     name: string
     isAdmin: boolean

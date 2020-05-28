@@ -5,8 +5,6 @@ import {FlexRowCenter} from "../../style/commonStyle";
 type PropsType = {
     height?: string
     width?: string
-
-    children: any /*React.ReactElement | React.Component,*/
     closeModal: () => void
 }
 
@@ -19,7 +17,7 @@ const Modal: React.FC<PropsType> = ({children, closeModal, height, width}) => {
         }
     }
 
-    return(
+    return (
         <Wrapper onClick={onClickHandler} ref={ref}>
             <ChildWrapper height={height} width={width}>
                 {children}
@@ -40,7 +38,7 @@ const Wrapper = styled(FlexRowCenter)`
   z-index: 999;
 `;
 
-const ChildWrapper = styled(FlexRowCenter)<{height?: string, width?: string}>`
+const ChildWrapper = styled(FlexRowCenter)<{ height?: string, width?: string }>`
   height: ${props => props.height ? props.height : 'auto'};
   width: ${props => props.width ? props.width : 'auto'};
   background-color: white;
