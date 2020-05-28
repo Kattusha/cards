@@ -1,14 +1,18 @@
 import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {
+    CardPackType,
+    cardsAPI,
+    CardType,
+    decksAPI,
+    GetDecksType,
+    PostOrPutCardsPackType,
+    PostOrPutCardType
+} from "../api";
 import {getCookie, setCookie} from "../../01-auth/bll/cookies";
-import {DEV_VERSION} from "../../config";
-import {DeckType, GetDecksType, PostOrPutCardsPackType} from "../api/entities-decksAPI";
-import {decksAPI} from "../api/decksAPI";
-import { PostOrPutCardType } from "../api/entities-cardsAPI";
-import { cardsAPI } from "../api/cardsAPI";
 
 export type DecksType = {
-    cardPacks: Array<DeckType>,
+    cardPacks: Array<CardPackType>,
     cardPacksTotalCount: number,
     maxGrade: string,
     minGrade: number,
@@ -92,7 +96,6 @@ type ThunkActionType = ThunkDispatch<AppStateType, unknown, ActionsTypes>;
 
 
 export const getDecks = (): ThunkType => async (dispatch: ThunkActionType) => {
-    DEV_VERSION && console.log('CALL login-reducer -> changeProfile')
     let token = getCookie('token');
     if (token !== null) {
         dispatch(actions.setLoadingStatus(true));
@@ -135,43 +138,91 @@ export const addDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (
     } else console.log('ERROR: token is null!!!');
 };
 
-export const addDeckWithCards = (cardsPack: PostOrPutCardsPackType, cards: Array<{ answer: string, question: string }>): ThunkType =>
-    async (dispatch: ThunkActionType) => {
+export const createOrEditDeckWithCards = (cardsPack?: PostOrPutCardsPackType, editedCards?: Array<PostOrPutCardType>, newCards?: Array<PostOrPutCardType>): ThunkType =>
+    async (dispatch: any, getState: () => AppStateType) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
-            let newDeck = {cardsPack, token};
-            let data = await decksAPI.postDeck(newDeck);
-            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            const asyncAddCards = async (card: PostOrPutCardType) => {
-                let token = getCookie('token');
-                if (token !== null) {
-                    dispatch(actions.setLoadingStatus(true));
-                    let newCard = {card, token};
-                    let cardData = await cardsAPI.postCard(newCard);
-                    setCookie('token', cardData.token, Math.floor(cardData.tokenDeathTime / 1000) - 180);
-                }
-            };
-            const processCardsArray = async (cards: Array<{ answer: string, question: string }>) => {
-                for (const card of cards) {
-                    let newCard = {
-                        cardsPack_id: data.newCardsPack._id,
-                        question: card.question,
-                        answer: card.answer
+            let newCardPackId: string | undefined;
+            let editedPackId = getState().cardDecksReducer.editedDeckId;
+            if (cardsPack) {
+                await (async () => {
+                    if (cardsPack._id) {
+                        let editedDeck = {cardsPack, token};
+                        let data = await decksAPI.putDeck(editedDeck);
+                        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                    } else {
+                        let newDeck = {cardsPack, token};
+                        let data = await decksAPI.postDeck(newDeck);
+                        newCardPackId = data.newCardsPack._id;
+                        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
                     }
-                    await asyncAddCards(newCard);
+                })()
+            }
+            if (editedCards) {
+                let existingCards: Array<CardType> = [];
+                const oldCards = getState().cards.cards;
+                ///редактирование
+                for (let card of editedCards) {
+                    let iterableCard = oldCards.find(oldCard => oldCard._id === card._id)
+                    if (iterableCard) {
+                        existingCards.push(iterableCard);
+                        if (iterableCard.answer !== card.answer || iterableCard.question !== card.question) {
+                            await (async () => {
+                                let token = getCookie('token');
+                                if (token !== null) {
+                                    let editedCard = {card, token};
+                                    let data = await cardsAPI.putCard(editedCard);
+                                    setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                                }
+                            })()
+                        }
+                    }
                 }
-            };
-            if (cards[0] && cards[0].answer && cards[0].question) await processCardsArray(cards);
-            dispatch(actions.setRedirectedId(data.newCardsPack._id));
+                //удаление
+                debugger
+                if (existingCards.length !== 0) {
+                    let cardsForDelete = oldCards.filter(card => !existingCards.includes(card));
+                    if (cardsForDelete.length !== 0) {
+                        for (let card of cardsForDelete) {
+                            await (async () => {
+                                let token = getCookie('token');
+                                if (token !== null) {
+                                    let data = await cardsAPI.deleteCard(token, card._id);
+                                    setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                                }
+                            })()
+                        }
+                    }
+                }
+            }
+            //добавление
+            if (newCards) {
+                for (let card of newCards) {
+                    await (async () => {
+                        let token = getCookie('token');
+                        if (token !== null) {
+                            let newCard = {
+                                cardsPack_id: (editedPackId ? editedPackId : newCardPackId)!,
+                                question: card.question!,
+                                answer: card.answer!
+                            }
+                            let createdCard = {card: newCard, token};
+                            let data = await cardsAPI.postCard(createdCard);
+                            setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
+                        }
+                    })()
+                }
+            }
+            if (newCardPackId) {
+                dispatch(actions.setRedirectedId(newCardPackId));
+            } else {
+                dispatch(actions.setRedirectedId(getState().cardDecksReducer.editedDeckId));
+                dispatch(actions.setEditedDeckId(''));
+            }
             dispatch(actions.setLoadingStatus(false));
         } else console.log('ERROR: token is null!!!');
     };
-
-// export const editDeckWithCards = (cardsPack: CardPackType, cards: Array<PostOrPutCardType>): ThunkType =>
-//     async (dispatch: ThunkActionType) => {
-//
-//     };
 
 export const choosePage = (page: number): ThunkType => async (dispatch: ThunkActionType) => {
     let token = getCookie('token');

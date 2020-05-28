@@ -22,7 +22,8 @@ export const DECKS_PATH = '/decks';
 export const DECK_CARDS_PATH_ME = '/profile/cards/:deckId?';
 //export const DECK_CARDS_PATH_ME = '/cards/:deckId?';
 export const DECK_CARDS_PATH_USER = '/deck/:deckName?/cards/:deckId?';
-export const DECKS_CREATE = '/create'
+export const DECKS_CREATE = '/create';
+export const DECKS_EDIT = '/edit/:deckId?'
 // export const CARDS_PATH = '/cards';
 
 const Body: React.FC = () => {
@@ -40,6 +41,11 @@ const Body: React.FC = () => {
                 </MainContainer>
             </Route>
             <Route path={DECKS_CREATE}>
+                <MainContainer whiteBox>
+                    <DecksEditorContainer/>
+                </MainContainer>
+            </Route>
+            <Route path={DECKS_EDIT}>
                 <MainContainer whiteBox>
                     <DecksEditorContainer/>
                 </MainContainer>

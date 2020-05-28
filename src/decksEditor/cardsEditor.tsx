@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components/macro";
-import {WrappedFieldArrayProps} from "redux-form";
+import {arrayRemove, WrappedFieldArrayProps} from "redux-form";
 import {AddCardButton} from "../02-tables/cards/CardsOfDeck";
 import SingleCardForm from "./singleCardForm";
-import {CardType} from "../02-tables/api/cardsAPI";
+import {CardType} from "../02-tables/api";
+import {useDispatch} from "react-redux";
 
 
 const AddCardButtonEditor = styled(AddCardButton)`
@@ -13,41 +14,43 @@ const AddCardButtonEditor = styled(AddCardButton)`
 
 type PropsType = {
     error?: string,
-    cards: Array<CardType>
+    cards: Array<CardType>,
 }
 
-const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({fields, meta: {error}, cards}) => {
+const CardsEditor: React.FC<PropsType & WrappedFieldArrayProps> = ({meta: {error}, cards}) => {
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-       if (cards.length === 0) fields.push({})
+        if (cards.length === 0 || !cards) setNewCards([{} as CardType])
     }, []);
 
     const [cardsForEdit, setEditedCards] = useState<Array<CardType>>(cards);
+    const [newCards, setNewCards] = useState<Array<CardType>>([]);
 
     const addCard = () => {
-        if (cards.length === 0) {
-            fields.push({})
-        } else {
-            setEditedCards([...cardsForEdit,{} as CardType])
-        }
+        setNewCards([...newCards, {} as CardType])
     };
-    const deleteCard = (index: number) => {
-        if (cards.length === 0) {
-            fields.remove(index)
-        } else {
-            const newCards = cardsForEdit.filter((_, id) => id !== index)
-            setEditedCards(newCards)
-        }
+
+    const deleteEditedCard = (index: number,fullCardName: string) => {
+        const newCards = cardsForEdit.filter((_, id) => id !== index);
+        dispatch(arrayRemove('editor', fullCardName, index));
+        setEditedCards(newCards)
     };
+    const deleteNewCard = (index: number,fullCardName: string) => {
+        const newCardsArr = newCards.filter((_, id) => id !== index);
+        dispatch(arrayRemove('editor', fullCardName, index));
+        setNewCards(newCardsArr)
+    };
+    console.log(cardsForEdit, newCards)
 
     return (
         <>
-            {cards.length !== 0 ?
-                cardsForEdit.map((card, index) =>
-                    <SingleCardForm cardForEdit={card} index={index} error={error} key={index} deleteCard={deleteCard}/>
-                ) :
-                fields.map((card, index) =>
-                <SingleCardForm card={card} index={index} error={error} key={index} deleteCard={deleteCard}/>
+            {cardsForEdit.map((card, index) =>
+                <SingleCardForm cardForEdit={card} index={index} error={error} key={index} deleteCard={deleteEditedCard}/>
+            )}
+            {newCards.map((card, index) =>
+                <SingleCardForm cardForEdit={card} index={index} error={error} key={index} deleteCard={deleteNewCard}/>
             )}
             <AddCardButtonEditor type="button" onClick={addCard}>+</AddCardButtonEditor>
         </>
