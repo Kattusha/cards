@@ -7,7 +7,6 @@ import {postCard} from "../02-tables/bll/cardsReducer";
 import Modal from "../main/ui/components/modal-forms/modal";
 import {SingleCardReduxForm} from "./singleCardEditor";
 import {useHistory, useLocation, useParams} from "react-router-dom";
-import {destroy, reset} from "redux-form";
 
 type PropsType = {
     editorType?: string
@@ -28,7 +27,12 @@ const DecksEditorContainer: React.FC<PropsType> = () => {
     useEffect(() => {
         if (redirectedId) history.push(`/profile/cards/${redirectedId}`);
         return () => {dispatch(actions.setRedirectedId(''))}
-    }, [redirectedId])
+    }, [redirectedId]);
+    useEffect(() => {
+        return () => {
+            if (deckId) dispatch(actions.setEditedDeckId(''))
+        }
+    }, [])
 
     const addCard = async({question, answer}: any) => {
         const card = {
@@ -42,7 +46,7 @@ const DecksEditorContainer: React.FC<PropsType> = () => {
     };
 
     const editDeck = async ({name, editedCards, newCards}: any) => {
-       /* const editedPack = cardPacks.find(deck => deck._id === deckId);
+        const editedPack = cardPacks.find(deck => deck._id === deckId);
         const newPackName = name !== editedPack!.name ? {_id: deckId, name} : undefined;
         const correctedCards = editedCards ? editedCards.map((card: {id: string; }) => {
             return {...card, _id: card.id}
@@ -50,9 +54,7 @@ const DecksEditorContainer: React.FC<PropsType> = () => {
         const correctedNewCards = newCards ? newCards.map((card: any) => {
             return {...card, cardsPack_id: editedDeckId}
         }) : undefined;
-        dispatch(createOrEditDeckWithCards(newPackName, correctedCards, correctedNewCards));*/
-        dispatch(destroy('editor'))
-        console.log(name, editedCards, newCards)
+        dispatch(createOrEditDeckWithCards(newPackName, correctedCards, correctedNewCards));
     };
 
     const createNewDeck = async({name, newCards}: any) => {
