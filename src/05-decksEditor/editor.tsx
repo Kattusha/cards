@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import styled from "styled-components/macro";
-import {change, Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxForm, reset} from "redux-form";
+import {change, Field, FieldArray, GenericFieldArray, InjectedFormProps, reduxForm} from "redux-form";
 import {Button, Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
 import CardsEditor from "./cardsEditor";
@@ -14,7 +14,7 @@ const EditorWrapper = styled.form`
   flex-direction: column;
   width: 100%;
   position: relative;
-  padding: 0px 40px;
+  padding: 0 40px;
 `;
 
 const HeaderWrapper = styled.div`

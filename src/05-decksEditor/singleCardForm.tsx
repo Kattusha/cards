@@ -9,6 +9,7 @@ import {CardType} from "../02-tables/api/entities-cardsAPI";
 
 const FormStyled = styled.div`
   width: 100%;
+  min-width: 650px;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
@@ -81,27 +82,30 @@ type PropsType = {
     index?: number,
     deleteCard?: (index: number, fullCardName: string) => void,
     cardForEdit?: CardType,
+    singleCardMode?: boolean
 }
 
 const SingleCardForm: React.FC<PropsType> =
-    ({error, index, cardForEdit, deleteCard}) => {
+    ({error, index, cardForEdit, deleteCard, singleCardMode}) => {
 
         const dispatch = useDispatch();
 
         const fullCardName = cardForEdit && cardForEdit._id ? `editedCards` :  `newCards`;
-        const questionFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].question`
-            : cardForEdit ? `newCards[${index}].question` : 'question';
-        const answerFieldName = cardForEdit && cardForEdit._id ? `editedCards[${index}].answer`
-            : cardForEdit ? `newCards[${index}].answer` : 'answer';
+        const questionFieldName = cardForEdit && cardForEdit._id && !singleCardMode ? `editedCards[${index}].question`
+            : singleCardMode ? 'question' : `newCards[${index}].question` ;
+        const answerFieldName = cardForEdit && cardForEdit._id && !singleCardMode ? `editedCards[${index}].answer`
+            : singleCardMode ? 'answer' : `newCards[${index}].answer`;
 
         const questionRef = useRef<HTMLDivElement>(null);
         const answerRef = useRef<HTMLDivElement>(null);
 
+        const formName = singleCardMode ? 'card editor' : 'editor';
+
         useEffect(() => {
             if (cardForEdit && cardForEdit._id) {
-                dispatch(change("editor", questionFieldName, cardForEdit.question));
-                dispatch(change("editor", answerFieldName, cardForEdit.answer));
-                dispatch(change("editor", `editedCards[${index}].id`, cardForEdit._id));
+                dispatch(change(formName, questionFieldName, cardForEdit.question));
+                dispatch(change(formName, answerFieldName, cardForEdit.answer));
+                dispatch(change(formName, `editedCards[${index}].id`, cardForEdit._id));
                 questionRef.current!.innerText = cardForEdit.question;
                 answerRef.current!.innerText = cardForEdit.answer;
             }
@@ -109,11 +113,11 @@ const SingleCardForm: React.FC<PropsType> =
 
         const onChangeQuestion = (e: React.FormEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
-            dispatch(change("editor", name, value))
+            dispatch(change(formName, name, value))
         };
         const onChangeAnswer = (e: React.FormEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
-            dispatch(change("editor", name, value));
+            dispatch(change(formName, name, value));
         };
 
         return (
@@ -142,4 +146,4 @@ const SingleCardForm: React.FC<PropsType> =
         );
     };
 
-export default SingleCardForm
+export default React.memo(SingleCardForm)

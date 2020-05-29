@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import styled from "styled-components/macro";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch} from "react-redux";
@@ -52,6 +52,7 @@ const SearchDeck = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const ref = useRef<HTMLInputElement>(null);
 
     const [editMode, setEditMode] = useState(false);
     const switchEditMode = () => {
@@ -60,14 +61,18 @@ const SearchDeck = () => {
 
     const [searching, setSearching] = useState('');
     const submitSearching = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter" && /^\S+$/.test(searching)) dispatch(searchDeck(searching));
-        history.push('/decks')
+        if (e.key === "Enter" && /^\S+$/.test(searching)) {
+            dispatch(searchDeck(searching));
+            setSearching('');
+            ref.current!.blur();
+            history.push('/decks')
+        }
     }
 
     return(
         <SearchWrapper>
             <SearchingInput placeholder={'SEARCH DECK'} value={searching} onBlur={switchEditMode} onFocus={switchEditMode}
-                            onChange={e => setSearching(e.currentTarget.value)} onKeyPress={e => submitSearching(e)}/>
+                            onChange={e => setSearching(e.currentTarget.value)} onKeyPress={e => submitSearching(e)} ref={ref}/>
             <SearchIcon isFocused={editMode}>
                 <FontAwesomeIcon icon='search'/>
             </SearchIcon>

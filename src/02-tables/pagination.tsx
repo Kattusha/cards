@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 import styled from "styled-components/macro";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const PaginationWrapper = styled.div<{textAlign: string}>`
+const PaginationWrapper = styled.div<{ textAlign: string }>`
   margin: 10px 0;
   text-align: ${props => props.textAlign};
   user-select: none;
@@ -16,7 +16,7 @@ const PageWrapper = styled.div`
   margin: 0 2px;
 `;
 
-const Page = styled.div<{current: boolean, disabled?: boolean}>`
+const Page = styled.div<{ current: boolean, disabled?: boolean }>`
   position: relative;
   border-radius: 4px;
   display: block;
@@ -45,7 +45,7 @@ type PropsType = {
     changePage: (page: number) => void
 }
 
-const Pagination = ({totalCount, onPageCount, currentPage, textAlign, changePage}: PropsType) => {
+const Pagination: React.FC<PropsType> = ({totalCount, onPageCount, currentPage, textAlign, changePage}) => {
 
     const pages = useMemo(() => {
         let pages = [];
@@ -54,33 +54,37 @@ const Pagination = ({totalCount, onPageCount, currentPage, textAlign, changePage
             pages.push(i)
         }
         return pages
-    },[totalCount, onPageCount]);
+    }, [totalCount, onPageCount]);
 
     const previousPageClick = () => {
-        if (currentPage !== 1) changePage(currentPage-1)
+        if (currentPage !== 1) changePage(currentPage - 1)
     }
     const nextPageClick = () => {
-        if (currentPage !== pages[pages.length - 1]) changePage(currentPage+1)
+        if (currentPage !== pages[pages.length - 1]) changePage(currentPage + 1)
     }
 
     return (
-        <PaginationWrapper textAlign={textAlign}>
-            <PageWrapper onClick={previousPageClick}>
-                <Page current={false} disabled={currentPage === 1}><FontAwesomeIcon icon='angle-up' rotation={270}/></Page>
-            </PageWrapper>
-            {pages.map(page =>
-                <PageWrapper key={page} onClick={() => changePage(page)}>
-                    <Page current={page === currentPage}>
-                        {page}
-                    </Page>
-                </PageWrapper>)}
-            <PageWrapper onClick={nextPageClick}>
-                <Page current={false} disabled={currentPage === pages[pages.length - 1]}>
-                    <FontAwesomeIcon icon='angle-up' rotation={90}/>
-                </Page>
-            </PageWrapper>
-        </PaginationWrapper>
-
+        <>
+            {totalCount <= onPageCount ? null :
+                <PaginationWrapper textAlign={textAlign}>
+                    <PageWrapper onClick={previousPageClick}>
+                        <Page current={false} disabled={currentPage === 1}>
+                            <FontAwesomeIcon icon='angle-up' rotation={270}/>
+                        </Page>
+                    </PageWrapper>
+                    {pages.map(page =>
+                        <PageWrapper key={page} onClick={() => changePage(page)}>
+                            <Page current={page === currentPage}>
+                                {page}
+                            </Page>
+                        </PageWrapper>)}
+                    <PageWrapper onClick={nextPageClick}>
+                        <Page current={false} disabled={currentPage === pages[pages.length - 1]}>
+                            <FontAwesomeIcon icon='angle-up' rotation={90}/>
+                        </Page>
+                    </PageWrapper>
+                </PaginationWrapper>}
+        </>
     )
 };
 

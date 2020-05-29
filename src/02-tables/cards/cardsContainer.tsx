@@ -8,10 +8,10 @@ import {withRouter} from "react-router-dom";
 import CardsOfDecks from "./CardsOfDeck";
 import Pagination from "../pagination";
 import Modal from "../../main/ui/components/modal-forms/modal";
-import {EditCardReduxForm} from "./editCardForm";
 import {Button, H3} from "../../main/ui/style/commonStyle";
 import {Wrapper} from "../cardDecks/cardDecksContainer";
 import LearnCards from "../../04-learn cards/LearnCards";
+import {SingleCardEditor} from "../../05-decksEditor/singleCardEditor";
 
 const CardsContainer: React.FC = (props: any) => {
 
@@ -74,13 +74,13 @@ const CardsContainer: React.FC = (props: any) => {
             }
             {isEditOpened &&
             <Modal closeModal={closeEditModal}>
-                <EditCardReduxForm isLoading={isLoading} onSubmit={changeCard} modalType={'edit'}
-                                   card={cards.find(card => card._id === editedCardId)}/>
+                <SingleCardEditor isLoading={isLoading} onSubmit={changeCard}
+                                  editedCard={cards.find(card => card._id === editedCardId)}/>
             </Modal>
             }
             {isAddModalOpened &&
             <Modal closeModal={closeAddModal}>
-                <EditCardReduxForm isLoading={isLoading} onSubmit={addCard} modalType={'add'}/>
+                <SingleCardEditor isLoading={isLoading} onSubmit={addCard}/>
             </Modal>
             }
             {isLearnModalOpened &&

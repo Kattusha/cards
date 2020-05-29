@@ -71,6 +71,11 @@ const cardDecksReducer = (state = initialState, action: ActionsTypes): InitialSt
                 ...state,
                 redirectedId: action.redirectedId
             }
+        case "cardDeckReducer/RESET_DECKS":
+            return {
+                ...state,
+                cardPacks: []
+            }
         default:
             return state;
     }
@@ -82,7 +87,8 @@ export const actions = {
     setLoadingStatus: (isLoading: boolean) => ({type: "cardDeckReducer/LOADING_STATUS", isLoading} as const),
     setPage: (page: number) => ({type: "cardDeckReducer/SET_PAGE", page} as const),
     setEditedDeckId: (editedDeckId: string) => ({type: "cardDeckReducer/SET_EDITED_PACK_ID", editedDeckId} as const),
-    setRedirectedId: (redirectedId: string) => ({type: "cardDeckReducer/SET_REDIRECTED_PACK_ID", redirectedId} as const)
+    setRedirectedId: (redirectedId: string) => ({type: "cardDeckReducer/SET_REDIRECTED_PACK_ID", redirectedId} as const),
+    resetDecks: () => ({type: "cardDeckReducer/RESET_DECKS"} as const)
 };
 
 type ActionsTypes = InferActionTypes<typeof actions>;
@@ -119,17 +125,6 @@ export const deleteDeck = (id: string): ThunkType => async (dispatch: ThunkActio
         let data = await decksAPI.deleteDeck(token, id);
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
         if (data.success) dispatch(actions.deleteDeck(data.deletedCardsPack._id))
-    } else console.log('ERROR: token is null!!!');
-};
-
-export const addDeck = (cardsPack: PostOrPutCardsPackType): ThunkType => async (dispatch: ThunkActionType) => {
-    let token = getCookie('token');
-    if (token !== null) {
-        dispatch(actions.setLoadingStatus(true));
-        let newDeck = {cardsPack, token};
-        let data = await decksAPI.postDeck(newDeck);
-        setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-        dispatch(getDecksMe());
     } else console.log('ERROR: token is null!!!');
 };
 
@@ -175,7 +170,6 @@ export const createOrEditDeckWithCards = (cardsPack?: PostOrPutCardsPackType, ed
                     }
                 }
                 //удаление
-                debugger
                 if (existingCards.length !== 0) {
                     let cardsForDelete = oldCards.filter(card => !existingCards.includes(card));
                     if (cardsForDelete.length !== 0) {
@@ -233,6 +227,7 @@ export const choosePage = (page: number): ThunkType => async (dispatch: ThunkAct
 export const searchDeck = (deckName: string): ThunkType => async (dispatch: ThunkActionType) => {
     let token = getCookie('token');
     if (token !== null) {
+        dispatch(actions.resetDecks());
         dispatch(actions.setLoadingStatus(true));
         let data = await decksAPI.searchDecks(token, deckName);
         setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);

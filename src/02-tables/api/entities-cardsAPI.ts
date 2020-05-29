@@ -28,7 +28,7 @@ export type DeleteCardResponseType = {
     tokenDeathTime: number
 }
 export type PostOrPutCardType = {
-    cardsPack_id: string
+    cardsPack_id?: string
     _id?: string
     question?: string
     answer?: string

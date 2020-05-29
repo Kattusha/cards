@@ -2,7 +2,7 @@ import {AppStateType, InferActionTypes} from "../../main/bll/store";
 import {ThunkAction} from "redux-thunk";
 import {getCookie, setCookie} from "../../01-auth/bll/cookies";
 import {CardType, GetCardsType, PostOrPutCardType} from "../api/entities-cardsAPI";
-import { cardsAPI } from "../api/cardsAPI";
+import {cardsAPI} from "../api/cardsAPI";
 
 type CardsType = {
     cards: Array<CardType>,
@@ -36,7 +36,6 @@ const cardsReducer = (state = initialState, action: ActionsTypes): InitialStateT
             return {
                 ...state,
                 ...action.cards,
-                // cards: action.cards.cards,
                 cards: action.cards.cards.map(card => ({...card})),
                 isLoading: false
             };
@@ -110,12 +109,12 @@ export const postCard = (card: PostOrPutCardType): ThunkAction<void, AppStateTyp
             let newCard = {card, token};
             let data = await cardsAPI.postCard(newCard);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(getCards(card.cardsPack_id));
+            dispatch(getCards(card.cardsPack_id!));
         } else console.log('ERROR: token is null!!!');
     };
 
 export const chooseCardsPage = (page: number, deckId: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
-    async (dispatch: any, getState: () => AppStateType) => {
+    async (dispatch: any) => {
         let token = getCookie('token');
         if (token !== null) {
             dispatch(actions.setLoadingStatus(true));
@@ -134,7 +133,7 @@ export const putCard = (card: PostOrPutCardType): ThunkAction<void, AppStateType
             let editedCard = {card, token};
             let data = await cardsAPI.putCard(editedCard);
             setCookie('token', data.token, Math.floor(data.tokenDeathTime / 1000) - 180);
-            dispatch(getCards(card.cardsPack_id));
+            dispatch(getCards(card.cardsPack_id!));
         } else console.log('ERROR: token is null!!!');
     };
 

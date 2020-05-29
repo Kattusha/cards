@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from "styled-components/macro";
-import {Button, H1, TransparentButton, FlexRowCenter} from "../style/commonStyle";
+import {H1, TransparentButton} from "../style/commonStyle";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {IconDiv, LogoLinkBlock} from "../style/headerStyle";
+import {IconDiv} from "../style/headerStyle";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../../01-auth/bll/login-reducer";
 import {AppStateType} from "../../bll/store";
