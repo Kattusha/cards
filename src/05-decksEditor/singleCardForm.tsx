@@ -1,9 +1,9 @@
 import React, {useEffect, useRef} from "react";
 import styled from "styled-components/macro";
-import {change, Field} from "redux-form";
+import {change, Field, formValueSelector} from "redux-form";
 import {Span} from "../main/ui/style/commonStyle";
 import {Input} from "../main/ui/components/forForms/FormsControls";
-import {useDispatch} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {CardType} from "../02-tables/api/entities-cardsAPI";
 
@@ -80,36 +80,45 @@ const DeleteCard = styled.button`
 type PropsType = {
     error?: string,
     index?: number,
-    deleteCard?: (index: number, fullCardName: string) => void,
+    name?: string,
     cardForEdit?: CardType,
-    singleCardMode?: boolean
+    singleCardMode?: boolean,
+    deleteCard?: (index: number) => void
+};
+
+type MapStateToPropsType = {
+    question?: string,
+    answer?: string
 }
 
-const SingleCardForm: React.FC<PropsType> =
-    ({error, index, cardForEdit, deleteCard, singleCardMode}) => {
+const SingleCardForm: React.FC<MapStateToPropsType & PropsType> =
+    ({
+         error, index, cardForEdit, name,
+         singleCardMode, deleteCard, question, answer
+     }) => {
 
         const dispatch = useDispatch();
-
-        const fullCardName = cardForEdit && cardForEdit._id ? `editedCards` :  `newCards`;
-        const questionFieldName = cardForEdit && cardForEdit._id && !singleCardMode ? `editedCards[${index}].question`
-            : singleCardMode ? 'question' : `newCards[${index}].question` ;
-        const answerFieldName = cardForEdit && cardForEdit._id && !singleCardMode ? `editedCards[${index}].answer`
-            : singleCardMode ? 'answer' : `newCards[${index}].answer`;
 
         const questionRef = useRef<HTMLDivElement>(null);
         const answerRef = useRef<HTMLDivElement>(null);
 
         const formName = singleCardMode ? 'card editor' : 'editor';
-
+        console.log(question, answer)
         useEffect(() => {
-            if (cardForEdit && cardForEdit._id) {
-                dispatch(change(formName, questionFieldName, cardForEdit.question));
-                dispatch(change(formName, answerFieldName, cardForEdit.answer));
-                dispatch(change(formName, `editedCards[${index}].id`, cardForEdit._id));
+            if (question) {
+                questionRef.current!.innerText = question;
+            }
+            if (answer) {
+                answerRef.current!.innerText = answer;
+            }
+            if (cardForEdit && !answer && !question) {
+                dispatch(change(formName, `${name}.question`, cardForEdit.question));
+                dispatch(change(formName, `${name}.answer`, cardForEdit.answer));
+                dispatch(change(formName, `${name}.id`, cardForEdit._id));
                 questionRef.current!.innerText = cardForEdit.question;
                 answerRef.current!.innerText = cardForEdit.answer;
             }
-        }, [cardForEdit]);
+        });
 
         const onChangeQuestion = (e: React.FormEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
@@ -122,28 +131,37 @@ const SingleCardForm: React.FC<PropsType> =
 
         return (
             <FormStyled key={index}>
-                {cardForEdit && cardForEdit._id &&
+                {cardForEdit &&
                 <InvisibleWrapper>
-                    <Field name={`editedCards[${index}].id`} component={Input} type="hidden"/>
+                    <Field name={`${name}.id`} component={Input} type="hidden"/>
                 </InvisibleWrapper>}
                 <InvisibleWrapper>
-                    <Field name={questionFieldName} component={Input} type="hidden"/>
+                    <Field name={`${name}.question`} component={Input} type="hidden"/>
                 </InvisibleWrapper>
-                <Card contentEditable={true} placeholder={cardForEdit && cardForEdit._id ? '' : 'QUESTION'}
-                      onInput={e => onChangeQuestion(e, questionFieldName)} ref={questionRef}/>
+                <Card contentEditable={true} placeholder={cardForEdit ? '' : 'QUESTION'}
+                      onInput={e => onChangeQuestion(e, `${name}.question`)} ref={questionRef}/>
                 {error && <Span color={"red"}>{error}</Span>}
                 <InvisibleWrapper>
-                    <Field name={answerFieldName} component={Input} type="hidden"/>
+                    <Field name={`${name}.answer`} component={Input} type="hidden"/>
                 </InvisibleWrapper>
-                <Card contentEditable={true} placeholder={cardForEdit && cardForEdit._id ? '' : 'ANSWER'}
-                      onInput={e => onChangeAnswer(e, answerFieldName)} ref={answerRef}/>
+                <Card contentEditable={true} placeholder={cardForEdit ? '' : 'ANSWER'}
+                      onInput={e => onChangeAnswer(e, `${name}.answer`)} ref={answerRef}/>
                 {error && <Span color={"red"}>{error}</Span>}
                 {typeof index === 'number' &&
-                <DeleteCard type="button" onClick={() => deleteCard!(index!,fullCardName)}>
+                <DeleteCard type="button" onClick={() => deleteCard!(index!)}>
                     <FontAwesomeIcon icon="trash"/>
                 </DeleteCard>}
             </FormStyled>
         );
     };
 
-export default React.memo(SingleCardForm)
+const ConnectedSingleCardForm = connect<MapStateToPropsType>((state, props: PropsType) => {
+        const selector = formValueSelector(props.singleCardMode ? 'card editor' : 'editor');
+        return {
+            question: selector(state, `${props.name}.question`),
+            answer: selector(state, `${props.name}.answer`)
+        }
+    }
+)(SingleCardForm);
+
+export default React.memo(ConnectedSingleCardForm)
