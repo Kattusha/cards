@@ -120,14 +120,10 @@ const SingleCardForm: React.FC<MapStateToPropsType & PropsType> =
             }
         });
 
-        const onChangeQuestion = (e: React.FormEvent<HTMLDivElement>, name: string) => {
-            const value = e.currentTarget.textContent;
-            dispatch(change(formName, name, value))
-        };
-        const onChangeAnswer = (e: React.FormEvent<HTMLDivElement>, name: string) => {
+        const onBlurHandler = (e:  React.FocusEvent<HTMLDivElement>, name: string) => {
             const value = e.currentTarget.textContent;
             dispatch(change(formName, name, value));
-        };
+        }
 
         return (
             <FormStyled key={index}>
@@ -139,13 +135,13 @@ const SingleCardForm: React.FC<MapStateToPropsType & PropsType> =
                     <Field name={`${name}.question`} component={Input} type="hidden"/>
                 </InvisibleWrapper>
                 <Card contentEditable={true} placeholder={cardForEdit ? '' : 'QUESTION'}
-                      onInput={e => onChangeQuestion(e, `${name}.question`)} ref={questionRef}/>
+                      ref={questionRef} onBlur={e =>onBlurHandler(e, `${name}.question`)}/>
                 {error && <Span color={"red"}>{error}</Span>}
                 <InvisibleWrapper>
                     <Field name={`${name}.answer`} component={Input} type="hidden"/>
                 </InvisibleWrapper>
                 <Card contentEditable={true} placeholder={cardForEdit ? '' : 'ANSWER'}
-                      onInput={e => onChangeAnswer(e, `${name}.answer`)} ref={answerRef}/>
+                      ref={answerRef} onBlur={e =>onBlurHandler(e, `${name}.answer`)}/>
                 {error && <Span color={"red"}>{error}</Span>}
                 {typeof index === 'number' &&
                 <DeleteCard type="button" onClick={() => deleteCard!(index!)}>

@@ -19,14 +19,14 @@ const DecksEditorContainer: React.FC<PropsType> = () => {
     const {deckId} = useParams()
 
     useEffect(() => {
-        if (redirectedId) history.push(`/profile/cards/${redirectedId}`);
-        return () => {dispatch(actions.setRedirectedId(''))}
-    }, [redirectedId]);
-    useEffect(() => {
         return () => {
             if (deckId) dispatch(actions.setEditedDeckId(''))
         }
     }, [])
+    useEffect(() => {
+        return () => {dispatch(actions.setRedirectedId(''))}
+    }, [redirectedId]);
+
 
     const editDeck = ({name, editedCards, newCards}: any) => {
         const editedPack = cardPacks.find(deck => deck._id === deckId);
@@ -44,6 +44,8 @@ const DecksEditorContainer: React.FC<PropsType> = () => {
         const newPack = {user_id: userId!, name};
         dispatch(createOrEditDeckWithCards(newPack, undefined, newCards));
     };
+
+    if (redirectedId) history.push(`/profile/cards/${redirectedId}`);
 
     if (location.pathname === `/edit/${deckId}`) return (
             <EditorReduxForm onSubmit={editDeck} deckId={deckId}
