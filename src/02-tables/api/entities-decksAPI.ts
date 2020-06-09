@@ -7,6 +7,7 @@ export type CardPackType = {
     _id: string
     user_id: string
     user_name: string
+    deckCover: string
     name: string
     path: string
     grade: number

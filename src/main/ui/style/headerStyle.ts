@@ -38,11 +38,26 @@ export const MenuNavLink = styled(NavLink)`
     opacity: .8;
     cursor: pointer;
     
-    &:hover {
+    &:hover, &.active {
       opacity: 1;
       border-bottom: 2px solid #fff;
       padding-top: 2px;
     }
+    &:last-child{
+      margin-right: 0px
+    }
+`;
+export const TextNavLink = styled(NavLink)`
+    font-family: 'DINNextLTPro-Bold';
+    font-size: 16px;
+    color: #1cb0f6;
+    //text-transform: uppercase;
+    text-decoration: none;
+    margin-top: 6px;
+    margin-right: 40px;
+    //opacity: .8;
+    cursor: pointer;
+    
     &:last-child{
       margin-right: 0px
     }

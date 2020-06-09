@@ -5,12 +5,12 @@ import {DeckCover} from "../02-tables/cards/DeckInfo";
 import noDeckCover from "../main/ui/images/no-deck-cover.jpg";
 import {CardPackType} from "../02-tables/api/entities-decksAPI";
 
-const DeckBlock = ({_id, name, grade, shots, rating, ...props}: CardPackType) => {
+const DeckBlock = ({_id, name, grade, shots, rating, deckCover, ...props}: CardPackType) => {
     // debugger
     return (
         <DeckBlockWrapper as={NavLink} to={`/deck/${name}/cards/${_id}`}>
             <DeckCoverWrapper>
-                <DeckCover src={noDeckCover} alt="deck cover"/>
+                <DeckCover src={noDeckCover || deckCover} alt="deck cover"/>
             </DeckCoverWrapper>
             <p>{name}</p>
             <span>{grade} {shots} {rating}</span>

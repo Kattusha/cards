@@ -89,9 +89,9 @@ const UserPhoto = styled.img`
   margin: auto;
   width: 120px;
 `;
-const Line = styled.div`
+export const Line = styled.div`
   background-color: #e8e8e8;
-  height: 1px;
+  height: 2px;
   margin: 15px 0;
   width: 100%;
 `;

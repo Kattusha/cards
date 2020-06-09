@@ -8,6 +8,7 @@ import cardDecksReducer from "../../02-tables/bll/cardDecksReducer";
 import cardsReducer from "../../02-tables/bll/cardsReducer";
 import initReducer from "../../01-auth/bll/init-reducer";
 import requestStatusesReducer from "../../01-auth/bll/request-statuses-reducer";
+import chatReducer from "../../07-chat/chat-reducer";
 
 const rootReducer = combineReducers({
     init: initReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
 
     cardDecksReducer: cardDecksReducer,
     cards: cardsReducer,
+    chatroom: chatReducer,
     form: formReducer
 });
 

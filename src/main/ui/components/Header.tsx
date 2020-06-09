@@ -11,7 +11,7 @@ import {
 import logo from '../images/logo.png'
 import {Button, FlexRowCenter} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
-import {DECKS_CREATE, DECKS_PATH, PROFILE_PATH} from './Body';
+import {CHAT_PATH, DECKS_CREATE, DECKS_PATH, PROFILE_PATH} from './Body';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -95,12 +95,16 @@ const Header: React.FC = () => {
                     <FlexRowCenter>
                         {isAuthorized ?
                             <>
-                                <MenuNavLink to={DECKS_PATH}>All decks</MenuNavLink>
-                                <MenuNavLink to={DECKS_CREATE}>
+                                <MenuNavLink to={DECKS_PATH} activeClassName = 'active'>All decks</MenuNavLink>
+                                <MenuNavLink to={CHAT_PATH} activeClassName = 'active'>
+                                    <IconDiv><FontAwesomeIcon icon={['far', 'comments']}/></IconDiv>
+                                    Chat
+                                </MenuNavLink>
+                                <MenuNavLink to={DECKS_CREATE} activeClassName = 'active'>
                                     <IconDiv><FontAwesomeIcon icon={['fas', 'plus']}/></IconDiv>
                                     Create deck
                                 </MenuNavLink>
-                                <MenuNavLink to={PROFILE_PATH}>
+                                <MenuNavLink to={PROFILE_PATH} activeClassName = 'active'>
                                     <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>
                                     {name}
                                 </MenuNavLink>

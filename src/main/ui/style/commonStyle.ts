@@ -32,6 +32,12 @@ export const FlexRowCenter = styled.div`
     align-items: center;
     justify-content: center;
 `;
+export const FlexRowEnd = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+`;
 export const ContainerWrapper = styled(FlexRowCenter)`
     margin: 0 auto;
     @media (max-width: 924px){
@@ -112,4 +118,9 @@ export const TransparentButton = styled.button`
         cursor: not-allowed;
     }
 `;
-
+export const HR = styled.hr`
+  border: 0;
+  border-top: 2px solid #e8e8e8;
+  height: 0;
+  margin: 20px 0;
+`

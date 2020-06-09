@@ -10,6 +10,7 @@ import NewPasswordContainer from "../../../01-auth/ui/NewPasswordContainer";
 import {DEV_VERSION} from "../../../config";
 import Home from "./Home";
 import Settings from "../../../06-change profile/Settings";
+import Chat from "../../../07-chat/Chat";
 
 export const MAIN_PATH = '/'
 // export const LOGIN_PATH = '/login';
@@ -25,6 +26,7 @@ export const DECK_CARDS_PATH_USER = '/deck/:deckName?/cards/:deckId?';
 export const DECKS_CREATE = '/create';
 export const DECKS_EDIT = '/edit/:deckId?'
 // export const CARDS_PATH = '/cards';
+export const CHAT_PATH = '/chat'
 
 const Body: React.FC = () => {
 
@@ -62,6 +64,7 @@ const Body: React.FC = () => {
             {/*</Route>*/}
 
             <Route path={PROFILE_PATH} component={Profile}/>
+            <Route path={CHAT_PATH} component={Chat}/>
             <Route path={SETTINGS_PATH} component={Settings}/>
             <Route exact path={DECKS_PATH} component={DecksAllContainer}/>
             <Route path={DECK_CARDS_PATH_USER} component={DeckInfo}/>

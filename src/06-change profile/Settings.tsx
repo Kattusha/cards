@@ -109,7 +109,7 @@ align-items: flex-start;
 justify-content: flex-start;
 width: 67%;
 `;
-const UserPhoto = styled.img`
+export const UserPhoto = styled.img`
   border-radius: 100%;
   height: 100px;
   margin: auto;
