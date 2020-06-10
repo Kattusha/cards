@@ -81,3 +81,15 @@ export const ErrorBlock = styled.div`
 //
 //     // This specific one is hidden, so let's set aria-hidden
 //     <PasswordInput aria-hidden="true" />
+
+export const TextareaStyled = styled.textarea`
+    font-family: 'DINNextLTPro-Bold';
+    font-size: 17px;
+    //min-height: 90px;
+    background-color: #f7f7f7;
+    border: 2px solid #e5e5e5;
+    border-radius: 5px;
+    margin: 15px 0;
+    padding: 15px;
+    width: 100%;
+`;

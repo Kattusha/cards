@@ -49,7 +49,7 @@ export const MenuNavLink = styled(NavLink)`
 `;
 export const TextNavLink = styled(NavLink)`
     font-family: 'DINNextLTPro-Bold';
-    font-size: 16px;
+    font-size: 18px;
     color: #1cb0f6;
     //text-transform: uppercase;
     text-decoration: none;

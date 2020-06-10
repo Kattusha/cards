@@ -6,6 +6,7 @@ import {DEV_VERSION} from "../config";
 import {chatAPI} from "./chatAPI";
 import {getCookie, setTokenInCookie} from "../01-auth/bll/cookies";
 import {MessageType} from "./entities-chatAPI";
+import {reset} from "redux-form";
 
 type ChatType = {
     messages: Array<MessageType> | null
@@ -46,12 +47,42 @@ export const getMessages = (): ThunkAction<void, AppStateType, unknown, ActionsT
                 DEV_VERSION && console.log('    response chatAPI.getMessage:')
                 DEV_VERSION && console.log(response)
                 setTokenInCookie(response.token, response.tokenDeathTime)
-
+                dispatch(requestStatusesActions.setLoading(false))
                 dispatch(actions.setChatMessages(response.generalChatMessages));
             }
         } catch (error) {
             dispatch(requestStatusesActions.setLoading(false));
             DEV_VERSION && console.log('    response chatAPI.getMessage:')
+            DEV_VERSION && console.log(error.response.data.error)
+        }
+    }
+
+
+export const sendMessage = (message: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+        debugger
+        DEV_VERSION && console.log('CALL chat-reducer -> sendMessage');
+        try {
+            const token: string | null = getCookie('token')
+            DEV_VERSION && console.log(`    token from cookie: ${token}`)
+            if (token !== null) {
+                dispatch(requestStatusesActions.setLoading(true));
+                const responseMessage = await chatAPI.sendMessage(token, message);
+                DEV_VERSION && console.log('    response chatAPI.sendMessage:')
+                DEV_VERSION && console.log(responseMessage)
+
+                dispatch(reset('createMessage'));
+
+                const responseAllMessages = await chatAPI.getMessage(responseMessage.token);
+                DEV_VERSION && console.log('    response chatAPI.getMessage:')
+                DEV_VERSION && console.log(responseAllMessages)
+                setTokenInCookie(responseAllMessages.token, responseAllMessages.tokenDeathTime)
+                dispatch(requestStatusesActions.setLoading(false))
+                dispatch(actions.setChatMessages(responseAllMessages.generalChatMessages));
+            }
+        } catch (error) {
+            dispatch(requestStatusesActions.setLoading(false));
+            DEV_VERSION && console.log('    response chatAPI.sendMessage:')
             DEV_VERSION && console.log(error.response.data.error)
         }
     }

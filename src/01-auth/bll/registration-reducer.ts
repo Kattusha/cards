@@ -37,6 +37,7 @@ export const registration = (email: string, password: string): ThunkAction<void,
             const response = await authAPI.registration(email, password);
             DEV_VERSION && console.log(`    response: ${response}`);
             dispatch(actions.setRegistrationStatus(response.success));
+            dispatch(requestStatusesActions.setLoading(false))
         }
         catch (error) {
             dispatch(actions.setRegistrationStatus(false));

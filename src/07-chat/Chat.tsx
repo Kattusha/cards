@@ -3,34 +3,46 @@ import styled from "styled-components/macro";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {MainContainer} from "../main/ui/style/bodyStyle";
-import {Button, FlexRowEnd, HR} from "../main/ui/style/commonStyle";
+import {Button, FlexRowCenter, FlexRowEnd, HR} from "../main/ui/style/commonStyle";
 import { Line } from '../main/ui/components/Profile';
 import {useDispatch, useSelector} from "react-redux";
-import {getMessages} from "./chat-reducer";
+import {getMessages, sendMessage} from "./chat-reducer";
 import {AppStateType} from "../main/bll/store";
 import {MessageType} from "./entities-chatAPI";
 import Message from './Message';
+import {LoginFormDataType, LoginReduxForm} from "../01-auth/ui/ReduxForm/LoginForm";
+import {CreateMessageFormDataType, CreateMessageReduxForm} from "./CreateMessageForm";
+import {logIn} from "../01-auth/bll/login-reducer";
+
 
 library.add(fas);
 
 const Chat: React.FC = () => {
 
     const dispatch = useDispatch()
+    const {isLoading} = useSelector((store: AppStateType) => store.requestStatus);
     const {messages} = useSelector((store: AppStateType) => store.chatroom)
+
 
     useEffect(()=>{
         dispatch(getMessages())
     },[dispatch])
 
+    const sendNewMessage = ({message}: CreateMessageFormDataType) => {
+        dispatch(sendMessage(message));
+        // dispatch(reset('createMessage'));
+    }
+
     return (
         <ChatContainer>
             <FlexRowEnd>
-                <Button>Create discuss</Button>
+                <Button disabled={true}>Create discuss</Button>
             </FlexRowEnd>
             <Line/>
-            <div>
-                {messages && messages.map((m)=><Message key={m._id} message={m}/>)}
-            </div>
+            <MessagesWrapper>
+                {messages && messages.map((m)=><Message key={m._id} message={m}/>).reverse()}
+            </MessagesWrapper>
+            <CreateMessageReduxForm onSubmit={sendNewMessage} isLoading={isLoading}/>
         </ChatContainer>
     )
 }
@@ -39,5 +51,10 @@ export default Chat;
 
 const ChatContainer = styled(MainContainer)`
   //justify-content: left;
+  align-items: flex-start;
   flex-direction: column;
 `;
+const MessagesWrapper = styled(FlexRowCenter)`
+flex-direction: column;
+width: 50%;
+`
