@@ -11,7 +11,7 @@ import {
 import logo from '../images/logo.png'
 import {Button, FlexRowCenter} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
-import {CHAT_PATH, DECKS_CREATE, DECKS_PATH, PROFILE_PATH} from './Body';
+import {CHAT_PATH, DECKS_CREATE, DECKS_PATH, PROFILE_PATH, MAP_PATH} from './Body';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -99,6 +99,10 @@ const Header: React.FC = () => {
                                 <MenuNavLink to={CHAT_PATH} activeClassName = 'active'>
                                     <IconDiv><FontAwesomeIcon icon={['far', 'comments']}/></IconDiv>
                                     Chat
+                                </MenuNavLink>
+                                <MenuNavLink to={MAP_PATH} activeClassName = 'active'>
+                                    <IconDiv><FontAwesomeIcon icon={['fas', 'map-marker']}/></IconDiv>
+                                    Map
                                 </MenuNavLink>
                                 <MenuNavLink to={DECKS_CREATE} activeClassName = 'active'>
                                     <IconDiv><FontAwesomeIcon icon={['fas', 'plus']}/></IconDiv>

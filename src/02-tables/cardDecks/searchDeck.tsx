@@ -6,7 +6,7 @@ import {searchDeck} from "../bll/cardDecksReducer";
 import {useHistory} from "react-router-dom";
 
 const SearchWrapper = styled.div`
-  width: 320px;
+  width: 220px;
   height: 42px;
   margin-left: 55px;
   position: relative;
