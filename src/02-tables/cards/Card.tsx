@@ -1,7 +1,7 @@
 import React from "react";
 import {InfoHeader, Name} from "../cardDecks/cardDecks";
 import {ActionsMenu, DeckWrapper, Action} from "../cardDecks/deck";
-import {PROFILE_PATH} from "../../main/ui/components/Body";
+import {PROFILE_PATH} from "../../main/ui/components/Routes";
 import {Route} from "react-router-dom";
 import {CardType} from "../api/entities-cardsAPI";
 

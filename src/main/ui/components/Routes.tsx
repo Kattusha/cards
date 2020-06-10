@@ -5,7 +5,6 @@ import Profile from "./Profile";
 import DeckInfo from "../../../02-tables/cards/DeckInfo";
 import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
 import DecksEditorContainer from "../../../05-decksEditor/decksEditorContainer";
-import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordContainer";
 import NewPasswordContainer from "../../../01-auth/ui/NewPasswordContainer";
 import {DEV_VERSION} from "../../../config";
 import Home from "./Home";
@@ -30,13 +29,13 @@ export const DECKS_EDIT = '/edit/:deckId?'
 export const CHAT_PATH = '/chat'
 export const MAP_PATH = '/map'
 
-const Body: React.FC = () => {
+const Routes: React.FC = () => {
 
     DEV_VERSION && console.log(`RENDER Body`);
     return (
         <MainWrapper>
             {/*?????????*/}
-            <Route exact path={'/cards'} component={Home} />
+            {/*<Route exact path={'/cards'} component={Home}/>*/}
             <Route exact path={MAIN_PATH} component={Home}/>
 
             <Route path={NEW_PASSWORD_PATH}>
@@ -75,4 +74,4 @@ const Body: React.FC = () => {
     )
 }
 
-export default Body;
+export default Routes;

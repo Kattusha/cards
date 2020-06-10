@@ -18,8 +18,8 @@ export const H3 = styled.h3<{ color?: string, fontSize?: string }>`
 export const Span = styled.p`
     font-size: 15px;
     text-align: center;
-    //color: #898989;
-    color: ${props => props.color === "red" ? "red" : "#898989"};
+    //color: #898989; 
+    color: ${props => props.color ? props.color : "#898989"};
     font-family:${props => props.color === "red" ? "DINNextLTPro-Bold" : "DINNextLTPro-Regular"}; // 'DINNextLTPro-Bold';
 `;
 
@@ -31,6 +31,11 @@ export const FlexRowCenter = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+`;
+export const FlexRowStart = styled.div`
+    display: flex;
+    align-items: flex-start;
+    //justify-content: center;
 `;
 export const FlexRowEnd = styled.div`
     display: flex;

@@ -5,14 +5,14 @@ import {MainContainer} from "../main/ui/style/bodyStyle";
 const MapInfo: React.FC = () => {
 
     const mapData = {
-        center: [55.751574, 37.573856],
-        zoom: 5,
+        center: [53.930276739009834, 27.695065937653027],
+        zoom: 10,
         controls: ['zoomControl', 'fullscreenControl']
     };
 
     const coordinates = [
-        [55.684758, 37.738521],
-        [57.684758, 39.738521]
+        [53.943225387277224, 27.695372495284172],
+        [53.930877293483356, 27.69536912570391]
     ];
 
     console.log('render TestMapPage');

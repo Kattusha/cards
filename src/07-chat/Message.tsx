@@ -6,7 +6,7 @@ import noUserPhoto from '../main/ui/images/no-user-photo.jpg'
 import styled from "styled-components/macro";
 import {UserPhoto} from "../06-change profile/Settings";
 import {TextNavLink} from '../main/ui/style/headerStyle';
-import {PROFILE_PATH} from "../main/ui/components/Body";
+import {PROFILE_PATH} from "../main/ui/components/Routes";
 import {NavLink} from "react-router-dom";
 
 library.add(fas);

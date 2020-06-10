@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "../bll/login-reducer";
 import {AppStateType} from "../../main/bll/store";
 import {Redirect} from "react-router-dom";
-import {PROFILE_PATH} from "../../main/ui/components/Body";
+import {PROFILE_PATH} from "../../main/ui/components/Routes";
 import Login from "./Login";
 import {DEV_VERSION} from "../../config";
 import {LoginFormDataType} from "./ReduxForm/LoginForm";

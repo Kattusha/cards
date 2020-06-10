@@ -2,7 +2,7 @@ import React from 'react';
 import {H3, Span, TextLink} from "../../main/ui/style/commonStyle";
 import {SignUpForm} from "../../main/ui/style/forForms/formsStyle";
 import {SignInFormDataType, SignInReduxForm} from "./ReduxForm/SignInForm";
-import {MAIN_PATH} from "../../main/ui/components/Body";
+import {MAIN_PATH} from "../../main/ui/components/Routes";
 
 type PropsType = {
     isLoading: boolean

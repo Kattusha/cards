@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from "./components/Header";
-import Body from "./components/Body";
+import Routes from "./components/Routes";
 import {DEV_VERSION} from "../../config";
 
 const App: React.FC = () => {
@@ -9,7 +9,7 @@ const App: React.FC = () => {
     return (
         <>
             <Header/>
-            <Body/>
+            <Routes/>
         </>
 
     )

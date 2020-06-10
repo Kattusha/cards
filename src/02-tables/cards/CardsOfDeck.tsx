@@ -4,7 +4,7 @@ import Card from "./Card";
 import {DeckHeader, DecksWrapper, InfoHeader, Name} from "../cardDecks/cardDecks";
 import {Button} from "../../main/ui/style/commonStyle";
 import {Route} from "react-router-dom";
-import {PROFILE_PATH} from "../../main/ui/components/Body";
+import {PROFILE_PATH} from "../../main/ui/components/Routes";
 import {CardType} from "../api/entities-cardsAPI";
 
 export const AddCardButton = styled(Button)`

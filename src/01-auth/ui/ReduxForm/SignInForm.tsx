@@ -1,10 +1,11 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import React from "react";
 import {Input} from "../../../main/ui/components/forForms/FormsControls";
-import {Button, Span} from "../../../main/ui/style/commonStyle";
+import {Button, Span, FlexRowStart} from "../../../main/ui/style/commonStyle";
 import {FormStyled} from "../../../main/ui/style/forForms/formControlsStyle";
 import {emailValidation, maxLength8, requiredField} from "../../../main/ui/components/forForms/validators";
 import Preloader from "../../../main/ui/components/preloader/Preloader";
+import styled from "styled-components/macro";
 
 type PropsType = {
     isLoading: boolean
@@ -24,6 +25,13 @@ const SignInForm: React.FC<PropsType & InjectedFormProps<SignInFormDataType, Pro
                 <Field name="password" component={Input} type="password" placeholder="Password"
                        validate={[requiredField, maxLength8]}
                 />
+                <FlexRowStart>
+                    <TextForPassword>Passwords must contain:
+                        <Ul>
+                            <li>a minimum of 8 characters in length</li>
+                        </Ul>
+                    </TextForPassword>
+                </FlexRowStart>
                 {error && <Span color={"red"}>{error}</Span>}
                 {isLoading ?
                     <Preloader isLoading={isLoading}/>
@@ -33,3 +41,17 @@ const SignInForm: React.FC<PropsType & InjectedFormProps<SignInFormDataType, Pro
     };
 
 export const SignInReduxForm = reduxForm<SignInFormDataType, PropsType>({form: 'signIn'})(SignInForm)
+
+export const TextForPassword = styled(Span)`
+  text-align: start; 
+  font-family: 'DINNextLTPro-Bold';
+  font-size: 15px;
+  color: #5c5c5c;
+  margin-top: 30px;
+`;
+
+const Ul = styled.ul`
+  padding-inline-start: 15px;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+`;

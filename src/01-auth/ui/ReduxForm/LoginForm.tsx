@@ -5,7 +5,7 @@ import {Button, Span, TextLink} from "../../../main/ui/style/commonStyle";
 import {FormStyled, InputCheckBoxDiv} from "../../../main/ui/style/forForms/formControlsStyle";
 import {emailValidation, maxLength8, requiredField} from "../../../main/ui/components/forForms/validators";
 import Preloader from "../../../main/ui/components/preloader/Preloader";
-import {MAIN_PATH} from "../../../main/ui/components/Body";
+import {MAIN_PATH} from "../../../main/ui/components/Routes";
 
 type PropsType = {
     isLoading: boolean

@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../../01-auth/bll/login-reducer";
 import {AppStateType} from "../../bll/store";
 import {NavLink, Redirect, Route} from "react-router-dom";
-import {DECK_CARDS_PATH_ME, MAIN_PATH, PROFILE_PATH, SETTINGS_PATH} from "./Body";
+import {DECK_CARDS_PATH_ME, MAIN_PATH, PROFILE_PATH, SETTINGS_PATH} from "./Routes";
 import {MainContainer} from "../style/bodyStyle";
 import noUserPhoto from '../images/no-user-photo.jpg'
 import CardDecksContainer from "../../../02-tables/cardDecks/cardDecksContainer";

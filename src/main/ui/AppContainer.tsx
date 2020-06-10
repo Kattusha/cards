@@ -16,10 +16,8 @@ const AppContainer: React.FC = () => {
         dispatch(initializationApp());
     }, [dispatch])
 
-    //until we get the result, we show the preloader
     if (isInitializedApp === null)
         return <Preloader isLoading={isLoading}/>
-
 
     DEV_VERSION && console.log(`RENDER AppContainer: isInitializedApp=${isInitializedApp}`);
     return <App/>

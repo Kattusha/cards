@@ -11,7 +11,7 @@ import {
 import logo from '../images/logo.png'
 import {Button, FlexRowCenter} from '../style/commonStyle';
 import {NavLink} from "react-router-dom";
-import {CHAT_PATH, DECKS_CREATE, DECKS_PATH, PROFILE_PATH, MAP_PATH} from './Body';
+import {CHAT_PATH, DECKS_CREATE, DECKS_PATH, MAP_PATH, PROFILE_PATH} from './Routes';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -20,8 +20,6 @@ import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import SearchDeck from "../../../02-tables/cardDecks/searchDeck";
 import Modal from "./modal-forms/modal";
-// import {AddDeckReduxForm} from "../../../02-tables/cardDecks/addDeckForm";
-// import {addDeck} from "../../../02-tables/cardDecks/cardDecksReducer";
 import {DEV_VERSION} from "../../../config";
 import LoginContainer from "../../../01-auth/ui/LoginContainer";
 import SignInContainer from "../../../01-auth/ui/SignInContainer";
@@ -31,22 +29,7 @@ library.add(far, fas);
 
 const Header: React.FC = () => {
 
-    // const dispatch = useDispatch();
     const {isAuthorized, name} = useSelector((store: AppStateType) => store.login);
-    // const {isLoading} = useSelector((store: AppStateType) => store.cardDecksReducer);
-    // const userId = useSelector((store: AppStateType) => store.login.userId);
-
-    // const [isAddModalOpened, switchAddModal] = useState(false);
-    // const openAddModal = () => switchAddModal(true);
-    // const closeAddModal = () => switchAddModal(false);
-    // const addPack = ({name}: any) => {
-    //     let newPack = {
-    //         user_id: userId,
-    //         name,
-    //     }
-    //     dispatch(addDeck(newPack))
-    //     switchAddModal(false)
-    // };
 
     const [isLogInModalOpened, switchLogInModal] = useState(false);
     const [isSignInModalOpened, switchSignInModal] = useState(false);
@@ -95,20 +78,20 @@ const Header: React.FC = () => {
                     <FlexRowCenter>
                         {isAuthorized ?
                             <>
-                                <MenuNavLink to={DECKS_PATH} activeClassName = 'active'>All decks</MenuNavLink>
-                                <MenuNavLink to={CHAT_PATH} activeClassName = 'active'>
+                                <MenuNavLink to={DECKS_PATH} activeClassName='active'>All decks</MenuNavLink>
+                                <MenuNavLink to={CHAT_PATH} activeClassName='active'>
                                     <IconDiv><FontAwesomeIcon icon={['far', 'comments']}/></IconDiv>
                                     Chat
                                 </MenuNavLink>
-                                <MenuNavLink to={MAP_PATH} activeClassName = 'active'>
+                                <MenuNavLink to={MAP_PATH} activeClassName='active'>
                                     <IconDiv><FontAwesomeIcon icon={['fas', 'map-marker']}/></IconDiv>
                                     Map
                                 </MenuNavLink>
-                                <MenuNavLink to={DECKS_CREATE} activeClassName = 'active'>
+                                <MenuNavLink to={DECKS_CREATE} activeClassName='active'>
                                     <IconDiv><FontAwesomeIcon icon={['fas', 'plus']}/></IconDiv>
                                     Create deck
                                 </MenuNavLink>
-                                <MenuNavLink to={PROFILE_PATH} activeClassName = 'active'>
+                                <MenuNavLink to={PROFILE_PATH} activeClassName='active'>
                                     <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>
                                     {name}
                                 </MenuNavLink>
