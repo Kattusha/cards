@@ -54,6 +54,7 @@ const DecksContainer = styled(MainContainer)`
 `;
 const DecksAllWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   //justify-content: space-around;
   margin-top: 30px;
   flex-wrap: wrap;
