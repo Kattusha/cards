@@ -23,7 +23,7 @@ export const emailValidation = (value: string) => {
 }
 
 export const passwordValidation = (value: string) => {
-    return value && !/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g.test(value)
+    return value && !/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g.test(value)
         ? 'Invalid password'
         : undefined
 }

@@ -7,7 +7,7 @@ const instance = axios.create({
 
 export const chatAPI = {
     getUsers(token: string){
-        return instance.get<UsersResponseType>(`/social/users?&token=${token}&pageCount=12`,)
+        return instance.get<UsersResponseType>(`/social/users?&token=${token}&pageCount=30`,)
             .then(response => {
                 // debugger
                 return response.data

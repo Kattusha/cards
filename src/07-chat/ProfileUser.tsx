@@ -43,7 +43,7 @@ const ProfileUser: React.FC = (props: any) => {
     return (
         <ProfileContainer>
             <UserCardInfo>
-                <UserPhoto src={noUserPhoto} alt="no user photo"/>
+                <UserPhoto src={displayedUser?.avatar && noUserPhoto} alt="no user photo"/>
                 {/*userName*/}
                 <H1>{userName}</H1>
                 <Line/>
