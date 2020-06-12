@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "../bll/login-reducer";
 import {AppStateType} from "../../main/bll/store";
 import {Redirect} from "react-router-dom";
-import {PROFILE_PATH} from "../../main/ui/components/Routes";
+import {MAIN_PATH, PROFILE_PATH} from "../../main/ui/components/Routes";
 import Login from "./Login";
 import {DEV_VERSION} from "../../config";
 import {LoginFormDataType} from "./ReduxForm/LoginForm";
@@ -26,7 +26,7 @@ const LoginContainer: React.FC<PropsType> =
     }
     if (isAuthorized) {
         closeLogInModal();
-        return <Redirect to={PROFILE_PATH}/>
+        return <Redirect to={MAIN_PATH}/> /*<Redirect to={PROFILE_PATH}/>*/
     }
 
     DEV_VERSION && console.log(`RENDER LoginContainer`);

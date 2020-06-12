@@ -3,7 +3,12 @@ import React from "react";
 import {Input} from "../../../main/ui/components/forForms/FormsControls";
 import {Button, Span, FlexRowStart} from "../../../main/ui/style/commonStyle";
 import {FormStyled} from "../../../main/ui/style/forForms/formControlsStyle";
-import {emailValidation, maxLength8, requiredField} from "../../../main/ui/components/forForms/validators";
+import {
+    emailValidation,
+    maxLength8,
+    passwordValidation,
+    requiredField
+} from "../../../main/ui/components/forForms/validators";
 import Preloader from "../../../main/ui/components/preloader/Preloader";
 import styled from "styled-components/macro";
 
@@ -23,12 +28,16 @@ const SignInForm: React.FC<PropsType & InjectedFormProps<SignInFormDataType, Pro
                        validate={[emailValidation, requiredField]}
                 />
                 <Field name="password" component={Input} type="password" placeholder="Password"
-                       validate={[requiredField, maxLength8]}
+                       validate={[requiredField, maxLength8, passwordValidation]}
                 />
                 <FlexRowStart>
                     <TextForPassword>Passwords must contain:
                         <Ul>
                             <li>a minimum of 8 characters in length</li>
+                            <li>a minimum of 1 lower case letter [a-z] and</li>
+                            <li>a minimum of 1 upper case letter [A-Z] and</li>
+                            <li>a minimum of 1 numeric character [0-9] and</li>
+                            <li>a minimum of 1 special character: !@#$%^&*</li>
                         </Ul>
                     </TextForPassword>
                 </FlexRowStart>
@@ -44,9 +53,9 @@ export const SignInReduxForm = reduxForm<SignInFormDataType, PropsType>({form: '
 
 export const TextForPassword = styled(Span)`
   text-align: start; 
-  font-family: 'DINNextLTPro-Bold';
-  font-size: 15px;
-  color: #5c5c5c;
+  //font-family: 'DINNextLTPro-Bold';
+  font-size: 14px;
+  //color: #5c5c5c;
   margin-top: 30px;
 `;
 

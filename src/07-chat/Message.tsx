@@ -53,7 +53,7 @@ const MessageItemContainer = styled.div`
   margin-bottom: 30px;
 `
 
-const UserPhotoForMessage = styled(UserPhoto)`
+export const UserPhotoForMessage = styled(UserPhoto)`
   height: 60px;
   width: 60px;
   margin: 0;

@@ -2,9 +2,17 @@ import React from 'react';
 import styled from "styled-components/macro";
 import {FlexRowCenter, H3} from "../style/commonStyle";
 import banner from '../images/main.png'
-import { MainContainer } from '../style/bodyStyle';
+import {MainContainer} from '../style/bodyStyle';
+import DecksAllContainer from "../../../03-decksAll-decksMe/DecksAllContainer";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../bll/store";
 
 const Home: React.FC = () => {
+
+    const {isAuthorized} = useSelector((store: AppStateType) => store.login);
+
+    if (isAuthorized)
+        return <DecksAllContainer />
 
     return (
         <HomeWrapper>
@@ -17,7 +25,6 @@ const Home: React.FC = () => {
                     <Banner alt="main banner" src={banner}/>
                 </HomeBannerBlock>
             </HomeContainer>
-
         </HomeWrapper>
     )
 }
@@ -32,6 +39,8 @@ const HomeWrapper = styled(FlexRowCenter)`
     width: 100%;
     margin-top: -31px;
     //height: ;
+    display: flex;
+    flex-direction: column;
 `;
 const HomeContainer = styled(MainContainer)`
     background-color: #32cdff;

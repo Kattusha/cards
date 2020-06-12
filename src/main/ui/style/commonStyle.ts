@@ -20,7 +20,14 @@ export const Span = styled.p`
     text-align: center;
     //color: #898989; 
     color: ${props => props.color ? props.color : "#898989"};
-    font-family:${props => props.color === "red" ? "DINNextLTPro-Bold" : "DINNextLTPro-Regular"}; // 'DINNextLTPro-Bold';
+    font-family:${props => props.color === "red" ? "DINNextLTPro-Bold" : "DINNextLTPro-Regular"};
+`;
+
+export const P_styled = styled.p`
+    font-family: DINNextLTPro-Bold;
+    font-size: 15px;
+    text-align: left;
+    color: ${props => props.color ? props.color : "#898989"};
 `;
 
 export const BlockWrapper = styled.div`

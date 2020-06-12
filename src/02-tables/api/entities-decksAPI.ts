@@ -5,6 +5,7 @@ export type CommonResponseType = {
 }
 export type CardPackType = {
     _id: string
+    cardsCount: number
     user_id: string
     user_name: string
     deckCover: string

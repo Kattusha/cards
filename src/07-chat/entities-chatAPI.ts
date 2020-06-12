@@ -20,3 +20,24 @@ export type MessagesResponseType = {
     token: string
     tokenDeathTime: number
 }
+export type UserType = {
+    avatar: string
+    created: string
+    email: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
+    updated: string
+    verified: boolean
+    _id: string
+}
+export type UsersResponseType = {
+    users: Array<UserType>
+    maxPublicCardPacksCount: number
+    minPublicCardPacksCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+    usersTotalCount: number
+}

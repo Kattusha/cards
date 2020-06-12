@@ -9,6 +9,8 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../main/bll/store";
 import CardsContainer from "./cardsContainer";
 import {CardPackType} from "../api/entities-decksAPI";
+import {PROFILE_PATH, PROFILE_USER_PATH} from "../../main/ui/components/Routes";
+import {TextNavLink} from "../../main/ui/style/headerStyle";
 
 library.add(fas);
 
@@ -36,7 +38,8 @@ const DeckInfo: React.FC = (props: any) => {
                 <H1>{deck?.name}
                     {/*{email}*/}
                 </H1>
-                <p>User: {deck?.user_name}</p>
+                {/*<p>User: {deck?.user_name}</p>*/}
+                <TextNavLink to={`/profile/${deck?.user_name}/${deck?.user_id}`}>{deck?.user_name}</TextNavLink>
             </BlockDeckAbout>
             <UserDecksInfoContainer>
                 {/*<Route path={DECK_CARDS_PATH_USER}>*/}

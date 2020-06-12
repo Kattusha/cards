@@ -5,15 +5,25 @@ import {DEV_VERSION} from "../config";
 // import {ChatType} from "./entities-chat-bll";
 import {chatAPI} from "./chatAPI";
 import {getCookie, setTokenInCookie} from "../01-auth/bll/cookies";
-import {MessageType} from "./entities-chatAPI";
+import {MessageType, UserType} from "./entities-chatAPI";
 import {reset} from "redux-form";
 
 type ChatType = {
     messages: Array<MessageType> | null
+    users: Array<UserType> | null
+    usersTotalCount: number
+    pageCount: number
+    page: number
+    displayedUser: UserType | null
 }
 
 let initialState: ChatType = {
-    messages: null
+    messages: null,
+    users: null,
+    usersTotalCount: 0,
+    pageCount: 0,
+    page: 0,
+    displayedUser: null
 };
 
 const chatReducer = (state = initialState, action: ActionsTypes): ChatType => {
@@ -23,6 +33,11 @@ const chatReducer = (state = initialState, action: ActionsTypes): ChatType => {
                 ...state,
                 messages: action.messages
             };
+        case "chat-reducer/SET_USERS":
+            return {
+                ...state,
+                users: action.users
+            };
         default:
             return state;
     }
@@ -30,7 +45,9 @@ const chatReducer = (state = initialState, action: ActionsTypes): ChatType => {
 
 const actions = {
     setChatMessages: (messages: Array<MessageType>) =>
-        ({type: "chat-reducer/SET_CHAT_MESSAGES", messages} as const)
+        ({type: "chat-reducer/SET_CHAT_MESSAGES", messages} as const),
+    setUsers: (users: Array<UserType>) =>
+        ({type: "chat-reducer/SET_USERS", users} as const)
 }
 type ActionsTypes = InferActionTypes<typeof actions>
 
@@ -83,6 +100,29 @@ export const sendMessage = (message: string): ThunkAction<void, AppStateType, un
         } catch (error) {
             dispatch(requestStatusesActions.setLoading(false));
             DEV_VERSION && console.log('    response chatAPI.sendMessage:')
+            DEV_VERSION && console.log(error.response.data.error)
+        }
+    }
+
+export const getUsers = (): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+// debugger
+        DEV_VERSION && console.log('CALL chat-reducer -> getUsers');
+        try {
+            const token: string | null = getCookie('token')
+            DEV_VERSION && console.log(`    token from cookie: ${token}`)
+            if (token !== null) {
+                dispatch(requestStatusesActions.setLoading(true));
+                const response = await chatAPI.getUsers(token);
+                DEV_VERSION && console.log('    response chatAPI.getUsers:')
+                DEV_VERSION && console.log(response)
+                setTokenInCookie(response.token, response.tokenDeathTime)
+                dispatch(requestStatusesActions.setLoading(false))
+                 dispatch(actions.setUsers(response.users));
+            }
+        } catch (error) {
+            dispatch(requestStatusesActions.setLoading(false));
+            DEV_VERSION && console.log('    response chatAPI.getUsers:')
             DEV_VERSION && console.log(error.response.data.error)
         }
     }
