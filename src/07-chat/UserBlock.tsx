@@ -9,6 +9,8 @@ import {PROFILE_PATH} from "../main/ui/components/Routes";
 import noUserPhoto from "../main/ui/images/no-user-photo.jpg";
 import {UserPhotoForMessage} from "./Message";
 import styled from "styled-components/macro";
+import {UserPhoto} from "../06-change profile/Settings";
+import {TextNavLink} from "../main/ui/style/headerStyle";
 
 library.add(far, fas);
 
@@ -16,20 +18,25 @@ const UserBlock = ({_id, name, avatar, ...props}: UserType) => {
     // debugger
     return (
         <UserBlockWrapper>
-            <NavLink to={PROFILE_PATH}>
-                <UserPhotoForMessage src={avatar || noUserPhoto} alt="user photo"/>
+            <NavLink to={`/profile/${name}/${_id}`}>
+                <UserImg src={avatar || noUserPhoto} alt="user photo"/>
             </NavLink>
             <div>
-                {name}
+                <TextNavLink to={`/profile/${name}/${_id}`}>{name}</TextNavLink>
             </div>
         </UserBlockWrapper>
     )
 }
 export default UserBlock
 
-export const UserBlockWrapper = styled.div`
+const UserBlockWrapper = styled.div`
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     //justify-content: center;
     margin: 10px 20px;
+`;
+const UserImg = styled(UserPhoto)`
+  height: 60px;
+  width: 60px;
+  margin-right: 20px;
 `;

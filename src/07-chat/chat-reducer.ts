@@ -38,6 +38,11 @@ const chatReducer = (state = initialState, action: ActionsTypes): ChatType => {
                 ...state,
                 users: action.users
             };
+        case "chat-reducer/SET_USER":
+            return {
+                ...state,
+                displayedUser: action.displayedUser
+            };
         default:
             return state;
     }
@@ -47,7 +52,9 @@ const actions = {
     setChatMessages: (messages: Array<MessageType>) =>
         ({type: "chat-reducer/SET_CHAT_MESSAGES", messages} as const),
     setUsers: (users: Array<UserType>) =>
-        ({type: "chat-reducer/SET_USERS", users} as const)
+        ({type: "chat-reducer/SET_USERS", users} as const),
+    setDisplayedUser: (displayedUser: UserType) =>
+        ({type: "chat-reducer/SET_USER", displayedUser} as const)
 }
 type ActionsTypes = InferActionTypes<typeof actions>
 
@@ -123,6 +130,29 @@ export const getUsers = (): ThunkAction<void, AppStateType, unknown, ActionsType
         } catch (error) {
             dispatch(requestStatusesActions.setLoading(false));
             DEV_VERSION && console.log('    response chatAPI.getUsers:')
+            DEV_VERSION && console.log(error.response.data.error)
+        }
+    }
+
+export const getUser = (userId: string): ThunkAction<void, AppStateType, unknown, ActionsTypes> =>
+    async (dispatch: any) => {
+// debugger
+        DEV_VERSION && console.log('CALL chat-reducer -> getUser');
+        try {
+            const token: string | null = getCookie('token')
+            DEV_VERSION && console.log(`    token from cookie: ${token}`)
+            if (token !== null) {
+                dispatch(requestStatusesActions.setLoading(true));
+                const response = await chatAPI.getUser(token, userId);
+                DEV_VERSION && console.log('    response chatAPI.getUser:')
+                DEV_VERSION && console.log(response)
+                setTokenInCookie(response.token, response.tokenDeathTime)
+                dispatch(requestStatusesActions.setLoading(false))
+                 dispatch(actions.setDisplayedUser(response.user));
+            }
+        } catch (error) {
+            dispatch(requestStatusesActions.setLoading(false));
+            DEV_VERSION && console.log('    response chatAPI.getUser:')
             DEV_VERSION && console.log(error.response.data.error)
         }
     }

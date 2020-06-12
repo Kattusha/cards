@@ -41,3 +41,8 @@ export type UsersResponseType = {
     tokenDeathTime: number
     usersTotalCount: number
 }
+export type UserResponseType = {
+    user: UserType
+    token: string
+    tokenDeathTime: number
+}

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import styled from "styled-components/macro";
-import {H1, TransparentButton} from "../main/ui/style/commonStyle";
+import {H1, H3, TransparentButton} from "../main/ui/style/commonStyle";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -15,36 +15,41 @@ import noUserPhoto from '../main/ui/images/no-user-photo.jpg'
 import CardDecksContainer from "../02-tables/cardDecks/cardDecksContainer";
 import CardsContainer from "../02-tables/cards/cardsContainer";
 import {getDecks} from "../02-tables/bll/cardDecksReducer";
-import {getUsers} from "./chat-reducer";
+import {getUsers, getUser} from "./chat-reducer";
+import Profile from "../main/ui/components/Profile";
 
 library.add(fas);
 
 const ProfileUser: React.FC = (props: any) => {
 
-    const userId: string = props.match.params.userId;
+    const displayedUserId: string = props.match.params.userId;
     const userName: string = props.match.params.userName;
 
     const dispatch = useDispatch();
+    const {isLoading} = useSelector((store: AppStateType) => store.requestStatus);
+    const {userId} = useSelector((store: AppStateType) => store.login);
+    const {displayedUser} = useSelector((store: AppStateType) => store.chatroom);
+
+    const countDecks: number = displayedUser?.publicCardPacksCount ? displayedUser?.publicCardPacksCount : 0
 
     useEffect(() => {
-        dispatch(getUsers())
+        // debugger
+        dispatch(getUser(displayedUserId))
     }, [dispatch]);
+
+    if (userId === displayedUserId)
+        return <Redirect to={PROFILE_PATH}/>
 
     return (
         <ProfileContainer>
             <UserCardInfo>
-                <UserPhoto src={ noUserPhoto} alt="no user photo"/>
+                <UserPhoto src={noUserPhoto} alt="no user photo"/>
                 {/*userName*/}
                 <H1>{userName}</H1>
                 <Line/>
             </UserCardInfo>
             <UserDecksInfoContainer>
-                <Route path={DECK_CARDS_PATH_ME}>
-                    <CardsContainer/>
-                </Route>
-                <Route exact path={PROFILE_PATH}>
-                    <CardDecksContainer/>
-                </Route>
+                <H3 fontSize={'18px'}>{`Count decks: ${countDecks}`}</H3>
             </UserDecksInfoContainer>
         </ProfileContainer>
     )
