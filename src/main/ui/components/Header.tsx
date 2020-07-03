@@ -14,9 +14,6 @@ import {NavLink} from "react-router-dom";
 import {CHAT_PATH, DECKS_CREATE, DECKS_PATH, MAP_PATH, PROFILE_PATH} from './Routes';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {far} from "@fortawesome/free-regular-svg-icons";
-import {fas} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import SearchDeck from "../../../02-tables/cardDecks/searchDeck";
 import Modal from "./modal-forms/modal";
@@ -24,8 +21,6 @@ import {DEV_VERSION} from "../../../config";
 import LoginContainer from "../../../01-auth/ui/LoginContainer";
 import SignInContainer from "../../../01-auth/ui/SignInContainer";
 import RecoveryPasswordContainer from "../../../01-auth/ui/RecoveryPasswordContainer";
-
-library.add(far, fas);
 
 const Header: React.FC = () => {
 
@@ -63,9 +58,6 @@ const Header: React.FC = () => {
     const closeRecoveryModal = () => switchRecoveryModal(false)
 
     DEV_VERSION && console.log(`RENDER Header`);
-    // console.log('isLogInModalOpened: ' + isLogInModalOpened)
-    // console.log('isSignInModalOpened: ' + isSignInModalOpened)
-    // console.log('isRecoveryModalOpened: ' + isSignInModalOpened)
     return (
         <>
             <HeaderWrapper>
@@ -80,19 +72,19 @@ const Header: React.FC = () => {
                             <>
                                 <MenuNavLink to={DECKS_PATH} activeClassName='active'>All decks</MenuNavLink>
                                 <MenuNavLink to={CHAT_PATH} activeClassName='active'>
-                                    <IconDiv><FontAwesomeIcon icon={['far', 'comments']}/></IconDiv>
+                                    <IconDiv><FontAwesomeIcon icon={'comments'}/></IconDiv>
                                     Chat
                                 </MenuNavLink>
                                 <MenuNavLink to={MAP_PATH} activeClassName='active'>
-                                    <IconDiv><FontAwesomeIcon icon={['fas', 'map-marker']}/></IconDiv>
+                                    <IconDiv><FontAwesomeIcon icon={'map-marker'}/></IconDiv>
                                     Map
                                 </MenuNavLink>
                                 <MenuNavLink to={DECKS_CREATE} activeClassName='active'>
-                                    <IconDiv><FontAwesomeIcon icon={['fas', 'plus']}/></IconDiv>
+                                    <IconDiv><FontAwesomeIcon icon={'plus'}/></IconDiv>
                                     Create deck
                                 </MenuNavLink>
                                 <MenuNavLink to={PROFILE_PATH} activeClassName='active'>
-                                    <IconDiv><FontAwesomeIcon icon={['far', 'user']}/></IconDiv>
+                                    <IconDiv><FontAwesomeIcon icon={'user'}/></IconDiv>
                                     {name}
                                 </MenuNavLink>
                             </>
