@@ -23,7 +23,6 @@ const Settings: React.FC = () => {
     const [newAvatar, setNewAvatar] = useState<string | null>(null)
     const [hasDataToSend, sethasDataToSend] = useState<boolean>(false)
 
-    // ase64String: string | ArrayBuffer | null
     const updateProfile = ({userName}: EditProfileFormDataType) => {
         sethasDataToSend(false)
         dispatch(changeProfile(userName, newAvatar));
@@ -69,45 +68,38 @@ const Settings: React.FC = () => {
 export default Settings;
 
 const SettingsContainer = styled(MainContainer)`
-align-items: flex-start;
-justify-content: left;
+  align-items: flex-start;
+  justify-content: left;
 `;
 const SettingsMenu = styled.div`
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-//width: 30%;
-font-family: 'DINNextLTPro-Bold';
-font-size: 18px;
-//text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: 'DINNextLTPro-Bold';
+  font-size: 18px;
 `;
 const MenuItem = styled.div`
-border-left: 4px solid transparent;
-color: #c4c4c4;
-cursor: pointer;
-display: block;
-margin: 5px 0;
-padding: 10px 64px 10px 32px;
-text-decoration: none;
-text-transform: uppercase;
+  border-left: 4px solid transparent;
+  color: #c4c4c4;
+  cursor: pointer;
+  display: block;
+  margin: 5px 0;
+  padding: 10px 64px 10px 32px;
+  text-decoration: none;
+  text-transform: uppercase;
 `;
 const MenuItemActive = styled(MenuItem)`
-border-color: #32cdff;
-color: #32cdff;
-cursor: default;
+  border-color: #32cdff;
+  color: #32cdff;
+  cursor: default;
 `;
 const SettingsBody = styled(MainContainer)`
-background-color: #fff;
-//border-radius: 15px;
-//margin-left: 54px;
-max-width: 776px;
-//vertical-align: top;
-//width: 776px;
-//padding: 20px 30px;
-padding: 48px;
-align-items: flex-start;
-justify-content: flex-start;
-width: 67%;
+  background-color: #fff;
+  max-width: 776px;
+  padding: 48px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 67%;
 `;
 export const UserPhoto = styled.img`
   border-radius: 100%;
@@ -116,9 +108,9 @@ export const UserPhoto = styled.img`
   width: 100px;
 `;
 const PhotoInfo = styled.div`
-position: relative;
-width: 20%;
-margin-left: 50px;
+  position: relative;
+  width: 20%;
+  margin-left: 50px;
 `;
 const FileInput = styled.input`
   height: .1px;

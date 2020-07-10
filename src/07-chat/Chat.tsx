@@ -3,16 +3,13 @@ import styled from "styled-components/macro";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {MainContainer} from "../main/ui/style/bodyStyle";
-import {Button, FlexRowCenter, FlexRowEnd, HR} from "../main/ui/style/commonStyle";
+import {Button, FlexRowCenter, FlexRowEnd} from "../main/ui/style/commonStyle";
 import {Line} from '../main/ui/components/Profile';
 import {useDispatch, useSelector} from "react-redux";
 import {getMessages, sendMessage} from "./chat-reducer";
 import {AppStateType} from "../main/bll/store";
-import {MessageType} from "./entities-chatAPI";
 import Message from './Message';
-import {LoginFormDataType, LoginReduxForm} from "../01-auth/ui/ReduxForm/LoginForm";
 import {CreateMessageFormDataType, CreateMessageReduxForm} from "./CreateMessageForm";
-import {logIn} from "../01-auth/bll/login-reducer";
 import Preloader from "../main/ui/components/preloader/Preloader";
 
 
@@ -45,7 +42,6 @@ const Chat: React.FC = () => {
             </FlexRowEnd>
             <Line/>
             <MessagesWrapper>
-                {/*{messages && messages.map((m) => <Message key={m._id} message={m}/>).reverse()}*/}
                 {newArrayMessages && newArrayMessages.map((m) => <Message key={m._id} message={m}/>).reverse()}
             </MessagesWrapper>
             <CreateMessageReduxForm onSubmit={sendNewMessage} isLoading={isLoading}/>
@@ -56,11 +52,10 @@ const Chat: React.FC = () => {
 export default Chat;
 
 const ChatContainer = styled(MainContainer)`
-  //justify-content: left;
   align-items: flex-start;
   flex-direction: column;
 `;
 const MessagesWrapper = styled(FlexRowCenter)`
-flex-direction: column;
-width: 50%;
+  flex-direction: column;
+  width: 50%;
 `

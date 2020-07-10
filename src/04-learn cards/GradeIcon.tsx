@@ -17,7 +17,6 @@ type PropsType = {
 const GradeIcon: React.FC<PropsType> = ({tooltip, icon, grade, currentGradeCard, index, setGradeCard}) => {
 
     const onGradeCard = (): void =>{
-        // debugger
         setGradeCard(grade);
     }
 
