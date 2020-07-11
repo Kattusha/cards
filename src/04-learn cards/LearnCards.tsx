@@ -33,7 +33,7 @@ const LearnCards: React.FC<PropsType> = ({cards, closeModal}) => {
     const [countCard, setCountCard] = useState<number>(1)
 
     useEffect(() => {
-        setCurrentCard(cards[countCard-1])
+        setCurrentCard(cards[countCard - 1])
     }, [cards, countCard]);
 
     const onChangeShow = (isShow: boolean) => {
@@ -67,7 +67,7 @@ const LearnCards: React.FC<PropsType> = ({cards, closeModal}) => {
 
             <IconsWrapper>
                 {grades.map((item, index) => (
-                    <GradeIcon key={index} index={index+1} tooltip={item.tooltip} icon={item.iconTitle}
+                    <GradeIcon key={index} index={index + 1} tooltip={item.tooltip} icon={item.iconTitle}
                                setGradeCard={setGradeCard} grade={item.grade} currentGradeCard={currentCard.grade}/>
                 ))}
             </IconsWrapper>
@@ -78,8 +78,8 @@ const LearnCards: React.FC<PropsType> = ({cards, closeModal}) => {
 export default LearnCards
 
 const IconsWrapper = styled.div`
-position: absolute;
-bottom: 30px;
-left: 30px;
-display: flex;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
 `

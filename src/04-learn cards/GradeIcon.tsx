@@ -32,32 +32,31 @@ const GradeIcon: React.FC<PropsType> = ({tooltip, icon, grade, currentGradeCard,
 export default GradeIcon
 
 const IconWrapper = styled.div`
-position: relative;
+  position: relative;
 `
 const IconFase = styled.div<{ text?: string, colorBlue?: boolean}>`
-    margin-right: 10px;
-    display: inline-block;
-    font-size: 25px;
-    color: ${props => props.colorBlue ? "#32cdff" : "#c4c4c4"}; 
-    cursor: pointer;
-    &:hover{
-      color: #32cdff;
-    }
-    &:hover:after { 
-        content: '${props => props.text}'; 
-        font-family: 'DINNextLTPro-Bold';
-        position: absolute;
-        bottom: -10px;
-        left: 5px;
-        height: .9rem;   
-        //background-color: #4c4c4c7a;
-        color: #32cdff;
-        width: max-content;
-        font-size: 14px;
-        text-transform: initial;
-        border-radius: 5px;
-        padding: 10px 12px 0px 10px;
-        filter: none;
-    }
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 25px;
+  color: ${props => props.colorBlue ? "#32cdff" : "#c4c4c4"}; 
+  cursor: pointer;
+  &:hover{
+    color: #32cdff;
+  }
+  &:hover:after { 
+    content: '${props => props.text}'; 
+    font-family: 'DINNextLTPro-Bold';
+    position: absolute;
+    bottom: -10px;
+    left: 5px;
+    height: .9rem;
+    color: #32cdff;
+    width: max-content;
+    font-size: 14px;
+    text-transform: initial;
+    border-radius: 5px;
+    padding: 10px 12px 0px 10px;
+    filter: none;
+  }
 `;
 

@@ -32,10 +32,6 @@ const UsersContainer: React.FC = (props: any) => {
                     <DecksAllWrapper>
                         {users && users.map(user => <UserBlock key={user._id} {...user}/>)}
                     </DecksAllWrapper>
-                    {/*<Pagination totalCount={usersTotalCount} onPageCount={pageCount} currentPage={page}*/}
-                    {/*            textAlign={'none'}*/}
-                    {/*            changePage={changePage}/>*/}
-
                 </DecksContainer>}
         </>
     )
@@ -43,10 +39,8 @@ const UsersContainer: React.FC = (props: any) => {
 
 export default UsersContainer
 
-//styles
 const DecksContainer = styled(MainContainer)`
   flex-direction: column;
-  //align-items: stretch;
   align-items: flex-start;
   justify-content: normal;
   text-align: end;
@@ -55,7 +49,6 @@ const DecksContainer = styled(MainContainer)`
 const DecksAllWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  //justify-content: space-around;
   margin-top: 30px;
   flex-wrap: wrap;
 `;

@@ -50,15 +50,14 @@ export const EditProfileReduxForm = connect<{}, {}, PropsType, AppStateType>(map
 
 
 const EditProfileFormStyled = styled(FormStyled)`
-width: 80%;
-align-items: flex-start;
+  width: 80%;
+  align-items: flex-start;
 `;
 const FieldName = styled.div`
-    //margin: 10px auto;
-    font-family: 'DINNextLTPro-Bold';
-    color: #c4c4c4;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 18px;
-    text-align: left;
+  font-family: 'DINNextLTPro-Bold';
+  color: #c4c4c4;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
 `;
